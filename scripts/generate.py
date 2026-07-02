@@ -230,7 +230,7 @@ header h1 {
   color:#9ab;
 }
 
-/* 公式：微蓝底 + 左侧边线，区别于普通代码块 */
+/* 公式：微蓝底 + 左侧 accent 边线 */
 .kp-detail .formula {
   display:block;
   background:#111c2e;
@@ -286,7 +286,6 @@ header h1 {
   margin-top:14px;
   margin-bottom:4px;
   letter-spacing:.3px;
-  text-transform:none;
   padding-bottom:4px;
   border-bottom:1px solid var(--border);
 }
@@ -344,6 +343,39 @@ def iter_block_items(doc):
             if table_idx < len(doc.tables):
                 yield ('table', doc.tables[table_idx])
                 table_idx += 1
+
+
+MATH_NS = 'http://schemas.openxmlformats.org/officeDocument/2006/math'
+
+
+def para_full_text(para):
+    """按段落内元素的原始顺序，拼接普通文字和 OMML 公式的纯文本。
+    加粗 run 用 **...** 包裹，供 format_content 转换为 <b>。"""
+    parts = []
+    for child in para._element:
+        tag = child.tag
+        if tag == qn('w:r'):
+            # 判断该 run 是否加粗（w:rPr/w:b 存在且不是 w:b val="0"）
+            bold = False
+            rpr = child.find(qn('w:rPr'))
+            if rpr is not None:
+                b_el = rpr.find(qn('w:b'))
+                if b_el is not None:
+                    val = b_el.get(qn('w:val'))
+                    bold = val not in ('0', 'false', 'off')
+            # 取 w:t 文本
+            text = ''.join(t.text or '' for t in child.findall(qn('w:t')))
+            if text:
+                parts.append(f'**{text}**' if bold else text)
+        elif tag == f'{{{MATH_NS}}}oMathPara':
+            for om in child.findall(f'{{{MATH_NS}}}oMath'):
+                parts.append(''.join(om.itertext()))
+        elif tag == f'{{{MATH_NS}}}oMath':
+            parts.append(''.join(child.itertext()))
+        elif tag == qn('w:hyperlink'):
+            for t in child.findall('.//' + qn('w:t')):
+                parts.append(t.text or '')
+    return ''.join(parts)
 
 
 def table_to_html(table):
@@ -427,7 +459,7 @@ def docx_to_html(docx_path):
         if kind == 'paragraph':
             p = item
             style_name = p.style.name
-            text = p.text.strip()
+            text = para_full_text(p).strip()
 
             if not text:
                 continue

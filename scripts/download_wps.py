@@ -175,7 +175,16 @@ async def _trigger_download(page):
 
         # 如果同名文件已存在，先删除（playwright save_as 不会覆盖）
         if os.path.exists(dest):
-            os.remove(dest)
+            for attempt in range(6):
+                try:
+                    os.remove(dest)
+                    break
+                except PermissionError:
+                    if attempt == 5:
+                        log(f"❌ 文件被占用无法删除，请关闭正在使用 {filename} 的程序后重试")
+                        return None
+                    log(f"⚠️  文件被占用，等待释放… ({attempt + 1}/6)")
+                    await asyncio.sleep(3)
 
         await download.save_as(dest)
         size = os.path.getsize(dest)
