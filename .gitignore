@@ -1,0 +1,23 @@
+# 源码文档（原始内容来源，部署不需要）
+*.docx
+docx_dump.txt
+
+# OpenCode 工作区状态
+.omo/
+.codegraph/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+
+# 临时文件
+*.tmp
+*.log

@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>德克离散数学 · 思维导图</title>
+<style>
+:root {
+  --c1:#3b82f6; --c2:#10b981; --c3:#f59e0b;
+  --c4:#ec4899; --c5:#8b5cf6; --c6:#06b6d4;
+  --c7:#f97316; --c8:#84cc16; --c9:#e11d48;
+  --bg:#0f172a; --card:#1e293b; --border:#334155;
+  --text:#e2e8f0; --muted:#94a3b8;
+}
+* { box-sizing: border-box; margin:0; padding:0; }
+body { background:var(--bg); color:var(--text); font-family:'PingFang SC','Microsoft YaHei',sans-serif; font-size:14px; }
+header { text-align:center; padding:20px 16px 12px; }
+header h1 { font-size:18px; font-weight:700; letter-spacing:1px; }
+header p { color:var(--muted); font-size:12px; margin-top:4px; }
+.chapters { padding:0 12px 40px; display:flex; flex-direction:column; gap:10px; }
+.ch { border-radius:12px; overflow:hidden; border:1px solid var(--border); }
+.ch-title { display:flex; align-items:center; justify-content:space-between; padding:13px 16px; cursor:pointer; user-select:none; font-weight:700; font-size:14px; transition:opacity .15s; }
+.ch-title:active { opacity:.75; }
+.ch-title .badge { font-size:11px; font-weight:400; opacity:.75; margin-left:6px; }
+.ch-title .arrow { font-size:11px; transition:transform .25s; flex-shrink:0; }
+.ch.open .arrow { transform:rotate(180deg); }
+.ch1 .ch-title { background:linear-gradient(135deg,#1d3a8a,#1e40af); }
+.ch2 .ch-title { background:linear-gradient(135deg,#064e3b,#065f46); }
+.ch3 .ch-title { background:linear-gradient(135deg,#78350f,#92400e); }
+.ch4 .ch-title { background:linear-gradient(135deg,#831843,#9d174d); }
+.ch5 .ch-title { background:linear-gradient(135deg,#4c1d95,#5b21b6); }
+.ch6 .ch-title { background:linear-gradient(135deg,#0e7490,#0369a1); }
+.ch7 .ch-title { background:linear-gradient(135deg,#9a3412,#c2410c); }
+.ch8 .ch-title { background:linear-gradient(135deg,#3f6212,#4d7c0f); }
+.ch9 .ch-title { background:linear-gradient(135deg,#881337,#9f1239); }
+.ch-body { background:var(--card); display:none; }
+.ch.open .ch-body { display:block; }
+.kp { border-bottom:1px solid var(--border); }
+.kp:last-child { border-bottom:none; }
+.kp-title { display:flex; align-items:center; gap:10px; padding:10px 16px; cursor:pointer; user-select:none; transition:background .15s; }
+.kp-title:active { background:rgba(255,255,255,.04); }
+.kp-num { font-size:11px; color:var(--muted); min-width:28px; }
+.kp-name { flex:1; font-size:13px; }
+.kp-arrow { font-size:10px; color:var(--muted); transition:transform .2s; }
+.kp.open .kp-arrow { transform:rotate(180deg); }
+.kp-detail { display:none; padding:10px 16px 14px 54px; font-size:12px; color:var(--muted); line-height:1.8; }
+.kp.open .kp-detail { display:block; }
+.kp-detail b { color:var(--text); }
+.kp-detail .tag { display:inline-block; background:rgba(255,255,255,.08); border-radius:4px; padding:1px 6px; font-size:11px; margin:1px 2px; color:#cbd5e1; }
+.kp-detail .formula { display:block; background:#0f172a; border-radius:6px; padding:6px 10px; margin:6px 0; font-size:12px; color:#93c5fd; letter-spacing:.5px; overflow-x:auto; white-space:pre-wrap; font-family:'Consolas','Courier New',monospace; }
+.kp-detail table { width:100%; border-collapse:collapse; margin:6px 0; font-size:11px; }
+.kp-detail td, .kp-detail th { border:1px solid var(--border); padding:4px 6px; text-align:center; }
+.kp-detail th { background:rgba(255,255,255,.06); color:var(--text); }
+.kp-detail ul { padding-left:14px; }
+.kp-detail li { margin:2px 0; }
+.kp-detail .tip { color:#fbbf24; }
+.kp-detail .ok  { color:#34d399; }
+.kp-detail .err { color:#f87171; }
+.kp-detail .kp-sub { display:block; color:var(--text); font-size:12px; margin-top:8px; font-weight:600; }
+.kp-detail .em { color:#fbbf24; font-weight:600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>德克离散数学 · 课程笔记</h1>
+  <p>共 9 章 · 点击章节/考点展开详情</p>
+</header>
+<div class="chapters">
+<script>
+function toggleCh(el){var ch=el.closest('.ch'),isOpen=ch.classList.contains('open');ch.classList.toggle('open');if(!isOpen){ch.querySelectorAll('.kp-detail').forEach(function(d){d.style.display='none'});ch.querySelectorAll('.kp').forEach(function(k){k.classList.remove('open')})}}
+function toggleKp(el){var kp=el.closest('.kp'),isOpen=kp.classList.contains('open');kp.classList.toggle('open');kp.querySelector('.kp-detail').style.display=isOpen?'none':'block'}
+</script>
+
+<!-- ===== 第一章：命题逻辑 ===== -->
+<div class="ch ch1">
+<div class="ch-title" onclick="toggleCh(this)"><span>第一章 · 命题逻辑<span class="badge">11考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-body">
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点1</span><span class="kp-name">命题符号化</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">1.1 基本概念</span>
+<table><tr><th>概念</th><th>定义</th><th>示例</th></tr>
+<tr><td><b>命题</b></td><td>具有唯一真值的陈述句（真或假）</td><td>"今天下雨"</td></tr>
+<tr><td><b>原子命题</b></td><td>不能再拆分的命题（用 P,Q,R…表示）</td><td>"今天下雨"</td></tr>
+<tr><td><b>复合命题</b></td><td>原子命题连起来（把 P,Q,R 组合起来）</td><td>"今天下雨或者明天下雨"</td></tr>
+<tr><td><b>联结词</b></td><td>把 P,Q,R 连起来的纽带</td><td>或、且、非 等</td></tr>
+<tr><td><b>命题符号化</b></td><td>把文字转化成符号</td><td>P ∨ Q</td></tr></table>
+<span class="kp-sub">1.2 命题符号化的关键</span>
+<span class="em">核心步骤：准确使用联结词</span><br>
+· 先找出原子命题，用 P,Q,R 表示<br>
+· 确定原子命题之间的联结词<br>
+· 组合成符号表达式<br>
+<span class="em">示例：</span><br>
+"今天下雨或者明天下雨" → P ∨ Q<br>
+"今天刮风并且明天下雨" → P ∧ Q
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点2</span><span class="kp-name">否定（¬）与合取（∧）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">2.1 五个联结词</span>
+<table><tr><th>序号</th><th>名称</th><th>符号</th><th>含义</th></tr>
+<tr><td>1</td><td>否定</td><td>¬</td><td>非（取反）</td></tr>
+<tr><td>2</td><td>合取</td><td>∧</td><td>且（同时成立）</td></tr>
+<tr><td>3</td><td>析取</td><td>∨</td><td>或（至少一个成立）</td></tr>
+<tr><td>4</td><td>单条件</td><td>→</td><td>推出（前件推后件）</td></tr>
+<tr><td>5</td><td>双条件</td><td>↔</td><td>当且仅当（双向推出）</td></tr></table>
+<span class="kp-sub">2.2 否定（¬）</span>
+符号：¬ &nbsp; 读法："非" &nbsp; 含义：取反<br>
+示例：¬P 表示"非P"，P = "今天下雨" → ¬P = "今天没下雨"
+<span class="kp-sub">2.3 合取（∧）</span>
+符号：∧ &nbsp; 含义：且（同时成立）&nbsp; 特点：两边都为真才为真<br>
+<span class="em">例题：</span>设 P:小张是数学老师，Q:小张是计算机老师<br>
+"小张既是数学老师又是计算机老师" → <span class="ok">P ∧ Q</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点3</span><span class="kp-name">析取（∨）/ 同或与异或</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">3.1 同或 vs 异或</span>
+<table><tr><th>类型</th><th>定义</th><th>含义</th></tr>
+<tr><td><b>同或</b></td><td>两边可以同时成立</td><td>两边至少有一个成立（三种情况）</td></tr>
+<tr><td><b>异或</b></td><td>两边不能同时成立</td><td>两边其中一个成立（两种情况）</td></tr></table>
+<span class="kp-sub">3.2 析取符号（∨）</span>
+符号：∨ &nbsp; 含义：或（同或）&nbsp; 特点：两边至少有一个成立<br>
+<span class="em">示例：</span>"今天刮风或今天下雨" → P ∨ Q（同或，可同时成立）
+<span class="kp-sub">3.3 异或的表示</span>
+<span class="formula">异或可表示为：(P ∧ ¬Q) ∨ (¬P ∧ Q)</span>
+<span class="kp-sub">3.4 例题</span>
+<span class="em">例1：</span>"小张是数学老师或体育老师" → P ∨ Q<br>
+<span class="em">例2：</span>"今天我要么上班要么休息" → 异或 → <span class="ok">D. (¬q ∧ p) ∨ (q ∧ ¬p)</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点4</span><span class="kp-name">单条件（→）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">4.1 单条件符号（→）</span>
+符号：→ &nbsp; 含义：推出（前件推后件）&nbsp; 注意：P → Q 为前推后
+<span class="kp-sub">4.2 前推后 vs 后推前</span>
+<table><tr><th>表达式</th><th>含义</th><th>示例</th></tr>
+<tr><td>P → Q</td><td>P推出Q（前推后）</td><td>"只要努力就会成功" → 努力 → 成功</td></tr>
+<tr><td>Q → P</td><td>Q推出P（后推前）</td><td>"只有努力才会成功" → 成功 → 努力</td></tr></table>
+<span class="kp-sub">4.3 关键词判断</span>
+<table><tr><th>关键词</th><th>推导方向</th><th>示例</th></tr>
+<tr><td>因为…所以…</td><td>前推后</td><td>因为今天不下雨，所以我今天进城 → ¬P → Q</td></tr>
+<tr><td>只要…就…</td><td>前推后</td><td>只要天不下雨，小王就会早到 → ¬P → Q</td></tr>
+<tr><td>只有…才…</td><td>后推前</td><td>只有努力才会成功 → 成功 → 努力</td></tr>
+<tr><td>除非…否则不</td><td>先转为"只有…才"，再后推前</td><td>除非努力否则不成功 → 成功 → 努力</td></tr></table>
+<span class="kp-sub">4.4 例题</span>
+例1："只要努力就会成功" → 努力 → 成功<br>
+例2："只有努力才会成功" → 成功 → 努力<br>
+例3："除非努力否则不成功" = "只有努力才会成功" → Q → P<br>
+例4：令 p:今天下雨，q:我今天进城，"因为今天不下雨，所以我今天进城" → <span class="ok">¬p → q</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点5</span><span class="kp-name">双条件（↔）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">5.1 双条件符号（↔）</span>
+符号：↔ &nbsp; 含义：双向推导出 &nbsp; 特点：两边同时成立或者同时不成立<br>
+关键词："当且仅当"、"充分必要"
+<span class="kp-sub">5.2 示例</span>
+P ↔ Q 表示 P 和 Q 保持一致<br>
+"小张是数学老师当且仅当小张是体育老师" → P ↔ Q
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点6</span><span class="kp-name">真值表</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">6.1 真值表定义</span>
+<span class="em">真值表：</span>原子命题和复合命题所有取值情况展示出来。
+<span class="kp-sub">6.2 交错赋值法</span>
+列出所有组（2ⁿ 次方组，n 为原子命题个数）<br>
+P 为 1 时，Q 为 0/1 交替；P 为 0 时，Q 为 0/1 交替
+<span class="kp-sub">6.3 五个联结词的真值表</span>
+<b>否定（¬P）：</b>
+<table><tr><th>P</th><th>¬P</th></tr><tr><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td></tr></table>
+<b>合取（P ∧ Q）：</b>
+<table><tr><th>P</th><th>Q</th><th>P∧Q</th></tr><tr><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>
+<b>析取（P ∨ Q）：</b>
+<table><tr><th>P</th><th>Q</th><th>P∨Q</th></tr><tr><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>
+<b>单条件（P → Q）：</b>
+<table><tr><th>P</th><th>Q</th><th>P→Q</th></tr><tr><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+<b>双条件（P ↔ Q）：</b>
+<table><tr><th>P</th><th>Q</th><th>P↔Q</th></tr><tr><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table>
+<span class="kp-sub">6.4 记忆口诀</span>
+<span class="tip">合取（∧）：只有两边都为1才为1</span><br>
+<span class="tip">析取（∨）：只要有一边为1就为1</span><br>
+<span class="tip">单条件（→）：只有1推0为0，其他都是1</span><br>
+<span class="tip">双条件（↔）：两边相等为1，不等为0</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点7</span><span class="kp-name">等值</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">7.1 等值定义</span>
+<span class="em">等值（⇔）：</span>两个命题公式真值表完全相同。注意：等值表示的是公式间的关系，不是联结词。
+<span class="kp-sub">7.2 等值判定方法</span>
+· 真值表法：列出两个公式的真值表，逐行比较<br>
+· 等值演算法：使用命题定律进行推导
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点8</span><span class="kp-name">常用命题定律（20定律）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">8.1 基础定律</span>
+<table><tr><th>序号</th><th>定律名称</th><th>公式</th></tr>
+<tr><td>1</td><td>双重否定律</td><td>A ⇔ ¬¬A</td></tr>
+<tr><td>2</td><td>幂等律（合取）</td><td>A ∧ A ⇔ A</td></tr>
+<tr><td>3</td><td>幂等律（析取）</td><td>A ∨ A ⇔ A</td></tr>
+<tr><td>4</td><td>结合律（析取）</td><td>(A ∨ B) ∨ C ⇔ A ∨ (B ∨ C)</td></tr>
+<tr><td>5</td><td>结合律（合取）</td><td>(A ∧ B) ∧ C ⇔ A ∧ (B ∧ C)</td></tr>
+<tr><td>6</td><td>交换律（析取）</td><td>A ∨ B ⇔ B ∨ A</td></tr>
+<tr><td>7</td><td>交换律（合取）</td><td>A ∧ B ⇔ B ∧ A</td></tr></table>
+<span class="kp-sub">8.2 分配律</span>
+<table><tr><th>序号</th><th>公式</th></tr>
+<tr><td>8</td><td>A ∨ (B ∧ C) ⇔ (A ∨ B) ∧ (A ∨ C)</td></tr>
+<tr><td>9</td><td>A ∧ (B ∨ C) ⇔ (A ∧ B) ∨ (A ∧ C)</td></tr></table>
+<span class="kp-sub">8.3 德摩根律</span>
+<table><tr><th>序号</th><th>公式</th></tr>
+<tr><td>10</td><td>¬(A ∨ B) ⇔ ¬A ∧ ¬B</td></tr>
+<tr><td>11</td><td>¬(A ∧ B) ⇔ ¬A ∨ ¬B</td></tr></table>
+<span class="kp-sub">8.4 常用定律</span>
+<table><tr><th>序号</th><th>公式</th><th>含义</th></tr>
+<tr><td>12</td><td>A ∨ F ⇔ A</td><td>析取零元</td></tr>
+<tr><td>13</td><td>A ∨ T ⇔ T</td><td>析取幺元</td></tr>
+<tr><td>14</td><td>A ∧ F ⇔ F</td><td>合取零元</td></tr>
+<tr><td>15</td><td>A ∧ T ⇔ A</td><td>合取幺元</td></tr>
+<tr><td>16</td><td>A ∨ ¬A ⇔ T</td><td>排中律</td></tr>
+<tr><td>17</td><td>A ∧ ¬A ⇔ F</td><td>矛盾律</td></tr>
+<tr><td>18</td><td>A → B ⇔ ¬A ∨ B</td><td><span class="tip">（重要！）</span></td></tr>
+<tr><td>19</td><td>A → B ⇔ ¬B → ¬A</td><td>逆否命题</td></tr>
+<tr><td>20</td><td>A ↔ B ⇔ (A → B) ∧ (B → A)</td><td>双条件定义</td></tr></table>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点9</span><span class="kp-name">成真/成假指派</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">9.1 基本概念</span>
+<table><tr><th>概念</th><th>定义</th></tr>
+<tr><td><b>成真指派</b></td><td>取值使命题公式为真（结果为1）</td></tr>
+<tr><td><b>成假指派</b></td><td>取值使命题公式为假（结果为0）</td></tr></table>
+<span class="kp-sub">9.2 判断方法</span>
+· 先用命题定律化简（减少计算量）&nbsp;· 然后列真值表&nbsp;· 或者根据联结词的性质判断
+<span class="kp-sub">9.3 示例：P ∨ Q</span>
+<table><tr><th>P</th><th>Q</th><th>P∨Q</th></tr><tr><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>
+成真指派：(1,1),(1,0),(0,1)&nbsp; 成假指派：(0,0)
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点10</span><span class="kp-name">永真式 & 永假式</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class=\"kp-sub\">10.1 定义</span>
+<table><tr><th>名称</th><th>定义</th></tr>
+<tr><td><b>永真式（重言式）</b></td><td>命题公式永远是真的，即真值表全为1</td></tr>
+<tr><td><b>永假式（矛盾式）</b></td><td>命题公式永远是假的，即真值表全为0</td></tr></table>
+<span class="kp-sub">10.2 示例</span>
+永真式 P∨¬P：P=1→1,P=0→1<br>
+永假式 P∧¬P：P=1→0,P=0→0<br>
+<span class="tip">永真式的否定 = 永假式</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点11</span><span class="kp-name">可满足式</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">11.1 定义</span>
+<table><tr><th>名称</th><th>定义</th></tr>
+<tr><td><b>可满足式</b></td><td>至少有一组成真指派（真值表至少有一个1）</td></tr>
+<tr><td><b>非重言式的可满足式</b></td><td>真值表至少有一个0且至少有一个1</td></tr></table>
+<span class="kp-sub">11.2 关系总结</span>
+永真式 → 必定是可满足式 &nbsp; 永假式 → 不是可满足式<br>
+非重言式的可满足式 → 既有1又有0
+</div></div>
+
+</div></div>
+
+<!-- ===== 第二章：范式 ===== -->
+<div class="ch ch2">
+<div class="ch-title" onclick="toggleCh(this)"><span>第二章 · 范式<span class="badge">7考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-body">
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点1</span><span class="kp-name">范式基本概念</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">1.1 定义</span>
+<span class="em">范式（Normal Form）：</span>即规范的形式，是命题公式的标准化。
+<span class="kp-sub">1.2 重要概念</span>
+<table><tr><th>概念</th><th>定义</th><th>构成</th></tr>
+<tr><td><b>小项</b></td><td>原子命题合取连接</td><td>P∧Q, P∧¬Q 等</td></tr>
+<tr><td><b>大项</b></td><td>原子命题析取连接</td><td>P∨Q, P∨¬Q 等</td></tr>
+<tr><td><b>主析取范式</b></td><td>小项按照析取连接</td><td>(P∧Q)∨(¬P∧Q)</td></tr>
+<tr><td><b>主合取范式</b></td><td>大项按照合取连接</td><td>(P∨Q)∧(¬P∨Q)</td></tr></table>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点2</span><span class="kp-name">主析取范式</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">2.1 概念</span>
+定义：若干小项按照析取（∨）连接构成的公式。<br>
+小项 (Minterm)：命题变项及其否定的合取式，每个变项出现且仅出现一次。
+<span class="kp-sub">2.2 小项的表示（两个变元）</span>
+<table><tr><th>小项</th><th>简写</th><th>编码</th></tr>
+<tr><td>P∧Q</td><td>m₁₁</td><td>m₃</td></tr>
+<tr><td>P∧¬Q</td><td>m₁₀</td><td>m₂</td></tr>
+<tr><td>¬P∧Q</td><td>m₀₁</td><td>m₁</td></tr>
+<tr><td>¬P∧¬Q</td><td>m₀₀</td><td>m₀</td></tr></table>
+<span class="kp-sub">2.3 三个原子命题的小项</span>
+<table><tr><th>序号</th><th>小项</th><th>编码</th></tr>
+<tr><td>1</td><td>P∧Q∧R</td><td>m₇</td></tr>
+<tr><td>2</td><td>P∧Q∧¬R</td><td>m₆</td></tr>
+<tr><td>3</td><td>P∧¬Q∧R</td><td>m₅</td></tr>
+<tr><td>4</td><td>P∧¬Q∧¬R</td><td>m₄</td></tr>
+<tr><td>5</td><td>¬P∧Q∧R</td><td>m₃</td></tr>
+<tr><td>6</td><td>¬P∧Q∧¬R</td><td>m₂</td></tr>
+<tr><td>7</td><td>¬P∧¬Q∧R</td><td>m₁</td></tr>
+<tr><td>8</td><td>¬P∧¬Q∧¬R</td><td>m₀</td></tr></table>
+<span class="kp-sub">2.4 求解方法：真值表法（优先）</span>
+· 列出真值表 → 找出真值为1的行 → 写出小项 → 析取连接
+<span class="kp-sub">2.5 求解方法：等值演算法（次选）</span>
+· 化简为析取范式 → 添项补全小项 A∧(B∨¬B) ≡ A → 幂等律去重<br>
+<span class="tip">技巧：推不出来时可用真值表法得出答案再反向写简单的演算过程</span>
+<span class="kp-sub">2.6 示例：(p→q)∧r</span>
+<span class="formula">真值表法：真值为1的行：(p∧q∧r),(¬p∧q∧r),(¬p∧¬q∧r)\n主析取范式：∑(1,3,7)\n等值演算法：(p→q)∧r⇔(¬p∨q)∧r⇔(¬p∧r)∨(q∧r)⇔...⇔m₃∨m₁∨m₇</span>
+<span class="kp-sub">2.7 示例：(p∨q)∧(q→¬r)</span>
+真值为1的行对应小项：p∧q∧¬r(m₆), p∧¬q∧r(m₅), p∧¬q∧¬r(m₄), ¬p∧q∧¬r(m₂)<br>
+主析取范式：∑(2,4,5,6)
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点3</span><span class="kp-name">主合取范式</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">3.1 概念</span>
+定义：若干大项按照合取（∧）连接构成的公式。<br>
+大项 (Maxterm)：命题变项及其否定的析取式，每个变项出现且仅出现一次。<br>
+与小项的关系：大项是小项的否定。Mᵢ = ¬mᵢ。
+<span class="kp-sub">3.2 大项的表示（两个变元）</span>
+<table><tr><th>大项</th><th>简写</th><th>编码</th></tr>
+<tr><td>P∨Q</td><td>M₀₀</td><td>M₀</td></tr>
+<tr><td>P∨¬Q</td><td>M₀₁</td><td>M₁</td></tr>
+<tr><td>¬P∨Q</td><td>M₁₀</td><td>M₂</td></tr>
+<tr><td>¬P∨¬Q</td><td>M₁₁</td><td>M₃</td></tr></table>
+<span class="kp-sub">3.3 求解方法</span>
+真值表法：找值为0的行 → 写出对应大项（变项取0写本身，取1写否定）→ 合取连接<br>
+等值演算法：化简为合取范式 → 添项补全 A∨(B∧¬B) ≡ A → 去重
+<span class="kp-sub">3.4 示例：(p∨q)∧(q→¬r) 的主合取范式</span>
+真值为0的行：p∨q∨r(M₀), p∨¬q∨r(M₅), ¬p∨¬q∨r(M₇)<br>
+主合取范式：M₀∧M₅∧M₇ 或 ∏(0,5,7)<br>
+等值演算法：∏(0,1,5,7)
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点4</span><span class="kp-name">大小项个数</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">4.1 判断规则</span>
+小项个数 = 真值表中结果为1的个数<br>
+大项个数 = 真值表中结果为0的个数<br>
+<b>关键关系：小项个数 + 大项个数 = 2ⁿ</b>
+<span class="kp-sub">4.2 典型例题</span>
+<span class="em">例1：</span>P→Q 的小项个数 = 3（真值表3行1）<br>
+<span class="em">例2：</span>矛盾式（2变元）的大项个数 = 4（全0）<br>
+<span class="em">例3：</span>重言式（n变元）的小项个数 = 2ⁿ<br>
+<span class="em">例4：</span>可满足式（n变元）的大项最多 2ⁿ-1 个
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点5</span><span class="kp-name">小项与大项的性质</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+· 任意不同小项的合取为假：mᵢ∧mⱼ ≡ F (i≠j)<br>
+· 任意不同大项的析取为真：Mᵢ∨Mⱼ ≡ T (i≠j)<br>
+· 大项的否定是小项：¬Mᵢ ≡ mᵢ；小项的否定是大项：¬mᵢ ≡ Mᵢ<br>
+<span class="em">证明：</span>m₁=p∧q, m₂=p∧¬q → m₁∧m₂ = p∧(q∧¬q) ≡ F
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点6</span><span class="kp-name">命题公式的项数问题</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">（内容已整合至考点4：大小项个数）</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点7</span><span class="kp-name">自然推理规则（CP规则）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>主要规则：</b><br>
+<b>1. P规则（前提引入规则）</b>：任何前提都可直接作为结论，即"H⇒H"。<br>
+<b>2. T规则（置换规则）</b>：已得出的结论可通过等值式或蕴含式转为另一个结论。<br>
+<b>3. CP规则（附加前提）</b>：当结论是蕴涵式 A→B 时，将前件 A 作为附加前提引入，推出后件 B 即可。<br>
+<b>4. 归谬法</b>：假设结论 C 为假（¬C），加入前提推出矛盾，则 C 为真。
+</div></div>
+
+</div></div>
+
+<!-- ===== 第三章：谓词逻辑 ===== -->
+<div class="ch ch3">
+<div class="ch-title" onclick="toggleCh(this)"><span>第三章 · 谓词逻辑<span class="badge">9考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-body">
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点1</span><span class="kp-name">谓词和量词</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">1.1 基本概念</span>
+<table><tr><th>概念</th><th>定义</th><th>符号</th></tr>
+<tr><td><b>谓词</b></td><td>表示对象具有某种性质</td><td>P(x), A(x)</td></tr>
+<tr><td>个体词（常指）</td><td>具体对象</td><td>小张、小王</td></tr>
+<tr><td>个体词（变元）</td><td>不特定指哪一个</td><td>x, y</td></tr>
+<tr><td>论域</td><td>个体词的取值范围</td><td>全体实数、自然数等</td></tr></table>
+<span class="kp-sub">1.2 量词</span>
+<table><tr><th>量词</th><th>符号</th><th>含义</th></tr>
+<tr><td><b>全称量词</b></td><td>∀</td><td>所有、每一个</td></tr>
+<tr><td><b>存在量词</b></td><td>∃</td><td>至少有一个、存在</td></tr></table>
+∀x P(x)：论域中所有 x 都满足性质 P<br>
+∃x P(x)：论域中至少存在一个 x 满足性质 P
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点2</span><span class="kp-name">谓词符号化</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">2.1 基本规则</span>
+<table><tr><th>语句类型</th><th>符号化方式</th></tr>
+<tr><td>是什么</td><td>使用单条件（→）</td></tr>
+<tr><td>不是什么</td><td>使用合取非（∧¬）</td></tr></table>
+<span class="em">例1：</span>"所有的胖人都是懒的" → ∀x(P(x)→L(x))<br>
+<span class="em">例2：</span>"存在胖的人不是懒的" → ∃x(P(x)∧¬L(x))<br>
+<span class="tip">全称量词常与→配合；存在量词常与∧配合</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点3</span><span class="kp-name">谓词公式的真假</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">3.1 判断方法</span>
+<table><tr><th>量词</th><th>为真条件</th><th>为假条件</th></tr>
+<tr><td>∀</td><td>每一个都满足</td><td>只要有一个不满足</td></tr>
+<tr><td>∃</td><td>只要有一个满足</td><td>全都不满足</td></tr></table>
+<span class="em">示例：</span>论域为整数，∀x(x²≥1) → x=0时0²=0<1 → <span class="err">为假</span><br>
+∀x∃y(x²<y) → 可取 y=x²+1 → <span class="ok">为真</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点4</span><span class="kp-name">量词的辖域</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">4.1 判断规则</span>
+· 量词后没有括号 → 辖域是紧邻的谓词<br>
+· 量词后有括号 → 辖域是整个括号内容<br>
+<span class="em">示例：</span>∀x P(x) → 辖域是 P(x)；∀x(P(x)→Q(x)) → 辖域是整个括号内
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点5</span><span class="kp-name">约束变元和自由变元</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<table><tr><th>概念</th><th>定义</th></tr>
+<tr><td>指导变元</td><td>量词后面的个体词</td></tr>
+<tr><td><b>约束变元</b></td><td>辖域内与指导变元相同的个体词</td></tr>
+<tr><td><b>自由变元</b></td><td>辖域内与指导变元不同的个体词</td></tr></table>
+<span class="em">∀x(P(x)→Q(y))：</span>辖域 P(x)→Q(y)，指导变元 x<br>
+约束变元：P(x)中的x &nbsp; 自由变元：Q(y)中的y<br>
+换名规则：约束变元可改名（不影响公式真值）
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点6</span><span class="kp-name">量词的消去（特化/推广）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">6.1 等价形式</span>
+∀x P(x) ⇔ P(a)∧P(b)∧P(c)∧…<br>
+∃x P(x) ⇔ P(a)∨P(b)∨P(c)∨…
+<span class="kp-sub">6.2 推理规则</span>
+<b>全称特化（UI）</b>：∀x P(x)→P(a)<br>
+<b>存在特化（EI）</b>：∃x P(x)→P(c)<br>
+<b>全称推广（UG）</b>：P(y)→∀x P(x)<br>
+<b>存在推广（EG）</b>：P(a)→∃x P(x)
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点7</span><span class="kp-name">谓词恒等式</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="formula">¬∀x P(x) ⟺ ∃x ¬P(x)</span>
+<span class="formula">¬∃x P(x) ⟺ ∀x ¬P(x)</span>
+<span class="formula">∀x(P∧Q) ⟺ ∀xP ∧ ∀xQ</span>
+<span class="formula">∃x(P∨Q) ⟺ ∃xP ∨ ∃xQ</span>
+注意：后两个公式是单向的（左→右成立，右→左不成立）
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点8</span><span class="kp-name">前束范式</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="em">定义：</span>所有量词都在最前面，辖域为整个公式的形式。<br>
+形式：Q₁x₁ Q₂x₂ … Qₙxₙ M(x₁…xₙ)<br>
+任何谓词公式都可化为等值的前束范式。<br>
+<b>转化步骤：</b>改名 → 消除→（改为¬∨）→ 移动量词到前面
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点9</span><span class="kp-name">谓词推理</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>核心规则：</b>全称成立则单个成立。∀x P(x) → P(c)<br>
+步骤：写前提 → 用特化消去量词 → 用命题规则推理 → 用推广引入量词<br>
+<span class="em">示例：</span>条件1：∀x(P(x)→Q(x))，条件2：P(小华)，结论：Q(小华)<br>
+证明：① ∀x(P(x)→Q(x)) &nbsp; ② P(小华)→Q(小华) &nbsp; ③ P(小华) &nbsp; ④ Q(小华)
+</div></div>
+
+</div></div>
+
+<!-- ===== 第四章：集合 ===== -->
+<div class="ch ch4">
+<div class="ch-title" onclick="toggleCh(this)"><span>第四章 · 集合<span class="badge">7考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-body">
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点1</span><span class="kp-name">集合基本概念</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="kp-sub">1.1 定义与表示</span>
+<b>集合</b>：若干个元素组成的整体。<br>
+列举法：A={1,2,3} &nbsp; 描述法：A={x|x是偶数}
+<span class="kp-sub">1.2 基本概念</span>
+<table><tr><th>概念</th><th>定义</th><th>示例</th></tr>
+<tr><td><b>元素</b></td><td>集合中的个体</td><td>1∈{1,2,3}</td></tr>
+<tr><td>基数（势）</td><td>集合中元素的个数</td><td>|{1,2,3}|=3</td></tr>
+<tr><td>空集</td><td>没有元素的集合</td><td>∅ 或 {}</td></tr></table>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点2</span><span class="kp-name">子集 & 真子集</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>子集 A⊆B</b>：A的每个元素都在B中（可取全部）<br>
+<b>真子集 A⊊B</b>：A⊆B且A≠B（不能取全部）<br>
+· 空集是任意集合的子集<br>
+· 集合是它自己的子集，但不是它自己的真子集<br>
+<span class="em">A={1,2,3}：</span>子集8个（含自身），真子集7个（不含自身）
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点3</span><span class="kp-name">幂集</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>幂集 P(A)</b>：A的所有子集构成的集合（符号：P(A)或2^A）<br>
+<span class="formula">|A|=n → |P(A)|=2ⁿ</span>
+<span class="em">A={1,2}：</span>P(A)={∅,{1},{2},{1,2}} &nbsp; |P(A)|=2²=4
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点4</span><span class="kp-name">集合运算（∪∩−∁）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<table><tr><th>运算</th><th>符号</th><th>含义</th></tr>
+<tr><td>交集</td><td>A∩B</td><td>两个集合重合的部分</td></tr>
+<tr><td>并集</td><td>A∪B</td><td>合并（重复只算一次）</td></tr>
+<tr><td>差集</td><td>A−B</td><td>从A中去掉与B重合的部分</td></tr>
+<tr><td>补集</td><td>∁A</td><td>属于全集但不属于A</td></tr></table>
+<span class="formula">德摩根：∁(A∪B)=∁A∩∁B &nbsp; ∁(A∩B)=∁A∪∁B</span>
+<span class="em">A={1,2,3,4},B={2,4,5,6}：</span>A∩B={2,4} A∪B={1,2,3,4,5,6} A−B={1,3}
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点5</span><span class="kp-name">对称差（A⊕B）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="formula">A⊕B = (A∪B)−(A∩B) = (A−B)∪(B−A)</span>
+即：属于A或B，但不同时属于两者的元素。<br>
+<span class="em">A={1,2,3},B={2,3,4}：</span>A⊕B={1,4}
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点6</span><span class="kp-name">笛卡尔积（A×B）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>有序对（序偶）</b>：(a,b) 前后顺序有区别。<br>
+<b>A×B</b>：从A取第一元素，从B取第二元素，组成所有可能的有序对。<br>
+<span class="formula">|A×B| = |A|×|B|</span>
+<span class="em">A={1,2},B={3,4}：</span>A×B={(1,3),(1,4),(2,3),(2,4)} |A×B|=4
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点7</span><span class="kp-name">笛卡尔积的性质</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+· A×B ≠ B×A（一般情况下顺序不同）<br>
+· A×∅ = ∅<br>
+· A×(B∪C) = (A×B)∪(A×C)（分配律）<br>
+· A×(B∩C) = (A×B)∩(A×C)（分配律）
+</div></div>
+
+</div></div>
+
+<!-- ===== 第五章：关系 ===== -->
+<div class="ch ch5">
+<div class="ch-title" onclick="toggleCh(this)"><span>第五章 · 关系<span class="badge">25考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-body">
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点1</span><span class="kp-name">关系基本概念</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>2元关系 R</b>：A×B的子集（有序对集合）<br>
+<b>全关系 E_A</b>：A所有元素之间都有关系 = A×A<br>
+<b>定义域 Dom(R)</b>：有序对第一元素的集合<br>
+<b>值域 Ran(R)</b>：有序对第二元素的集合
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点2</span><span class="kp-name">关系的三种表示</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+· <b>有序对集合</b>：直接列出，如 {(1,1),(2,3),(3,1)}<br>
+· <b>关系矩阵</b>：布尔矩阵，(i,j)=1表示有关系<br>
+· <b>关系图</b>：结点为元素，有关系则画箭头<br>
+<span class="tip">无向图矩阵对称，有向图矩阵不一定</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点3</span><span class="kp-name">自反 & 反自反</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>自反</b>：∀a, (a,a)∈R → 矩阵对角线全为1<br>
+<b>反自反</b>：∀a, (a,a)∉R → 矩阵对角线全为0<br>
+<span class="tip">两者不是非此即彼！一个关系可以既不自反也不反自反</span><br>
+例：R={(1,1),(1,2)} 既不自反也不反自反
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点4</span><span class="kp-name">对称 & 反对称</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>对称</b>：aRb→bRa（矩阵对角线外对称出现1）<br>
+<b>反对称</b>：aRb且bRa→a=b（对角线外不同时出现1）<br>
+<span class="tip">两者可以同时满足（只有对角线上有1），也可以同时不满足</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点5</span><span class="kp-name">传递性</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>传递</b>：aRb且bRc→aRc<br>
+判断：找能连接的两个有序对，看结果是否在R中<br>
+例：R={(A,B),(B,C),(A,D)}中(A,B)+(B,C)需(A,C)，若无则不传递
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点6</span><span class="kp-name">逆关系（R⁻¹）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+将R中每个有序对前后调换<br>
+R={(1,2),(3,4)} → R⁻¹={(2,1),(4,3)}<br>
+逆关系保持所有五种性质
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点7</span><span class="kp-name">复合关系（R∘S）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+连接条件：前一个有序对的第二元素=后一个的第一元素<br>
+R={(1,1),(1,2)}, S={(2,3)} → R∘S={(1,3)}（1→2→3）<br>
+<span class="tip">R∘S≠S∘R；R²=R∘R</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点8</span><span class="kp-name">关系运算后的性质</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<table><tr><th>性质</th><th>R⁻¹</th><th>R∩S</th><th>R∪S</th><th>R∘S</th></tr>
+<tr><td>自反</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+<tr><td>反自反</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="err">?</td></tr>
+<tr><td>对称</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="err">?</td></tr>
+<tr><td>反对称</td><td class="ok">✓</td><td class="ok">✓</td><td class="err">?</td><td class="err">?</td></tr>
+<tr><td>传递</td><td class="ok">✓</td><td class="ok">✓</td><td class="err">?</td><td class="err">?</td></tr></table>
+<span class="tip">复合运算只有自反性保持！</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点9</span><span class="kp-name">闭包</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>自反闭包 r(R)</b>：补充所有 (a,a)<br>
+<b>对称闭包 s(R)</b>：每有(a,b)就补(b,a)<br>
+<b>传递闭包 t(R)</b>：反复补充可连接出的新有序对，直到不能再产生新的为止
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点10</span><span class="kp-name">等价关系</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>等价关系</b>：自反+对称+传递<br>
+<table><tr><th>关系</th><th>自反</th><th>对称</th><th>传递</th></tr>
+<tr><td><b>等价关系</b></td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+<tr><td>相容关系</td><td class="ok">✓</td><td class="ok">✓</td><td class="err">✗</td></tr>
+<tr><td>偏序关系</td><td class="ok">✓</td><td class="err">✗</td><td class="ok">✓</td></tr>
+<tr><td>拟序关系</td><td class="err">✗</td><td class="err">✗</td><td class="ok">✓</td></tr></table>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点11</span><span class="kp-name">等价类</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>[a]_R</b>：与a有等价关系的所有元素的集合<br>
+R={(1,1),(1,2),(2,1),(2,2),(3,3)}<br>
+[1]_R=[2]_R={1,2} &nbsp; [3]_R={3}<br>
+<span class="tip">同一等价类中的元素，等价类完全相同</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点12</span><span class="kp-name">划分</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+将集合A拆分为<b>不相交</b>的非空子集（分块）<br>
+<b>等价关系↔划分</b>：一一对应<br>
+从划分还原等价关系：每个分块内元素<b>两两做笛卡尔积</b><br>
+例：划分={{1,2},{3}} → R={(1,1),(1,2),(2,1),(2,2),(3,3)}
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点13</span><span class="kp-name">等价关系的个数</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+等价关系个数 = <b>划分个数</b>（Bell数）<br>
+A={1,2,3}：{1}{2}{3}/{1,2}{3}/{1,3}{2}/{2,3}{1}/{1,2,3} → <b>5种</b>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点14-15</span><span class="kp-name">等价关系的运算与证明</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+R∩S → <span class="ok">仍是等价关系</span><br>
+R∪S → <span class="err">不一定</span>（可能失去传递性）<br>
+R⁻¹ → <span class="ok">仍是等价关系</span><br>
+R∘S → <span class="err">不一定</span><br>
+<b>证明等价关系：</b>分别证自反性、对称性、传递性
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点16</span><span class="kp-name">哈斯图</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+偏序关系的<b>简化关系图</b>（去掉自反边和传递可推出的边，方向用上下代替）<br>
+<b>绘制方法</b>：能力弱的排下面，强的排上面，左右不分<br>
+例：A={1,2,3,6}，整除关系→1在最下，6在最上，2和3在中间层
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点17-18</span><span class="kp-name">极大/极小元 & 最大/最小元</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>极大元</b>：每条链上最顶部的元素（可多个）<br>
+<b>极小元</b>：每条链上最底部的元素（可多个）<br>
+<b>最大元</b>：与所有元素可比且最大（<span class="tip">唯一，且必须可比</span>）<br>
+<b>最小元</b>：与所有元素可比且最小（唯一）<br>
+不可比→没有最大元/最小元
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点19</span><span class="kp-name">函数</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+函数必须满足：<br>
+1. 定义域内每个x都有对应的y<br>
+2. 每个x只对应<b>唯一</b>一个y（不能一对多）<br>
+<span class="err">y²=x不是函数（x=1时y=±1）</span><br>
+<span class="err">y/x=1不是函数（x=0无定义）</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点20</span><span class="kp-name">反函数</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+将函数有序对前后调换（与逆关系操作相同）<br>
+f={(1,2),(2,4),(3,6)} → f⁻¹={(2,1),(4,2),(6,3)}<br>
+<span class="tip">反函数存在的前提：f是双射（单射+满射）</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点21-23</span><span class="kp-name">单射/满射/双射</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>单射（1对1）</b>：不同的x对应不同的y（不能多对一）<br>
+<b>满射（映上）</b>：值域中每个y都有对应的x（值域取满）<br>
+<b>双射（1-1对应）</b>：单射+满射，x和y完全一一对应<br>
+<span class="tip">只有双射才存在反函数</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">考点24</span><span class="kp-name">复合函数</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="formula">(f∘g)(x) = f(g(x))：先算g，再算f</span>
+例：f(x)=x²-1，g(x)=x+1<br>
+(f∘g)(x) = f(x+1) = (x+1)²-1 = x²+2x
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">5.25</span><span class="kp-name">命题逻辑推理</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>直接证明法——常用推理规则：</b><br>
+· <b>分离规则</b>：P→Q且P，可得Q<br>
+· <b>析取三段论</b>：P∨Q且¬P，可得Q<br>
+· <b>合取消去</b>：P∧Q，可得P或Q<br>
+· <b>双条件分解</b>：P↔Q，可得P→Q或Q→P<br><br>
+<b>归谬法（反证法）：</b><br>
+要证Q为真，先假设¬Q为真，加入前提推理；若推出矛盾（如P∧¬P），则¬Q不成立，故Q为真。<br><br>
+<b>示例</b>：{P∧Q, Q→¬R, R∨S} ⊢ S<br>
+① P∧Q（前提）<br>
+② Q（由①，合取消去）<br>
+③ Q→¬R（前提）<br>
+④ ¬R（由②③，分离规则）<br>
+⑤ R∨S（前提）<br>
+⑥ S（由④⑤，析取三段论）
+</div></div>
+
+</div></div>
+
+<!-- ===== 第六章：代数系统与群 ===== -->
+<div class="ch ch6">
+<div class="ch-title" onclick="toggleCh(this)"><span>第六章 · 代数系统与群<span class="badge">11节</span></span><span class="arrow">▼</span></div>
+<div class="ch-body">
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">6.1</span><span class="kp-name">二元运算 & 封闭性</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>二元运算</b>：两个元素进行某种运算<br>
+<b>封闭性</b>：运算结果仍在集合内<br>
+<span class="ok">正整数加法：封闭（正整数+正整数=正整数）</span><br>
+<span class="err">正整数减法：不封闭（1-2=-1不在正整数集中）</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">6.2</span><span class="kp-name">五大运算性质</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>结合律</b>：(a∘b)∘c = a∘(b∘c)<br>
+<b>交换律</b>：a∘b = b∘a<br>
+<b>幂等律</b>：a∘a = a<br>
+<b>分配律</b>：a∘(b★c) = (a∘b)★(a∘c)<br>
+<b>消去律</b>：不要求掌握<br>
+<span class="err">减法不满足结合律：(a-b)-c ≠ a-(b-c)</span><br>
+<span class="err">减法不满足交换律：a-b ≠ b-a</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">6.3</span><span class="kp-name">幺元（单位元）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>幺元 e</b>：所有元素与e运算后仍等于自己<br>
+<span class="formula">e∘a = a∘e = a（对所有a成立）</span>
+加法幺元=0，乘法幺元=1，并集幺元=∅，交集幺元=全集<br>
+<span class="tip">幺元唯一</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">6.4</span><span class="kp-name">零元</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>零元 θ</b>：所有元素与θ运算后仍等于θ<br>
+<span class="formula">θ∘a = a∘θ = θ（对所有a成立）</span>
+乘法零元=0，交集零元=∅<br>
+<span class="tip">非平凡群（≥2个元素）不存在零元</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">6.5</span><span class="kp-name">逆元</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>a的逆元 a⁻¹</b>：a与a⁻¹运算等于幺元<br>
+<span class="formula">a∘a⁻¹ = a⁻¹∘a = e</span>
+<span class="tip">求逆元必须先求幺元e</span><br>
+加法逆元=相反数；乘法逆元=倒数
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">6.6-6.8</span><span class="kp-name">半群→独异点→群</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<table><tr><th>代数系统</th><th>封闭</th><th>结合</th><th>幺元</th><th>逆元</th></tr>
+<tr><td>半群</td><td class="ok">✓</td><td class="ok">✓</td><td>—</td><td>—</td></tr>
+<tr><td>独异点</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td>—</td></tr>
+<tr><td>群</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr></table>
+自然数集+加法=独异点（没有负数逆元，不是群）
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">6.9</span><span class="kp-name">群的阶数 & 元素的阶</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>群的阶</b> |G|：群中元素的个数<br>
+<b>平凡群</b>：只有幺元一个元素<br>
+<span class="formula">n阶循环群中，aᵏ的阶=n/gcd(n,k)</span>
+<span class="tip">非平凡群（≥2个元素）不存在零元</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">6.10</span><span class="kp-name">交换群（阿贝尔群）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+在群的基础上再加：<b>交换律</b>（a∘b=b∘a）<br>
+条件：封闭+结合+幺元+逆元+交换
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">6.11</span><span class="kp-name">环与域</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>环 〈R,+,·〉</b>：〈R,+〉是交换群+〈R,·〉是半群+乘法对加法分配<br>
+<b>整环</b>⊂<b>域</b>（条件逐渐严格）<br>
+<span class="formula">域⊂整环⊂环</span>
+例：3的倍数集合对加法和乘法构成环
+</div></div>
+
+</div></div>
+
+<!-- ===== 第七章：格 ===== -->
+<div class="ch ch7">
+<div class="ch-title" onclick="toggleCh(this)"><span>第七章 · 格<span class="badge">5节</span></span><span class="arrow">▼</span></div>
+<div class="ch-body">
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">7.1</span><span class="kp-name">格的基本概念</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>格</b>：满足特定条件的偏序集<br>
+<b>判断规则</b>：哈斯图中任取两个点，向上或向下能<b>有且唯一</b>汇集到一个点<br>
+<span class="err">❌ 两点无法汇集→不是格</span><br>
+<span class="err">❌ 汇集到多个点→不是格</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">7.2</span><span class="kp-name">对偶公式</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+对偶操作：∧↔∨，0↔1（最大最小互换）<br>
+例：a∧(b∨c)的对偶式=a∨(b∧c)<br>
+<span class="tip">格中任何成立的定理，其对偶定理也成立</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">7.3</span><span class="kp-name">分配格</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+分配律在格中成立→分配格<br>
+<b>判断捷径</b>：哈斯图中<b>包含钻石格或五角格</b>子图→不是分配格<br>
+<span class="ok">幂集格P(A)是分配格</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">7.4</span><span class="kp-name">补元</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>规则1</b>：不在同一条链上的元素互为补元<br>
+<b>规则2</b>：最上元（全上界）和最下元（全下界）互为补元<br>
+<span class="tip">同一条链：哈斯图中向上或向下可以到达</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">7.5</span><span class="kp-name">有界格</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>有界格</b>：存在<b>全上界</b>（最大元）和<b>全下界</b>（最小元）<br>
+<span class="formula">全上界与全下界互为补元</span>
+有界格中至少有两个元素存在补元（即全上界和全下界）
+</div></div>
+
+</div></div>
+
+<!-- ===== 第八章：图 ===== -->
+<div class="ch ch8">
+<div class="ch-title" onclick="toggleCh(this)"><span>第八章 · 图<span class="badge">12节</span></span><span class="arrow">▼</span></div>
+<div class="ch-body">
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.1</span><span class="kp-name">图的基本概念 & 度数</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>图 G=(V,E)</b>：顶点集V+边集E<br>
+<b>简单图</b>：无重复边、无自环<br>
+<b>度数 d(v)</b>：顶点v连接的边数<br>
+<span class="formula">n阶简单图，某顶点度数≤n-1</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.2</span><span class="kp-name">握手定理</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="formula">∑d(v)=2|E|（总度数=2倍边数）</span>
+推论：<b>总度数一定是偶数</b><br>
+应用：度数序列之和为奇数→不能构成无向图<br>
+例：{1,1,3,4}，和=9（奇数）→不能构成
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.3</span><span class="kp-name">完全图 Kₙ</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+每个顶点都与其余所有顶点相连<br>
+<span class="formula">Kₙ的边数=n(n-1)/2</span>
+K₃=3条边，K₄=6条边，K₅=10条边
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.4</span><span class="kp-name">正则图</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>k-正则图</b>：每个顶点度数都为k<br>
+3-正则图：n个人每人恰有3个朋友<br>
+<span class="formula">总度数=3n=2|E|（偶数）→n必须为偶数</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.5</span><span class="kp-name">补图</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+原图补上之后变成完全图→补图<br>
+<span class="formula">补图边数=n(n-1)/2-原图边数</span>
+补图可以旋转拉伸，但不改变连接结构
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.6</span><span class="kp-name">同构</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+两个图看上去不同，但结构相同（只是摆放方式不同）<br>
+<b>5阶非同构的树共3棵</b>：路径图/有3度结点的树/星形图
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.7</span><span class="kp-name">自补图</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+补图与原图同构→自补图<br>
+<span class="formula">自补图边数=n(n-1)/4→n(n-1)能被4整除</span>
+即n≡0或1(mod4)
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.8</span><span class="kp-name">连通图 & 非连通图</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>连通图</b>：任意两顶点间有通路<br>
+<b>n阶连通图最少边数</b>=n-1（树）<br>
+<b>n阶非连通图最多边数</b>=(n-1)(n-2)/2<br>
+<span class="tip">让1个顶点落单，其余n-1个构成完全图</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.9</span><span class="kp-name">割边（桥）</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+去掉某条边后图从连通变不连通→该边为<b>割边（桥）</b><br>
+<span class="tip">树的每一条边都是割边</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.10</span><span class="kp-name">邻接矩阵</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+用矩阵表示图的连接关系<br>
+无向图：邻接矩阵<b>对称</b>（一条边对应两个1）<br>
+有向图：邻接矩阵不一定对称
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.11</span><span class="kp-name">通路与回路</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="formula">Aᵏ中(i,j)元素=从i到j长度为k的通路数</span>
+<b>通路总数</b>=Aᵏ所有元素之和<br>
+<b>回路数</b>=Aᵏ对角线元素之和
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">8.12</span><span class="kp-name">完全二分图 K(m,n)</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+顶点分两个阵营，阵营内部不连边，左边每个与右边每个都连边<br>
+<span class="formula">顶点数=m+n；边数=m×n</span>
+A中顶点度数=n；B中顶点度数=m
+</div></div>
+
+</div></div>
+
+<!-- ===== 第九章：树 ===== -->
+<div class="ch ch9">
+<div class="ch-title" onclick="toggleCh(this)"><span>第九章 · 树<span class="badge">10节</span></span><span class="arrow">▼</span></div>
+<div class="ch-body">
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">9.1</span><span class="kp-name">欧拉回路 & 欧拉图</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>欧拉回路</b>：从某点出发，经过<b>每条边有且仅一次</b>，最后回到出发点<br>
+<span class="formula">欧拉图中不存在奇点（度数为奇数的顶点）</span>
+判断：检查是否存在度数为奇数的顶点
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">9.2</span><span class="kp-name">哈密顿回路</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>哈密顿回路</b>：经过<b>每个节点有且仅一次</b>，最后回到出发点<br>
+与欧拉回路的区别：欧拉回路要求每条边都走，哈密顿回路只要求每个点都经过<br>
+<span class="tip">没有严格的判断方法，只能尝试走一遍</span>
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">9.3</span><span class="kp-name">树的基本概念</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>树</b>：连通且无回路的无向图<br>
+<b>重要结论</b>：树的边数=节点数-1<br>
+特点：连通、无回路、无向图<br>
+4阶树边数=3，4阶完全图边数=6，需增加3条边
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">9.4</span><span class="kp-name">树的节点分类</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>分支节点</b>：度数>1的节点<br>
+<b>叶节点（树叶）</b>：度数=1的节点<br>
+6阶树：最多4个分支节点（直链），最多5个树叶（星形）
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">9.5</span><span class="kp-name">树的握手定理</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<span class="formula">树的总度数=2×(节点数-1)</span>
+即∑d(v)=2(n-1)，其中n为节点数
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">9.6</span><span class="kp-name">克鲁斯卡尔算法</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+用于求最小生成树：<br>
+1. 将所有节点保留，边全部去掉<br>
+2. 从权值最小的边开始连接<br>
+3. 如果连接后没有形成圈，则保留该边<br>
+4. 如果形成圈，则舍弃该边<br>
+5. 重复直到选够n-1条边（n为节点数）
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">9.7</span><span class="kp-name">二叉树的概念</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>m叉树</b>：每个节点最多分m个叉<br>
+<b>完全m叉树</b>：每个节点要么不分叉，要么分m个叉<br>
+<b>正则m叉树</b>：所有叶节点都在同一层<br>
+例：完全二叉树7个叶节点→6个分支节点
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">9.8</span><span class="kp-name">二叉树的遍历</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<table><tr><th>遍历方式</th><th>顺序</th><th>别名</th></tr>
+<tr><td><b>先序遍历</b></td><td>根→左→右</td><td>先根</td></tr>
+<tr><td><b>中序遍历</b></td><td>左→根→右</td><td>中根</td></tr>
+<tr><td><b>后序遍历</b></td><td>左→右→根</td><td>后根</td></tr></table>
+示例：给定二叉树，先序（根左右）递归遍历
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">9.9</span><span class="kp-name">算术表达式与二叉树</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+给定表达式转换为二叉树：<br>
+1. 找到最后运算的符号→作为根节点<br>
+2. 左边部分→左子树<br>
+3. 右边部分→右子树<br>
+4. 递归进行<br>
+<span class="em">示例：</span>表达式a+b-c→减号为根，a+b为左子树，c为右子叶
+</div></div>
+
+<div class="kp">
+<div class="kp-title" onclick="toggleKp(this)"><span class="kp-num">9.10</span><span class="kp-name">欧拉公式</span><span class="kp-arrow">▼</span></div>
+<div class="kp-detail">
+<b>欧拉公式</b>：设有连通平面图G，n个顶点，m条边，r个面，则<br>
+<span class="formula">n - m + r = 2</span>
+这是平面图的重要性质
+</div></div>
+
+</div></div>
+</div>
+</body>
+</html>
