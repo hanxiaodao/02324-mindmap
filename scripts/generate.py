@@ -28,67 +28,293 @@ CSS = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>德克离散数学 · 思维导图</title>
+<title>德克离散数学 · 考点笔记</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --c1:#3b82f6; --c2:#10b981; --c3:#f59e0b;
-  --c4:#ec4899; --c5:#8b5cf6; --c6:#06b6d4;
-  --c7:#f97316; --c8:#84cc16; --c9:#e11d48;
-  --bg:#0f172a; --card:#1e293b; --border:#334155;
-  --text:#e2e8f0; --muted:#94a3b8;
+  /* 九章 accent 色——饱和、可辨认 */
+  --c1:#60a5fa; --c2:#34d399; --c3:#fbbf24;
+  --c4:#f472b6; --c5:#a78bfa; --c6:#22d3ee;
+  --c7:#fb923c; --c8:#a3e635; --c9:#fb7185;
+  /* 页面基础色 */
+  --bg:#0d1117; --surface:#161b22; --card:#1c2230;
+  --border:#2a3344; --border-strong:#3d4f66;
+  --text:#dde3ed; --muted:#7d8fa8; --faint:#4a5568;
 }
 * { box-sizing:border-box; margin:0; padding:0; }
-body { background:var(--bg); color:var(--text); font-family:'PingFang SC','Microsoft YaHei',sans-serif; font-size:14px; }
-header { text-align:center; padding:20px 16px 12px; }
-header h1 { font-size:18px; font-weight:700; letter-spacing:1px; }
-header p { color:var(--muted); font-size:12px; margin-top:4px; }
-.chapters { padding:0 12px 40px; display:flex; flex-direction:column; gap:10px; }
-.ch { border-radius:12px; overflow:hidden; border:1px solid var(--border); }
-.ch-title { display:flex; align-items:center; justify-content:space-between; padding:13px 16px; cursor:pointer; user-select:none; font-weight:700; font-size:14px; transition:opacity .15s; }
-.ch-title:active { opacity:.75; }
-.ch-title .badge { font-size:11px; font-weight:400; opacity:.75; margin-left:6px; }
-.ch-title .arrow { font-size:11px; transition:transform .25s; flex-shrink:0; }
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── Header ── */
+header {
+  padding:40px 20px 32px;
+  text-align:center;
+  border-bottom:1px solid var(--border);
+  margin-bottom:20px;
+}
+header h1 {
+  font-family:'Noto Serif SC',serif;
+  font-size:26px;
+  font-weight:700;
+  letter-spacing:2px;
+  color:#f0f4fa;
+  margin-bottom:10px;
+}
+.header-meta {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.header-stat {
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:.5px;
+}
+.header-stat strong {
+  font-size:18px;
+  font-weight:600;
+  color:var(--text);
+  display:block;
+  font-family:'Noto Sans SC',sans-serif;
+  line-height:1.2;
+  margin-bottom:2px;
+}
+.header-divider {
+  width:1px; height:28px;
+  background:var(--border-strong);
+}
+
+/* ── Chapter list ── */
+.chapters { padding:0 16px 60px; display:flex; flex-direction:column; gap:8px; max-width:860px; margin:0 auto; }
+
+/* 章节卡片：用左侧彩色边框替代整片渐变背景 */
+.ch {
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background:var(--surface);
+  transition:border-color .2s;
+}
+.ch:hover { border-color:var(--border-strong); }
+
+.ch-title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px 14px 20px;
+  cursor:pointer;
+  user-select:none;
+  font-weight:600;
+  font-size:15px;
+  color:var(--text);
+  position:relative;
+  transition:background .15s;
+}
+.ch-title:hover { background:rgba(255,255,255,.03); }
+.ch-title::before {
+  content:'';
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:3px;
+  border-radius:0;
+  transition:width .2s;
+}
+.ch.open .ch-title { background:rgba(255,255,255,.03); }
+
+/* 章节色彩：通过 accent 变量控制，只改左边框 */
+.ch1 { --accent:var(--c1); } .ch1 .ch-title::before { background:var(--c1); }
+.ch2 { --accent:var(--c2); } .ch2 .ch-title::before { background:var(--c2); }
+.ch3 { --accent:var(--c3); } .ch3 .ch-title::before { background:var(--c3); }
+.ch4 { --accent:var(--c4); } .ch4 .ch-title::before { background:var(--c4); }
+.ch5 { --accent:var(--c5); } .ch5 .ch-title::before { background:var(--c5); }
+.ch6 { --accent:var(--c6); } .ch6 .ch-title::before { background:var(--c6); }
+.ch7 { --accent:var(--c7); } .ch7 .ch-title::before { background:var(--c7); }
+.ch8 { --accent:var(--c8); } .ch8 .ch-title::before { background:var(--c8); }
+.ch9 { --accent:var(--c9); } .ch9 .ch-title::before { background:var(--c9); }
+
+.ch-title-text { flex:1; }
+.ch-title .badge {
+  font-size:11px;
+  font-weight:400;
+  color:var(--muted);
+  margin-left:8px;
+  font-family:'Noto Sans SC',sans-serif;
+}
+.ch-title .arrow {
+  font-size:10px;
+  color:var(--faint);
+  transition:transform .25s;
+  flex-shrink:0;
+  margin-left:12px;
+}
 .ch.open .arrow { transform:rotate(180deg); }
-.ch1 .ch-title { background:linear-gradient(135deg,#1d3a8a,#1e40af); }
-.ch2 .ch-title { background:linear-gradient(135deg,#064e3b,#065f46); }
-.ch3 .ch-title { background:linear-gradient(135deg,#78350f,#92400e); }
-.ch4 .ch-title { background:linear-gradient(135deg,#831843,#9d174d); }
-.ch5 .ch-title { background:linear-gradient(135deg,#4c1d95,#5b21b6); }
-.ch6 .ch-title { background:linear-gradient(135deg,#0e7490,#0369a1); }
-.ch7 .ch-title { background:linear-gradient(135deg,#9a3412,#c2410c); }
-.ch8 .ch-title { background:linear-gradient(135deg,#3f6212,#4d7c0f); }
-.ch9 .ch-title { background:linear-gradient(135deg,#881337,#9f1239); }
-.ch-body { background:var(--card); display:none; }
+
+/* ── 展开后：章节内容区 ── */
+.ch-body {
+  background:var(--card);
+  border-top:1px solid var(--border);
+  display:none;
+}
 .ch.open .ch-body { display:block; }
+
+/* ── 考点行 ── */
 .kp { border-bottom:1px solid var(--border); }
 .kp:last-child { border-bottom:none; }
-.kp-title { display:flex; align-items:center; gap:10px; padding:10px 16px; cursor:pointer; user-select:none; transition:background .15s; }
-.kp-title:active { background:rgba(255,255,255,.04); }
-.kp-num { font-size:11px; color:var(--muted); min-width:28px; }
-.kp-name { flex:1; font-size:13px; }
-.kp-arrow { font-size:10px; color:var(--muted); transition:transform .2s; }
+
+.kp-title {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 18px 11px 20px;
+  cursor:pointer;
+  user-select:none;
+  transition:background .15s;
+}
+.kp-title:hover { background:rgba(255,255,255,.03); }
+
+/* 考点编号：彩色胶囊，与章节同色 */
+.kp-num {
+  font-size:10px;
+  font-weight:600;
+  color:var(--accent);
+  min-width:36px;
+  white-space:nowrap;
+  letter-spacing:.3px;
+  font-family:'Noto Sans SC',sans-serif;
+}
+.kp-name {
+  flex:1;
+  font-size:14px;
+  font-weight:500;
+  color:var(--text);
+}
+.kp-arrow {
+  font-size:9px;
+  color:var(--faint);
+  transition:transform .2s;
+  flex-shrink:0;
+}
 .kp.open .kp-arrow { transform:rotate(180deg); }
-.kp-detail { display:none; padding:10px 16px 14px 54px; font-size:12px; color:var(--muted); line-height:1.8; }
+
+/* ── 考点详情 ── */
+.kp-detail {
+  display:none;
+  padding:14px 20px 18px 68px;
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.75;
+  border-top:1px solid var(--border);
+  background:rgba(0,0,0,.15);
+}
 .kp.open .kp-detail { display:block; }
-.kp-detail b { color:var(--text); }
-.kp-detail .tag { display:inline-block; background:rgba(255,255,255,.08); border-radius:4px; padding:1px 6px; font-size:11px; margin:1px 2px; color:#cbd5e1; }
-.kp-detail .formula { display:block; background:#0f172a; border-radius:6px; padding:6px 10px; margin:6px 0; font-size:12px; color:#93c5fd; letter-spacing:.5px; overflow-x:auto; white-space:pre-wrap; font-family:'Consolas','Courier New',monospace; }
-.kp-detail table { width:100%; border-collapse:collapse; margin:6px 0; font-size:11px; }
-.kp-detail td, .kp-detail th { border:1px solid var(--border); padding:4px 6px; text-align:center; }
-.kp-detail th { background:rgba(255,255,255,.06); color:var(--text); }
-.kp-detail ul { padding-left:14px; }
-.kp-detail li { margin:2px 0; }
+.kp-detail b { color:var(--text); font-weight:600; }
+
+.kp-detail .tag {
+  display:inline-block;
+  background:rgba(255,255,255,.07);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:1px 7px;
+  font-size:11px;
+  margin:1px 3px;
+  color:#9ab;
+}
+
+/* 公式：微蓝底 + 左侧边线，区别于普通代码块 */
+.kp-detail .formula {
+  display:block;
+  background:#111c2e;
+  border-left:2px solid var(--accent, #60a5fa);
+  border-radius:0 6px 6px 0;
+  padding:8px 14px;
+  margin:8px 0;
+  font-size:13px;
+  color:#93c5fd;
+  letter-spacing:.6px;
+  line-height:1.7;
+  overflow-x:auto;
+  white-space:pre-wrap;
+  font-family:'Consolas','Courier New',monospace;
+}
+
+/* 表格 */
+.kp-detail table {
+  width:100%;
+  border-collapse:collapse;
+  margin:10px 0;
+  font-size:12px;
+}
+.kp-detail td, .kp-detail th {
+  border:1px solid var(--border);
+  padding:6px 10px;
+  text-align:center;
+  vertical-align:middle;
+}
+.kp-detail th {
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.3px;
+}
+.kp-detail tr:hover td { background:rgba(255,255,255,.02); }
+.kp-detail ul { padding-left:16px; }
+.kp-detail li { margin:3px 0; }
+
+/* 语义色 */
 .kp-detail .tip { color:#fbbf24; }
 .kp-detail .ok  { color:#34d399; }
 .kp-detail .err { color:#f87171; }
-.kp-detail .kp-sub { display:block; color:var(--text); font-size:12px; margin-top:8px; font-weight:600; }
-.kp-detail .em { color:#fbbf24; font-weight:600; }
+.kp-detail .em  { color:#fbbf24; font-weight:600; }
+
+/* 子标题 */
+.kp-detail .kp-sub {
+  display:block;
+  color:var(--text);
+  font-size:12px;
+  font-weight:600;
+  margin-top:14px;
+  margin-bottom:4px;
+  letter-spacing:.3px;
+  text-transform:none;
+  padding-bottom:4px;
+  border-bottom:1px solid var(--border);
+}
+.kp-detail .kp-sub:first-child { margin-top:2px; }
+
+/* ── 响应式 ── */
+@media (max-width:600px) {
+  header { padding:28px 16px 24px; }
+  header h1 { font-size:21px; }
+  .chapters { padding:0 10px 48px; }
+  .kp-detail { padding-left:20px; }
+  .header-divider { display:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .arrow, .kp-arrow, .ch-title::before { transition:none; }
+}
 </style>
 </head>
 <body>
 <header>
-  <h1>德克离散数学 · 课程笔记</h1>
-  <p>共 {ch_count} 章 · 点击章节/考点展开详情</p>
+  <h1>离散数学 · 考点笔记</h1>
+  <div class="header-meta">
+    <div class="header-stat"><strong>{ch_count}</strong>章</div>
+    <div class="header-divider"></div>
+    <div class="header-stat"><strong>全国自考 02324</strong>考点覆盖</div>
+    <div class="header-divider"></div>
+    <div class="header-stat">点击章节展开考点</div>
+  </div>
 </header>
 <div class="chapters">
 """
