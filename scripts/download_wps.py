@@ -25,9 +25,9 @@ from playwright.async_api import async_playwright
 
 ROOT = os.path.dirname(os.path.abspath(__file__))       # scripts/
 PROJECT_ROOT = os.path.dirname(ROOT)                     # 项目根目录
-COOKIES_FILE = os.path.join(PROJECT_ROOT, "wps_cookies.json")
-TEMP_PROFILE = os.path.join(PROJECT_ROOT, ".wps-temp-profile")
-TEMP_PROFILE_CHROME = os.path.join(PROJECT_ROOT, ".wps-temp-chrome")
+COOKIES_FILE = os.path.join(ROOT, "wps_cookies.json")
+TEMP_PROFILE = os.path.join(ROOT, ".wps-temp-profile")
+TEMP_PROFILE_CHROME = os.path.join(ROOT, ".wps-temp-chrome")
 WPS_URL = "https://www.kdocs.cn/l/cp1CPS0QvBWV"
 
 
