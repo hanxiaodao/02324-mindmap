@@ -1,14 +1,10 @@
 name: Deploy Mind Map
 
 on:
-  # 手动触发（推荐：在 GitHub Actions 页面点击 Run workflow）
   workflow_dispatch:
+  push:
+    branches: [master]
 
-  # 后续接入语雀/Notion 后可以取消注释，改为定时或 webhook 触发
-  # schedule:
-  #   - cron: '*/30 * * * *'   # 每30分钟
-
-# Pages 部署所需权限
 permissions:
   contents: read
   pages: write
@@ -31,12 +27,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if (Test-Path requirements.txt) { pip install -r requirements.txt }
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        shell: bash
 
       - name: Generate HTML
         run: |
-          if (Test-Path generate.py) { python generate.py }
-        shell: pwsh
+          if [ -f generate.py ]; then python generate.py; fi
+        shell: bash
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
