@@ -60,7 +60,7 @@ Write-Host "▶ Step 3/3: 推送到 GitHub Pages..." -ForegroundColor Yellow
 
 Push-Location $ROOT
 
-git add index.html generate.py download_wps.py update.ps1 update.bat .gitignore README.md
+git add index.html generate.py download_wps.py update.ps1 update.bat .gitignore README.md requirements.txt
 Write-Host "  git add ✓"
 
 $commitMsg = "update: $(Get-Date -Format 'MM-dd HH:mm')"
