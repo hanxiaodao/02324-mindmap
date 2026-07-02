@@ -8,9 +8,12 @@
 
 ```
 ├── index.html               # 思维导图页面（浏览器打开 / Pages 部署）
-├── download_wps.py          # 从 WPS 云文档下载最新 .docx
-├── generate.py              # 从 .docx 生成 index.html（零 LLM 依赖）
-├── update.ps1               # 一键运行：下载 + 生成
+├── update.bat               # 双击入口，调用 scripts/update.ps1
+├── scripts/                 # 自动化构建脚本
+│   ├── download_wps.py      # 从 WPS 云文档下载最新 .docx
+│   ├── generate.py          # 从 .docx 生成 index.html（零 LLM 依赖）
+│   ├── update.ps1           # 一键运行：下载 + 生成 + 推送
+│   └── requirements.txt     # Python 依赖
 └── .github/workflows/       # GitHub Actions 自动部署
 ```
 
@@ -18,7 +21,7 @@
 
 ### 一键流程
 
-1. **双击** `update.ps1`
+1. **双击** `update.bat`
 2. 脚本自动完成全部：
    - 从 WPS 云文档下载最新笔记
    - 生成 `index.html`
@@ -33,18 +36,18 @@
 
 ```bash
 # 只下载
-python download_wps.py
+python scripts\download_wps.py
 
 # 只生成（指定 docx）
-python generate.py --docx 文件名.docx
+python scripts\generate.py --docx 文件名.docx
 
 # 只生成（自动找目录下的 docx）
-python generate.py
+python scripts\generate.py
 ```
 
 ## 发布到 GitHub Pages
 
-`update.ps1` 已自动执行 git push，无需手动操作。
+`update.bat` 已自动执行 git push，无需手动操作。
 
 如果只想手动发布：
 ```bash

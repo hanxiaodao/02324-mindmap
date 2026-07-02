@@ -18,7 +18,8 @@ from collections import OrderedDict
 from docx import Document
 from docx.oxml.ns import qn
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.abspath(__file__))        # scripts/
+PROJECT_ROOT = os.path.dirname(ROOT)                      # 项目根目录
 
 # ── HTML 模板（复用已有样式） ──
 
@@ -367,14 +368,14 @@ def main():
     # 查找 docx
     docx_path = args.docx
     if docx_path is None:
-        candidates = [f for f in os.listdir(ROOT) if f.endswith('.docx') and not f.startswith('~')]
+        candidates = [f for f in os.listdir(PROJECT_ROOT) if f.endswith('.docx') and not f.startswith('~')]
         if not candidates:
             print('❌ 未找到 .docx 文件')
             sys.exit(1)
-        docx_path = os.path.join(ROOT, candidates[0])
+        docx_path = os.path.join(PROJECT_ROOT, candidates[0])
         print(f'📄 使用: {os.path.basename(docx_path)}')
 
-    output = args.output or os.path.join(ROOT, 'index.html')
+    output = args.output or os.path.join(PROJECT_ROOT, 'index.html')
 
     print(f'📖 正在解析: {docx_path}')
     html = docx_to_html(docx_path)

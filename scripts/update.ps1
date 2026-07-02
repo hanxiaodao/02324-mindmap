@@ -7,7 +7,8 @@
   3. 推送到 GitHub → Actions 自动部署到 Pages
 #>
 
-$ROOT = Split-Path -Parent $PSCommandPath
+$SCRIPT_DIR = Split-Path -Parent $PSCommandPath
+$ROOT = Split-Path -Parent $SCRIPT_DIR
 
 Write-Host "╔══════════════════════════════════════╗" -ForegroundColor Cyan
 Write-Host "║  02324 离散数学 · 思维导图更新工具  ║" -ForegroundColor Cyan
@@ -34,7 +35,7 @@ Write-Host ""
 # ── Step 1: 下载 WPS 文档 ──
 if (-not $skipDownload) {
     Write-Host "▶ Step 1/3: 从 WPS 下载最新笔记..." -ForegroundColor Yellow
-    python "$ROOT\download_wps.py"
+    python "$SCRIPT_DIR\download_wps.py"
     if ($LASTEXITCODE -ne 0) {
         Write-Host "❌ Step 1 失败，已退出" -ForegroundColor Red
         pause
@@ -46,7 +47,7 @@ if (-not $skipDownload) {
 if (-not $skipGenerate) {
     Write-Host ""
     Write-Host "▶ Step 2/3: 生成思维导图 HTML..." -ForegroundColor Yellow
-    python "$ROOT\generate.py"
+    python "$SCRIPT_DIR\generate.py"
     if ($LASTEXITCODE -ne 0) {
         Write-Host "❌ Step 2 失败，已退出" -ForegroundColor Red
         pause
@@ -60,7 +61,7 @@ Write-Host "▶ Step 3/3: 推送到 GitHub Pages..." -ForegroundColor Yellow
 
 Push-Location $ROOT
 
-git add index.html generate.py download_wps.py update.ps1 update.bat .gitignore README.md requirements.txt
+git add index.html scripts/ update.bat .gitignore README.md
 Write-Host "  git add ✓"
 
 $commitMsg = "update: $(Get-Date -Format 'MM-dd HH:mm')"
