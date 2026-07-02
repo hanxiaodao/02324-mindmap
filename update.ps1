@@ -14,23 +14,44 @@ Write-Host "║  02324 离散数学 · 思维导图更新工具  ║" -Foregroun
 Write-Host "╚══════════════════════════════════════╝" -ForegroundColor Cyan
 Write-Host ""
 
+# ── 步骤选择 ──
+Write-Host "请选择执行步骤:" -ForegroundColor White
+Write-Host "  1) 全流程（下载 → 生成 → 推送）" -ForegroundColor Cyan
+Write-Host "  2) 仅 生成 → 推送（跳过下载）" -ForegroundColor Cyan
+Write-Host "  3) 仅 推送（跳过下载和生成）" -ForegroundColor Cyan
+Write-Host "  0) 退出" -ForegroundColor Gray
+$choice = Read-Host "请选择 (0-3)"
+
+switch ($choice) {
+    "0" { Write-Host "已退出" -ForegroundColor Gray; exit 0 }
+    "2" { $skipDownload = $true; $skipGenerate = $false }
+    "3" { $skipDownload = $true; $skipGenerate = $true }
+    default { $skipDownload = $false; $skipGenerate = $false }
+}
+
+Write-Host ""
+
 # ── Step 1: 下载 WPS 文档 ──
-Write-Host "▶ Step 1/3: 从 WPS 下载最新笔记..." -ForegroundColor Yellow
-python "$ROOT\download_wps.py"
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "❌ Step 1 失败，已退出" -ForegroundColor Red
-    pause
-    exit 1
+if (-not $skipDownload) {
+    Write-Host "▶ Step 1/3: 从 WPS 下载最新笔记..." -ForegroundColor Yellow
+    python "$ROOT\download_wps.py"
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "❌ Step 1 失败，已退出" -ForegroundColor Red
+        pause
+        exit 1
+    }
 }
 
 # ── Step 2: 生成 HTML ──
-Write-Host ""
-Write-Host "▶ Step 2/3: 生成思维导图 HTML..." -ForegroundColor Yellow
-python "$ROOT\generate.py"
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "❌ Step 2 失败，已退出" -ForegroundColor Red
-    pause
-    exit 1
+if (-not $skipGenerate) {
+    Write-Host ""
+    Write-Host "▶ Step 2/3: 生成思维导图 HTML..." -ForegroundColor Yellow
+    python "$ROOT\generate.py"
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "❌ Step 2 失败，已退出" -ForegroundColor Red
+        pause
+        exit 1
+    }
 }
 
 # ── Step 3: 推送到 GitHub ──
@@ -50,7 +71,8 @@ if ($LASTEXITCODE -ne 0) {
 
 git push
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "❌ git push 失败，检查网络连接后重试" -ForegroundColor Red
+    Write-Host ""
+    Write-Host "❌ 推送失败（网络问题），重试请选 3) 仅推送" -ForegroundColor Red
     Pop-Location
     pause
     exit 1
