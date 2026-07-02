@@ -18,6 +18,10 @@ venv/
 .vscode/
 .idea/
 
+# WPS cookies（含登录 token，禁止提交）
+wps_cookies.json
+.wps-temp-profile/
+
 # 临时文件
 *.tmp
 *.log
