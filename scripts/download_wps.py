@@ -50,6 +50,7 @@ async def download_with_cookies():
         context = await p.chromium.launch_persistent_context(
             TEMP_PROFILE,
             headless=False,  # 有窗口但不需要用户操作，方便看到进度
+            proxy={"server": "http://127.0.0.1:12002"},
             args=["--window-size=1024,768"],
         )
         page = context.pages[0] if context.pages else await context.new_page()
@@ -115,6 +116,7 @@ async def download_with_chrome():
             TEMP_PROFILE_CHROME,
             channel="chrome",
             headless=False,
+            proxy={"server": "http://127.0.0.1:12002"},
             args=["--window-size=1024,768"],
         )
         page = context.pages[0] if context.pages else await context.new_page()
