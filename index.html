@@ -530,7 +530,7 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <span class="kp-sub">8.5 例题：等值演算</span>
 <span class="formula"><b>题目：</b> 证明 (P→Q)∧(R→Q)⇔(P∨R)→Q</span>
 <b>证明过程：</b><br>
-<span class="formula">左&amp;⇔(¬P∨Q)∧(¬R∨Q)&amp;⇔(¬P∧¬R)∨Q&amp;⇔¬(P∨R)∨Q&amp;⇔(P∨R)→Q</span>
+<span class="formula">左 ⇔ (¬P∨Q)∧(¬R∨Q) // 消除单条件⇔ (¬P∧¬R)∨Q // 分配律⇔ ¬(P∨R)∨Q // 德摩根律⇔ (P∨R)→Q // 还原为单条件</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点9</span><span class="kp-name">成真指派和成假指派</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">9.1 基本概念</span>
@@ -765,33 +765,32 @@ y 在 ∀x 的辖域内、与指导变元 x 不同，但被内层 ∀y 约束 �
 <span class="kp-sub">8.1 定义</span>
 <b>前束范式：</b> 所有量词都在最前面，辖域为整个公式的形式。<br>
 <span class="kp-sub">8.2 转化步骤</span>
-<b>改名规则：</b> 不同辖域内相同的变元要改名<br>
-<span class="formula"><b>消除单条件：</b> 将 → 改为 ¬ ∨</span>
-<b>移动量词：</b> 利用等值公式将量词移到前面<br>
+<b>① 改名规则：</b> 不同辖域内相同的变元要改名<br>
+<b>② 消除单条件：</b> 将 A → B 改写为 ¬A ∨ B<br>
+<b>③ 移动量词：</b> 利用等值公式将量词移到前面<br>
 <span class="kp-sub">8.3 示例</span>
 <span class="formula"><b>题目：</b> 将 ¬∀x P(x) → Q(y) 化为前束范式</span>
 <b>步骤：</b><br>
-<span class="formula">¬∀xP(x)→Q(y)&amp;⇔¬(¬∀xP(x))∨Q(y)&amp;⇔∃xP(x)∨Q(y)&amp;⇔∃x(P(x)∨Q(y))</span>
+<span class="formula">¬∀xP(x)→Q(y) ⇔ ¬(¬∀xP(x))∨Q(y) // 消除单条件⇔ ∃xP(x)∨Q(y) // 量词否定律⇔ ∃x(P(x)∨Q(y)) // 移动量词（x 不在 Q(y) 中自由出现）</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点9</span><span class="kp-name">谓词推理</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">9.1 推理规则</span>
-<b>核心规则：全称成立则单个成立</b><br>
-<span class="formula">如果 ∀x P(x) 成立</span>
-则对于论域中的任意一个具体元素 c，P(c) 也成立<br>
+<b>核心规则（全称量词消去 UI）：全称成立则单个成立</b><br>
+<span class="formula">∀x P(x) ⇒ P(c)　// c 为论域中的任意一个具体元素</span>
 <span class="kp-sub">9.2 示例</span>
 <b>题目：</b><br>
-条件1：所有人上这门课的人，都掌握图论知识<br>
+条件1：所有上这门课的人，都掌握图论知识<br>
 条件2：小华是上这门课的人<br>
 结论：小华掌握图论知识<br>
 <b>符号化：</b><br>
-<span class="formula">条件1：∀x (P(x) → Q(x))</span>
+条件1：∀x (P(x) → Q(x))<br>
 条件2：P(小华)<br>
 结论：Q(小华)<br>
 <b>证明：</b><br>
-<span class="formula">∀x (P(x) → Q(x)) [条件1]</span>
-<span class="formula">由1，取 x = 小华，得 P(小华) → Q(小华) [全称→单个]</span>
-P(小华) [条件2]<br>
-<span class="formula">由2和3，得 Q(小华) [前件成立→后件成立]</span>
+<span class="formula">① ∀x (P(x) → Q(x))　[条件1]</span>
+<span class="formula">② P(小华) → Q(小华)　[① 全称量词消去 UI，取 x = 小华]</span>
+<span class="formula">③ P(小华)　[条件2]</span>
+<span class="formula">④ Q(小华)　[②③ 假言推理]</span>
 </div></div>
 </div></div>
 
