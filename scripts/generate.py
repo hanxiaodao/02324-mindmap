@@ -329,10 +329,10 @@ header h1 {
 }
 .kp-detail .kp-sub:first-child { margin-top:2px; }
 
-/* ── 主题切换按钮 ── */
-.theme-toggle {
+/* ── 右上角功能按钮（导出 / 主题切换 / GitHub） ── */
+.theme-toggle, .github-link, .export-md {
   position:fixed;
-  top:16px; right:64px;
+  top:16px;
   width:38px; height:38px;
   border-radius:50%;
   border:1px solid var(--border);
@@ -347,55 +347,43 @@ header h1 {
   box-shadow:0 2px 8px rgba(0,0,0,.12);
   transition:border-color .2s, color .2s, transform .15s;
 }
-.theme-toggle:hover {
+.theme-toggle:hover, .github-link:hover, .export-md:hover {
   border-color:var(--border-strong);
   color:var(--text);
   transform:scale(1.06);
 }
+.theme-toggle { right:64px; }
+.github-link { right:16px; }
+.export-md { right:112px; }
 .theme-toggle .icon-sun { display:none; }
 :root[data-theme="light"] .theme-toggle .icon-sun { display:block; }
 :root[data-theme="light"] .theme-toggle .icon-moon { display:none; }
-.github-link {
-  position:fixed;
-  top:16px; right:16px;
-  width:38px; height:38px;
-  border-radius:50%;
-  border:1px solid var(--border);
-  background:var(--surface);
-  color:var(--muted);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
-  transition:border-color .2s, color .2s, transform .15s;
-}
-.github-link:hover {
-  border-color:var(--border-strong);
-  color:var(--text);
-  transform:scale(1.06);
-}
 
 /* 键盘焦点 */
 .ch-title:focus-visible, .kp-title:focus-visible { outline:2px solid var(--c1); outline-offset:-2px; }
-.theme-toggle:focus-visible, .github-link:focus-visible { outline:2px solid var(--c1); outline-offset:2px; }
+.theme-toggle:focus-visible, .github-link:focus-visible, .export-md:focus-visible { outline:2px solid var(--c1); outline-offset:2px; }
 
 /* ── 响应式 ── */
 @media (max-width:600px) {
-  header { padding:28px 16px 24px; }
+  header { padding:52px 16px 24px; }
   header h1 { font-size:21px; }
   .chapters { padding:0 10px 48px; }
   .kp-detail { padding-left:20px; }
   .header-divider { display:none; }
-  .theme-toggle { top:10px; right:56px; }
-  .github-link { top:10px; right:10px; }
+  .theme-toggle, .github-link, .export-md { top:10px; width:36px; height:36px; }
+  .theme-toggle { right:52px; }
+  .github-link { right:10px; }
+  .export-md { right:94px; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .arrow, .kp-arrow, .ch-title::before, .theme-toggle { transition:none; }
+  .arrow, .kp-arrow, .ch-title::before, .theme-toggle, .github-link, .export-md { transition:none; }
 }
 </style>
 </head>
 <body>
+<button class="export-md" onclick="exportMarkdown()" aria-label="导出为 Markdown 笔记" title="导出为 Markdown 笔记">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+</button>
 <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换亮色/暗色模式" title="切换亮色/暗色模式">
   <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
   <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -420,6 +408,10 @@ function toggleTheme(){var r=document.documentElement,next=r.getAttribute('data-
 document.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;var el=e.target;if(el.classList&&el.classList.contains('ch-title')){e.preventDefault();toggleCh(el)}else if(el.classList&&el.classList.contains('kp-title')){e.preventDefault();toggleKp(el)}});
 function toggleCh(el){var ch=el.closest('.ch'),isOpen=ch.classList.contains('open');ch.classList.toggle('open');el.setAttribute('aria-expanded',String(!isOpen));if(!isOpen){ch.querySelectorAll('.kp-detail').forEach(function(d){d.style.display='none'});ch.querySelectorAll('.kp').forEach(function(k){k.classList.remove('open')});ch.querySelectorAll('.kp-title').forEach(function(t){t.setAttribute('aria-expanded','false')})}}
 function toggleKp(el){var kp=el.closest('.kp'),isOpen=kp.classList.contains('open');kp.classList.toggle('open');el.setAttribute('aria-expanded',String(!isOpen));kp.querySelector('.kp-detail').style.display=isOpen?'none':'block'}
+function mdInline(n){if(n.nodeType===3)return n.textContent;if(n.nodeType!==1)return '';if(n.tagName==='BR')return '\n';var s='';for(var i=0;i<n.childNodes.length;i++)s+=mdInline(n.childNodes[i]);var t=n.tagName;if(t==='B'||t==='STRONG')return '**'+s.trim()+'**';return s}
+function mdTable(t){var rows=[].map.call(t.rows,function(r){return [].map.call(r.cells,function(c){return mdInline(c).trim().replace(/\|/g,'\\|').replace(/\n/g,' ')})});if(!rows.length)return '';function line(cs){return '| '+cs.join(' | ')+' |'}var out=[line(rows[0]),line(rows[0].map(function(){return '---'}))];for(var i=1;i<rows.length;i++)out.push(line(rows[i]));return out.join('\n')}
+function mdDetail(el){var lines=[],cur='';function flush(){cur=cur.trim();if(cur)lines.push(cur);cur=''}[].forEach.call(el.childNodes,function(n){if(n.nodeType===3){cur+=n.textContent.replace(/\s+/g,' ');return}if(n.nodeType!==1)return;var tag=n.tagName;if(tag==='BR'){flush();return}if(tag==='TABLE'){flush();lines.push(mdTable(n));return}if(tag==='UL'){flush();[].forEach.call(n.children,function(li){lines.push('- '+mdInline(li).trim())});return}var txt=mdInline(n).trim();if(!txt)return;if(n.classList.contains('kp-sub')){flush();lines.push('#### '+txt);return}if(n.classList.contains('formula')){flush();txt.split('\n').forEach(function(l){lines.push('> '+l)});return}cur+=mdInline(n)});flush();return lines.join('\n\n')}
+function exportMarkdown(){var parts=[];var h1=document.querySelector('header h1');parts.push('# '+(h1?h1.textContent.trim():'离散数学 · 考点笔记'));var stats=[].map.call(document.querySelectorAll('.header-stat'),function(s){return s.textContent.replace(/\s+/g,' ').trim()});if(stats.length)parts.push('> '+stats.join(' · '));[].forEach.call(document.querySelectorAll('.ch'),function(ch){var ts=ch.querySelector('.ch-title span');var title='';if(ts){var c=ts.cloneNode(true);[].forEach.call(c.querySelectorAll('.badge'),function(b){b.remove()});title=c.textContent.trim()}parts.push('## '+title);[].forEach.call(ch.querySelectorAll('.kp'),function(kp){var num=kp.querySelector('.kp-num'),name=kp.querySelector('.kp-name');var head=((num?num.textContent.trim():'')+' '+(name?name.textContent.trim():'')).trim();parts.push('### '+head);var d=kp.querySelector('.kp-detail');var dt=d?mdDetail(d):'';if(dt)parts.push(dt)})});parts.push('---');parts.push('*导出于 '+new Date().toLocaleString('zh-CN',{hour12:false})+'*');var md=parts.join('\n\n');var blob=new Blob(['\ufeff'+md],{type:'text/markdown;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='离散数学考点笔记.md';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);return md}
 </script>
 </div></body></html>
 """

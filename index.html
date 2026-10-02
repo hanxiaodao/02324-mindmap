@@ -304,10 +304,10 @@ header h1 {
 }
 .kp-detail .kp-sub:first-child { margin-top:2px; }
 
-/* ── 主题切换按钮 ── */
-.theme-toggle {
+/* ── 右上角功能按钮（导出 / 主题切换 / GitHub） ── */
+.theme-toggle, .github-link, .export-md {
   position:fixed;
-  top:16px; right:64px;
+  top:16px;
   width:38px; height:38px;
   border-radius:50%;
   border:1px solid var(--border);
@@ -322,55 +322,43 @@ header h1 {
   box-shadow:0 2px 8px rgba(0,0,0,.12);
   transition:border-color .2s, color .2s, transform .15s;
 }
-.theme-toggle:hover {
+.theme-toggle:hover, .github-link:hover, .export-md:hover {
   border-color:var(--border-strong);
   color:var(--text);
   transform:scale(1.06);
 }
+.theme-toggle { right:64px; }
+.github-link { right:16px; }
+.export-md { right:112px; }
 .theme-toggle .icon-sun { display:none; }
 :root[data-theme="light"] .theme-toggle .icon-sun { display:block; }
 :root[data-theme="light"] .theme-toggle .icon-moon { display:none; }
-.github-link {
-  position:fixed;
-  top:16px; right:16px;
-  width:38px; height:38px;
-  border-radius:50%;
-  border:1px solid var(--border);
-  background:var(--surface);
-  color:var(--muted);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
-  transition:border-color .2s, color .2s, transform .15s;
-}
-.github-link:hover {
-  border-color:var(--border-strong);
-  color:var(--text);
-  transform:scale(1.06);
-}
 
 /* 键盘焦点 */
 .ch-title:focus-visible, .kp-title:focus-visible { outline:2px solid var(--c1); outline-offset:-2px; }
-.theme-toggle:focus-visible, .github-link:focus-visible { outline:2px solid var(--c1); outline-offset:2px; }
+.theme-toggle:focus-visible, .github-link:focus-visible, .export-md:focus-visible { outline:2px solid var(--c1); outline-offset:2px; }
 
 /* ── 响应式 ── */
 @media (max-width:600px) {
-  header { padding:28px 16px 24px; }
+  header { padding:52px 16px 24px; }
   header h1 { font-size:21px; }
   .chapters { padding:0 10px 48px; }
   .kp-detail { padding-left:20px; }
   .header-divider { display:none; }
-  .theme-toggle { top:10px; right:56px; }
-  .github-link { top:10px; right:10px; }
+  .theme-toggle, .github-link, .export-md { top:10px; width:36px; height:36px; }
+  .theme-toggle { right:52px; }
+  .github-link { right:10px; }
+  .export-md { right:94px; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .arrow, .kp-arrow, .ch-title::before, .theme-toggle { transition:none; }
+  .arrow, .kp-arrow, .ch-title::before, .theme-toggle, .github-link, .export-md { transition:none; }
 }
 </style>
 </head>
 <body>
+<button class="export-md" onclick="exportMarkdown()" aria-label="导出为 Markdown 笔记" title="导出为 Markdown 笔记">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+</button>
 <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换亮色/暗色模式" title="切换亮色/暗色模式">
   <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
   <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -795,7 +783,7 @@ y 在 ∀x 的辖域内、与指导变元 x 不同，但被内层 ∀y 约束 �
 </div></div>
 
 <div class="ch ch4">
-<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第四章 · 集合<span class="badge">7考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第四章 · 集合<span class="badge">8考点</span></span><span class="arrow">▼</span></div>
 <div class="ch-body">
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点1</span><span class="kp-name">集合的基本概念</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">1.1 定义</span>
@@ -811,7 +799,6 @@ y 在 ∀x 的辖域内、与指导变元 x 不同，但被内层 ∀y 约束 �
 <span class="kp-sub">2.2 重要结论</span>
 <b>空集是任意集合的子集</b><br>
 <b>集合是它自己的子集</b>，但不是它自己的真子集<br>
-Screenshot-[101:56]<br>
 <span class="kp-sub">2.3 示例</span>
 设 A = {1, 2, 3}，则：<br>
 A 的子集：∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}<br>
@@ -823,7 +810,6 @@ A 的真子集：∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}<br>
 <b>符号：</b> P(A) 或 2^A<br>
 <span class="kp-sub">3.2 重要公式</span>
 <table><tr><th>A 的元素个数</th><th>幂集的元素个数</th></tr><tr><td>n</td><td>2^n</td></tr></table>
-Screenshot-[111:58]<br>
 <span class="kp-sub">3.3 示例</span>
 <b>A = {1, 2}</b><br>
 A 的幂集：P(A) = {∅, {1}, {2}, {1,2}}<br>
@@ -835,7 +821,6 @@ A 有 2 个元素（∅ 和 {∅} 各算一个元素）<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点4</span><span class="kp-name">集合的运算</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">4.1 三种基本运算</span>
 <table><tr><th>运算</th><th>符号</th><th>含义</th><th>韦恩图</th></tr><tr><td>交集</td><td>A ∩ B</td><td>两个集合重合的部分</td><td>重叠区域</td></tr><tr><td>并集</td><td>A ∪ B</td><td>两个集合合并（重复只算一次）</td><td>整个覆盖区域</td></tr><tr><td>差集</td><td>A - B</td><td>从 A 中去掉与 B 重合的部分</td><td>A 剩余部分</td></tr></table>
-Screenshot-[115:22]<br>
 <span class="kp-sub">4.2 示例</span>
 设 A = {1, 2, 3, 4}，B = {2, 4, 5, 6}<br>
 <b>A ∩ B</b> = {2, 4}<br>
@@ -847,7 +832,6 @@ Screenshot-[115:22]<br>
 <span class="kp-sub">5.1 定义</span>
 <b>对称差（A </b><b>⊕</b><b> B）：</b> 两个集合合并后去掉重合的部分。<br>
 <b>公式：</b> A <b>⊕</b> B = (A ∪ B) - (A ∩ B)<br>
-Screenshot-[120:36]<br>
 <span class="kp-sub">5.2 示例</span>
 设 A = {1, 2, 3}，B = {2, 3, 4}<br>
 A ∪ B = {1, 2, 3, 4}<br>
@@ -859,7 +843,6 @@ A ∩ B = {2, 3}<br>
 <b>有序队（序偶）：</b> 两个元素组成的一对，前后顺序有区别。 <b>符号：</b> (a, b) 表示 a 在前，b 在后。<br>
 <span class="kp-sub">6.2 笛卡尔积定义</span>
 <b>A × B：</b> 从 A 取一个元素作为第一个元素，从 B 取一个元素作为第二个元素，组成所有可能的有序对。<br>
-Screenshot-[125:27]<br>
 <span class="kp-sub">6.3 重要公式</span>
 |A×B|=|A|×|B|<br>
 <span class="kp-sub">6.4 示例</span>
@@ -875,18 +858,31 @@ A × B = {(1,3), (1,4), (2,3), (2,4)}<br>
 A×(B∪C)=(A×B)∪(A×C)<br>
 A×(B∩C)=(A×B)∩(A×C)<br>
 A×(B−C)=(A×B)−(A×C)<br>
-Screenshot-[128:58]<br>
+</div></div>
+<div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点8</span><span class="kp-name">容斥原理与幂集恒等式</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<span class="kp-sub">8.1 容斥原理</span>
+<span class="formula"><b>两个集合：</b> |A∪B| = |A| + |B| − |A∩B|</span>
+<span class="formula"><b>三个集合：</b> |A∪B∪C| = |A|+|B|+|C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|</span>
+<b>口诀：</b> 单个加、两两减、三个加回去（奇加偶减）<br>
+<span class="kp-sub">8.2 幂集与交并的恒等式</span>
+<span class="formula">P(A)∩P(B) = P(A∩B)　　P(A)∪P(B) ⊆ P(A∪B)（一般取不到等号）</span>
+反例：A={1}, B={2} 时 {1,2}∈P(A∪B)，但 {1,2}∉P(A)∪P(B)<br>
+<span class="kp-sub">8.3 证明 P(A)∩P(B)=P(A∩B)（双向包含法）</span>
+→：任取 S∈P(A)∩P(B)，则 S⊆A 且 S⊆B → S⊆A∩B → S∈P(A∩B)<br>
+←：任取 S∈P(A∩B)，则 S⊆A∩B → S⊆A 且 S⊆B → S∈P(A)∩P(B)<br>
+两个方向都成立，故相等 ✓<br>
+<span class="kp-sub">8.4 集合恒等式证明套路</span>
+① 双向包含法（证 x∈左 ⇔ x∈右）　② 恒等式代换（从已知定律推）　③ 成员表 / 文氏图验证<br>
 </div></div>
 </div></div>
 
 <div class="ch ch5">
-<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第五章 · 关系<span class="badge">25考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第五章 · 关系<span class="badge">26考点</span></span><span class="arrow">▼</span></div>
 <div class="ch-body">
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点1</span><span class="kp-name">关系的基本概念</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">1.1 定义</span>
 <b>2元关系：</b> 两个元素之间的联系（不是具体的某种关系）。<br>
 <b>表示：</b> 用有序对表示有关系的两个元素。<br>
-Screenshot-[129:43]<br>
 <span class="kp-sub">1.2 关系与笛卡尔积</span>
 A × B = 所有元素之间<b>都有</b>关系<br>
 R（关系）= 从 A × B 中<b>取一部分</b>出来<br>
@@ -897,7 +893,6 @@ R（关系）= 从 A × B 中<b>取一部分</b>出来<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点2</span><span class="kp-name">关系的表示</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">2.1 三种表示方法</span>
 <table><tr><th>方法</th><th>描述</th></tr><tr><td>有序对集合</td><td>直接列出有序对</td></tr><tr><td>关系矩阵（布尔矩阵）</td><td>矩阵中 (i,j) 位置为1表示有关系</td></tr><tr><td>关系图</td><td>有关系则有箭头指向</td></tr></table>
-Screenshot-[131:30]<br>
 <span class="kp-sub">2.2 关系矩阵</span>
 对于 A = {1, 2, 3} 上的关系 R = {(1,1), (2,3), (3,1)}：<br>
 1  2  31 [ 1  0  0 ]2 [ 0  0  1 ]3 [ 1  0  0 ]<br>
@@ -907,7 +902,6 @@ Screenshot-[131:30]<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点3</span><span class="kp-name">考点3：自反和反自反</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">3.1 定义</span>
 <table><tr><th>性质</th><th>定义</th><th>条件</th></tr><tr><td>自反</td><td>A 中每个元素都和自己有关系</td><td>关系矩阵对角线全为1</td></tr><tr><td>反自反</td><td>A 中每个元素都和自己没关系</td><td>关系矩阵对角线全为0</td></tr></table>
-Screenshot-[138:00]<br>
 <span class="kp-sub">3.2 判断方法</span>
 <b>方法一：分析有序对</b><br>
 自反：必须同时包含 (1,1), (2,2), (3,3)<br>
@@ -925,7 +919,6 @@ Screenshot-[138:00]<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点4</span><span class="kp-name">考点4：对称和反对称</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">4.1 定义</span>
 <table><tr><th>性质</th><th>定义</th><th>条件</th></tr><tr><td>对称</td><td>若两元素有关系，反过来也有关系</td><td>对角线外对称出现</td></tr><tr><td>反对称</td><td>两不同元素有关系，反过来没关系</td><td>对角线外不对称出现</td></tr></table>
-Screenshot-[145:52]<br>
 <span class="kp-sub">4.2 判断方法</span>
 <b>对称：</b> 关系矩阵中所有1在对角线外<b>对称出现</b><br>
 <b>反对称：</b> 关系矩阵中所有1在对角线外<b>不对称出现</b><br>
@@ -940,7 +933,6 @@ Screenshot-[145:52]<br>
 在关系中找可以连接的两个有序对<br>
 连接后看结果是否仍在关系中<br>
 若全部都在，则满足传递性<br>
-Screenshot-[152:18]<br>
 <span class="kp-sub">5.3 示例</span>
 R = {(A,B), (A,D), (B,C), (C,D)}<br>
 <span class="formula">(A,B) 和 (B,C) → 应得 (A,C)</span>
@@ -969,7 +961,6 @@ R = {(1,1), (1,2)} S = {(2,3)}<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点8</span><span class="kp-name">关系运算后的性质</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">8.1 重要结论</span>
 <table><tr><th>性质</th><th>逆关系 R⁻¹</th><th>交 R ∩ S</th><th>并 R ∪ S</th><th>复合 R ∘ S</th></tr><tr><td>自反</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>反自反</td><td>✓</td><td>✓</td><td>✓</td><td>?</td></tr><tr><td>对称</td><td>✓</td><td>✓</td><td>✓</td><td>?</td></tr><tr><td>反对称</td><td>✓</td><td>✓</td><td>?</td><td>?</td></tr><tr><td>传递</td><td>✓</td><td>✓</td><td>?</td><td>?</td></tr></table>
-Screenshot-[159:36]<br>
 <span class="kp-sub">8.2 记忆要点</span>
 <b>逆关系：</b> 所有性质都保持<br>
 <b>交运算：</b> 自反、反自反、对称、反对称、传递全部保持（反对称对子集遗传）<br>
@@ -979,7 +970,6 @@ Screenshot-[159:36]<br>
 <span class="kp-sub">9.1 定义</span>
 <b>闭包：</b> 使一个不满足某种性质的关系，通过补充有序对，变为满足该性质的关系。<br>
 <table><tr><th>闭包类型</th><th>符号</th><th>补充内容</th></tr><tr><td>自反闭包(Reflexive)</td><td>r(R)</td><td>补充所有 (a,a)</td></tr><tr><td>对称闭包(Symmetric)</td><td>s(R)</td><td>补充所有 (b,a)（当 (a,b) 存在时）</td></tr><tr><td>传递闭包(Transitive)</td><td>t(R)</td><td>补充所有可连接出的新有序对</td></tr></table>
-Screenshot-[163:40]<br>
 <span class="kp-sub">9.2 求传递闭包的方法</span>
 找出所有可连接的有序对<br>
 将新产生的有序对加入关系<br>
@@ -989,7 +979,6 @@ Screenshot-[163:40]<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点10</span><span class="kp-name">等价关系</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">10.1 定义</span>
 <b>等价关系：</b> 同时满足<b>自反性、对称性、传递性</b>的关系。<br>
-Screenshot-[167:10]<br>
 <span class="kp-sub">10.2 关系分类</span>
 <table><tr><th>关系</th><th>自反</th><th>对称</th><th>传递</th></tr><tr><td>等价关系</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>相容关系</td><td>✓</td><td>✓</td><td>✗</td></tr><tr><td>偏序关系</td><td>✓</td><td>✗</td><td>✓</td></tr><tr><td>拟序关系</td><td>✗</td><td>✗</td><td>✓</td></tr></table>
 </div></div>
@@ -1033,7 +1022,6 @@ A = {1, 2, 3}，R = {(1,1), (1,2), (2,1), (2,2), (3,3)}<br>
 设两个不同的等价关系 R 和 S<br>
 对每个选项进行运算<br>
 判断结果是否还是等价关系<br>
-Screenshot-[179:42]<br>
 <span class="kp-sub">14.2 常见结论</span>
 <table><tr><th>运算</th><th>结果是否等价</th></tr><tr><td>R ∪ S</td><td>不一定</td></tr><tr><td>R ∩ S</td><td>是</td></tr><tr><td>R ∘ S</td><td>不一定</td></tr><tr><td>R⁻¹</td><td>是</td></tr></table>
 </div></div>
@@ -1042,7 +1030,6 @@ Screenshot-[179:42]<br>
 <b>证明自反性：</b> 验证每个元素与自己有关系<br>
 <b>证明对称性：</b> 验证若 a 与 b 有关系，则 b 与 a 也有关系<br>
 <b>证明传递性：</b> 验证若 a 与 b 有关系且 b 与 c 有关系，则 a 与 c 也有关系<br>
-Screenshot-[182:54]<br>
 <span class="kp-sub">15.2 示例</span>
 <b>题目：</b> A 是所有 8 位二进制数构成的集合，若两个 8 位二进制数中 0 的个数相同，则认为存在关系。<br>
 <b>证明：</b><br>
@@ -1058,7 +1045,6 @@ Screenshot-[182:54]<br>
 <b>排座次（分上下，不分左右）</b><br>
 能力强的排上面<br>
 左右不分<br>
-Screenshot-[189:16]<br>
 <span class="kp-sub">16.3 绘制方法</span>
 <span class="formula">找到能力最弱的元素 → 排最下面</span>
 <span class="formula">找到能力比它强的元素 → 排上面</span>
@@ -1075,7 +1061,6 @@ Screenshot-[189:16]<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点17</span><span class="kp-name">极大元极小元</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">17.1 基本概念</span>
 <table><tr><th>概念</th><th>定义</th></tr><tr><td>可比</td><td>在哈斯图中同一条链上</td></tr><tr><td>不可比</td><td>在哈斯图中不同链上</td></tr><tr><td>极大元</td><td>每条链上最厉害的元素</td></tr><tr><td>极小元</td><td>每条链上最不厉害的元素</td></tr></table>
-Screenshot-[196:36]<br>
 <span class="kp-sub">17.2 示例</span>
 <b>哈斯图：</b><br>
 2   3     \ /      1<br>
@@ -1088,7 +1073,6 @@ Screenshot-[196:36]<br>
 <span class="kp-sub">18.2 与极大极小的区别</span>
 <b>极大元：</b> 每条链上最厉害的（可以有多个）<br>
 <b>最大元：</b> 所有元素中最厉害的（只能有一个，且必须可比）<br>
-Screenshot-[201:32]<br>
 <span class="kp-sub">18.3 重要结论</span>
 <span class="formula"><b>存在不可比元素 ≠ 没有最大元</b>：最大元只要求"与所有元素可比且最大"（如菱形哈斯图中 2、3 不可比，但顶元与所有元素可比，仍是最大元）</span>
 </div></div>
@@ -1097,7 +1081,6 @@ Screenshot-[201:32]<br>
 <b>函数：</b> 满足以下两个条件的有序对集合：<br>
 <b>定义域内每个 x 都能取到 y</b><br>
 <b>每个 x 只能对应一个 y</b>（不能一对多）<br>
-Screenshot-[219:16]<br>
 <span class="kp-sub">19.2 示例判断</span>
 <b>A. y² = x（论域为全体实数）</b><br>
 <span class="formula">当 x = 1 时，y = ±1 → 一对多 → ❌ 不是函数</span>
@@ -1119,7 +1102,6 @@ f = {(1,2), (2,4), (3,6)} f⁻¹ = {(2,1), (4,2), (6,3)}<br>
 <span class="kp-sub">21.1 定义</span>
 <b>单射（1对1）：</b> 每个 x 取到<b>不重复</b>的 y。<br>
 <b>核心：</b> 不能多对一。<br>
-Screenshot-[229:38]<br>
 <span class="kp-sub">21.2 示例</span>
 <span class="formula">f = {(1,1), (2,2), (3,3)} → ✅ 单射（每个 y 唯一） f = {(1,1), (2,1)} → ❌ 不是单射（1和2都对应1）</span>
 </div></div>
@@ -1145,7 +1127,6 @@ f = {(1,6), (2,7), (3,5), (4,6)}<br>
 <span class="kp-sub">24.1 定义</span>
 <b>复合函数（f ∘ g）：</b> 将 f 作为整体代入 g 的 x。<br>
 <b>注意：</b> 是<b>左边往右边</b>代入（f 作为整体放在 g 的 x 位置）。<br>
-Screenshot-[360:08]<br>
 <span class="kp-sub">24.2 示例</span>
 f(x) = x² - 1 g(x) = x + 1<br>
 (f ∘ g)(x) = f(g(x)) = (x + 1)² - 1 = x² + 2x<br>
@@ -1179,10 +1160,22 @@ Q (由1，合取消去)<br>
 <span class="formula">R∨S (前提)</span>
 S (由4, 5，析取三段论)<br>
 </div></div>
+<div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点26</span><span class="kp-name">函数个数的计数</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<span class="kp-sub">26.1 记号</span>
+|A| = m（定义域），|B| = n（陪域），考虑从 A 到 B 的函数<br>
+<span class="kp-sub">26.2 公式表（必记）</span>
+<table><tr><th>类型</th><th>存在条件</th><th>个数</th></tr><tr><td>所有函数</td><td>任意</td><td>n^m（每个 x 独立选像）</td></tr><tr><td>单射</td><td>m ≤ n</td><td>n(n−1)⋯(n−m+1) = n!/(n−m)!</td></tr><tr><td>满射</td><td>m ≥ n</td><td>∑(k=0..n) (−1)^k·C(n,k)·(n−k)^m（容斥）</td></tr><tr><td>双射</td><td>m = n</td><td>m!</td></tr></table>
+<span class="kp-sub">26.3 存在性与常用特例</span>
+m &gt; n 时单射不存在（鸽笼原理）；m &lt; n 时满射不存在<br>
+<span class="formula">m = n 时：单射 = 满射 = 双射 = m!　// 呼应开篇"规则补充"</span>
+<span class="kp-sub">26.4 满射计数示例（m=3, n=2）</span>
+<span class="formula">2³ − C(2,1)·1³ + C(2,2)·0³ = 8 − 2 + 0 = 6</span>
+验证：全部函数 8 个，去掉两个常函数（全到 a、全到 b），剩 6 个满射 ✓
+</div></div>
 </div></div>
 
 <div class="ch ch6">
-<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第六章 · 代数系统与群<span class="badge">12考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第六章 · 代数系统与群<span class="badge">13考点</span></span><span class="arrow">▼</span></div>
 <div class="ch-body">
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点1</span><span class="kp-name">6.1 二元运算的基本概念</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>二元运算</b>：两个元素进行某种运算（泛指），具体是什么看具体怎么定义<br>
@@ -1456,10 +1449,21 @@ A={⋯,−9,−6,−3,0,3,6,9,⋯}（3的倍数）<br>
 任意两个不同的非单位元运算，等于第三个非单位元：a∗b=c,b∗c=a,a∗c=b<br>
 运算顺序没有影响：它是交换群（阿贝尔群），即 a∗b=b∗aa∗b=b∗a。<br>
 </div></div>
+<div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点13</span><span class="kp-name">6.13 幂等元与群方程</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<span class="kp-sub">13.1 幂等元唯一（= e）</span>
+<b>幂等元：</b> 满足 a∗a = a 的元素<br>
+<span class="formula"><b>定理：</b> 群中的幂等元只有幺元 e</span>
+<b>证明：</b> a∗a = a，两边左乘 a⁻¹：a⁻¹∗(a∗a) = a⁻¹∗a → (a⁻¹∗a)∗a = e → e∗a = e → a = e ✓<br>
+<span class="kp-sub">13.2 群方程求解（唯一解）</span>
+<span class="formula">a∗x = b　有唯一解　x = a⁻¹∗b</span>
+<span class="formula">y∗a = b　有唯一解　y = b∗a⁻¹</span>
+<b>唯一性证明：</b> 若 a∗x₁ = a∗x₂ = b，两边左乘 a⁻¹ 得 x₁ = x₂ = a⁻¹∗b ✓<br>
+<b>应用：</b> 解 a∗x∗b = c 型方程：两边先左乘 a⁻¹、再右乘 b⁻¹，得 x = a⁻¹∗c∗b⁻¹<br>
+</div></div>
 </div></div>
 
 <div class="ch ch7">
-<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第七章 · 格<span class="badge">5考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第七章 · 格<span class="badge">7考点</span></span><span class="arrow">▼</span></div>
 <div class="ch-body">
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点1</span><span class="kp-name">7.1 格的基本概念</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>定义：</b> 偏序集满足一定的条件时称为格。<br>
@@ -1538,10 +1542,32 @@ C. 每个元都没有补元 ✗（至少有两个元素存在补元）<br>
 D. 至少有两个元素存在补元 ✓（全上界和全下界互为补元）<br>
 <b>答案：D</b><br>
 </div></div>
+<div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点6</span><span class="kp-name">7.6 布尔代数</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<span class="kp-sub">6.1 定义</span>
+<b>布尔代数：</b> 每个元素都有补元的有界分配格 &lt;B, ∨, ∧, ′, 0, 1&gt;<br>
+<span class="kp-sub">6.2 核心运算律（必记）</span>
+<table><tr><th>公式</th><th>说明</th></tr><tr><td>a ∧ a′ = 0，a ∨ a′ = 1</td><td>补元定义</td></tr><tr><td>a ∧ (a′ ∨ b) = a ∧ b</td><td>分配律 + 补元：(a∧a′)∨(a∧b) = 0∨(a∧b)</td></tr><tr><td>a ∨ (a′ ∧ b) = a ∨ b</td><td>上式的对偶</td></tr><tr><td>(a′)′ = a</td><td>补元的补</td></tr><tr><td>0′ = 1，1′ = 0</td><td>界互补</td></tr><tr><td>(a ∨ b)′ = a′ ∧ b′，(a ∧ b)′ = a′ ∨ b′</td><td>德摩根律</td></tr></table>
+<span class="kp-sub">6.3 典型例题：化简</span>
+<span class="formula">(a ∧ b) ∨ (a ∧ b′) = a ∧ (b ∨ b′) = a ∧ 1 = a</span>
+<span class="formula">(a′ ∧ b) ∨ (a′ ∧ b′) = a′ ∧ (b ∨ b′) = a′　// 同型题换皮</span>
+</div></div>
+<div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点7</span><span class="kp-name">7.7 有补格与覆盖关系</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<span class="kp-sub">7.1 补元与有补格</span>
+<b>补元：</b> 有界格中 a∧b = 0 且 a∨b = 1，则 b 是 a 的补元（考点5：全上界全下界互为补元）<br>
+<b>有补格：</b> 每个元素都至少有一个补元的有界格<br>
+<span class="formula">钻石格 M₃、五角格 N₅：有补格 但 不是分配格</span>
+<span class="formula">有补分配格 ⇔ 布尔代数（此时补元唯一）</span>
+<span class="kp-sub">7.2 覆盖关系 cov A</span>
+<b>盖住：</b> 偏序集 &lt;A, ≤&gt; 中 y 盖住 x ⇔ x ≤ y、x ≠ y，且不存在 z 使 x ≤ z ≤ y（z 异于 x,y）<br>
+<span class="formula"><b>cov A</b> = {〈x, y〉 | y 盖住 x}　// 哈斯图的每条边对应 cov A 里一个有序对</span>
+<b>例：</b> A = {1,2,3,6}，整除关系 ≤：<br>
+<span class="formula">cov A = {〈1,2〉, 〈1,3〉, 〈2,6〉, 〈3,6〉}　// 1 到 6 隔着 2、3，不算盖住</span>
+<b>口诀：</b> 哈斯图上只数<b>相邻</b>的边，跳层的不算盖住<br>
+</div></div>
 </div></div>
 
 <div class="ch ch8">
-<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第八章 · 图<span class="badge">13考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第八章 · 图<span class="badge">15考点</span></span><span class="arrow">▼</span></div>
 <div class="ch-body">
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点1</span><span class="kp-name">8.1 图的基本概念</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>基本定义：</b><br>
@@ -1806,10 +1832,28 @@ Km,n​。<br>
 移项（乘负数变号）：m - 6m/5 ≤ -6 ⇒ -m/5 ≤ -6 ⇒ m ≥ 30。<br>
 与 m &lt; 30 矛盾，故必有顶点度 &lt; 5。证毕。<br>
 </div></div>
+<div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点14</span><span class="kp-name">8.14 关联矩阵</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<span class="kp-sub">14.1 定义</span>
+<b>关联矩阵 M(G)：</b> 行对应结点、列对应边。无向图中结点与边<b>关联</b>记 1，否则记 0<br>
+<span class="kp-sub">14.2 关键性质</span>
+<span class="formula">无向图的关联矩阵<b>每列恰有两个 1</b>（一条边恰有两个端点）</span>
+每行 1 的个数 = 该结点的度数；全 0 行 = 孤立点（对比邻接矩阵：对角线全 0、对称）<br>
+<span class="kp-sub">14.3 经典应用：无孤立点图的最少边数</span>
+<b>例题（2023-10 真题）：</b> n 阶无孤立点的简单图，边数 m 至少多少？<br>
+无孤立点 → 每行至少一个 1 → 非零元素至少 n 个；每列恰 2 个 1 → 2m ≥ n<br>
+<span class="formula">m ≥ ⌈n/2⌉　// 取等：若干条独立边（K₂）拼成，n 为偶数时 m = n/2</span>
+</div></div>
+<div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点15</span><span class="kp-name">8.15 彼得森图</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<span class="kp-sub">15.1 定义</span>
+<b>彼得森图：</b> 10 个顶点、15 条边的<b>3-正则图</b>（外五边形 + 内五角星，对应顶点相连）<br>
+<span class="formula">握手定理自检：3×10 = 2×15 ✓</span>
+<span class="kp-sub">15.2 重要结论（判断题常考）</span>
+<table><tr><th>说法</th><th>判定</th></tr><tr><td>3-正则图（每点度数都是 3）</td><td>✅</td></tr><tr><td>是平面图</td><td>❌ 非平面图</td></tr><tr><td>是欧拉图</td><td>❌ 度数为 3（奇数），有奇点</td></tr><tr><td>是哈密顿图</td><td>❌ 经典结论：不含哈密顿回路</td></tr><tr><td>是二分图</td><td>❌ 含奇圈（内五角星）</td></tr></table>
+</div></div>
 </div></div>
 
 <div class="ch ch9">
-<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第九章 · 树<span class="badge">10考点</span></span><span class="arrow">▼</span></div>
+<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>第九章 · 树<span class="badge">12考点</span></span><span class="arrow">▼</span></div>
 <div class="ch-body">
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点1</span><span class="kp-name">9.1 欧拉回路与欧拉图</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>定义：</b><br>
@@ -1929,6 +1973,26 @@ Km,n​。<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点10</span><span class="kp-name">9.10欧拉公式</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 定理9.8 设有一个连通平面图G，共有n个顶点和m条边，其平面表示中共有r个面，则n - m + r = 2成立。此公式称为欧拉公式<br>
 </div></div>
+<div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点11</span><span class="kp-name">9.11 树的结点数公式（速算）</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<span class="kp-sub">11.1 任意二叉树：叶 = 二分支点 + 1</span>
+<span class="formula">n₀ = n₂ + 1　// n₀ 叶结点数，n₂ 度数为 2 的结点数</span>
+<b>证明（握手定理）：</b> 设 n₁ 为度 1 结点数。树：边数 = 总结点数 − 1 = n₀+n₁+n₂−1；又 边数 = (0·n₀+1·n₁+2·n₂)/2。两式相等化简得 n₀ = n₂+1 ✓<br>
+<span class="kp-sub">11.2 完全 m 叉树（每个分支点恰有 m 个孩子）</span>
+<span class="formula">叶结点数 l = (m−1)·i + 1　　总结点数 n = m·i + 1　// i 为分支点数</span>
+由 m·i = n−1 = (i+l)−1 移项即得；考点7 例题"7 叶 → 6 分支"即此式（m=2 时 l = i+1）<br>
+<span class="kp-sub">11.3 正则 m 叉树（本笔记用法：叶都在同一层）</span>
+高 h（根在第 1 层）时：<span class="formula">叶结点数 = m^(h−1)　// 例：高 5 正则三叉树 → 3⁴ = 81</span>
+<b>术语提醒：</b> 各教材叫法不同——有的教材把"每分支点恰 m 个孩子"叫正则 m 叉树、"叶同层"叫完全正则；做题认<b>结构描述</b>，别背名字<br>
+</div></div>
+<div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点12</span><span class="kp-name">9.12 旅行商问题（最短哈密顿回路）</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<span class="kp-sub">12.1 问题描述</span>
+<b>旅行商问题（TSP）：</b> 从出发地出发，经过每个城市<b>恰好一次</b>后回到出发地，求总权值<b>最短</b>的回路<br>
+<span class="kp-sub">12.2 与最小生成树的区别（易混，真题考过）</span>
+<table><tr><th></th><th>最小生成树</th><th>旅行商回路</th></tr><tr><td>结构</td><td>树（无回路）</td><td>回路（哈密顿回路）</td></tr><tr><td>经过的点</td><td>连通全部点</td><td>每点恰一次且回到起点</td></tr><tr><td>求什么</td><td>最短的无环连通子图</td><td>最短哈密顿回路（Kruskal 不能直接用）</td></tr></table>
+<span class="kp-sub">12.3 解法</span>
+点少：枚举全部哈密顿回路（n 点约 (n−1)!/2 条）取最短；点多：近似算法（最小生成树两边走一遍的 2 倍近似）<br>
+<b>审题要点：</b> "游遍各点回到起点的最短路线" → 哈密顿应用题，别套最小生成树<br>
+</div></div>
 </div></div>
 
 <script>
@@ -1936,5 +2000,9 @@ function toggleTheme(){var r=document.documentElement,next=r.getAttribute('data-
 function toggleCh(el){var ch=el.closest('.ch'),isOpen=ch.classList.contains('open');ch.classList.toggle('open');el.setAttribute('aria-expanded',String(!isOpen));if(!isOpen){ch.querySelectorAll('.kp-detail').forEach(function(d){d.style.display='none'});ch.querySelectorAll('.kp').forEach(function(k){k.classList.remove('open')});ch.querySelectorAll('.kp-title').forEach(function(t){t.setAttribute('aria-expanded','false')})}}
 function toggleKp(el){var kp=el.closest('.kp'),isOpen=kp.classList.contains('open');kp.classList.toggle('open');el.setAttribute('aria-expanded',String(!isOpen));kp.querySelector('.kp-detail').style.display=isOpen?'none':'block'}
 document.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;var el=e.target;if(el.classList&&el.classList.contains('ch-title')){e.preventDefault();toggleCh(el)}else if(el.classList&&el.classList.contains('kp-title')){e.preventDefault();toggleKp(el)}});
+function mdInline(n){if(n.nodeType===3)return n.textContent;if(n.nodeType!==1)return '';if(n.tagName==='BR')return '\n';var s='';for(var i=0;i<n.childNodes.length;i++)s+=mdInline(n.childNodes[i]);var t=n.tagName;if(t==='B'||t==='STRONG')return '**'+s.trim()+'**';return s}
+function mdTable(t){var rows=[].map.call(t.rows,function(r){return [].map.call(r.cells,function(c){return mdInline(c).trim().replace(/\|/g,'\\|').replace(/\n/g,' ')})});if(!rows.length)return '';function line(cs){return '| '+cs.join(' | ')+' |'}var out=[line(rows[0]),line(rows[0].map(function(){return '---'}))];for(var i=1;i<rows.length;i++)out.push(line(rows[i]));return out.join('\n')}
+function mdDetail(el){var lines=[],cur='';function flush(){cur=cur.trim();if(cur)lines.push(cur);cur=''}[].forEach.call(el.childNodes,function(n){if(n.nodeType===3){cur+=n.textContent.replace(/\s+/g,' ');return}if(n.nodeType!==1)return;var tag=n.tagName;if(tag==='BR'){flush();return}if(tag==='TABLE'){flush();lines.push(mdTable(n));return}if(tag==='UL'){flush();[].forEach.call(n.children,function(li){lines.push('- '+mdInline(li).trim())});return}var txt=mdInline(n).trim();if(!txt)return;if(n.classList.contains('kp-sub')){flush();lines.push('#### '+txt);return}if(n.classList.contains('formula')){flush();txt.split('\n').forEach(function(l){lines.push('> '+l)});return}cur+=mdInline(n)});flush();return lines.join('\n\n')}
+function exportMarkdown(){var parts=[];var h1=document.querySelector('header h1');parts.push('# '+(h1?h1.textContent.trim():'离散数学 · 考点笔记'));var stats=[].map.call(document.querySelectorAll('.header-stat'),function(s){return s.textContent.replace(/\s+/g,' ').trim()});if(stats.length)parts.push('> '+stats.join(' · '));[].forEach.call(document.querySelectorAll('.ch'),function(ch){var ts=ch.querySelector('.ch-title span');var title='';if(ts){var c=ts.cloneNode(true);[].forEach.call(c.querySelectorAll('.badge'),function(b){b.remove()});title=c.textContent.trim()}parts.push('## '+title);[].forEach.call(ch.querySelectorAll('.kp'),function(kp){var num=kp.querySelector('.kp-num'),name=kp.querySelector('.kp-name');var head=((num?num.textContent.trim():'')+' '+(name?name.textContent.trim():'')).trim();parts.push('### '+head);var d=kp.querySelector('.kp-detail');var dt=d?mdDetail(d):'';if(dt)parts.push(dt)})});parts.push('---');parts.push('*导出于 '+new Date().toLocaleString('zh-CN',{hour12:false})+'*');var md=parts.join('\n\n');var blob=new Blob(['\ufeff'+md],{type:'text/markdown;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='离散数学考点笔记.md';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);return md}
 </script>
 </div></body></html>
