@@ -779,6 +779,15 @@ y 在 ∀x 的辖域内、与指导变元 x 不同，但被内层 ∀y 约束 �
 <span class="formula">② P(小华) → Q(小华)　[① 全称量词消去 UI，取 x = 小华]</span>
 <span class="formula">③ P(小华)　[条件2]</span>
 <span class="formula">④ Q(小华)　[②③ 假言推理]</span>
+<span class="kp-sub">9.3 永真式证明模板（反证法，2023-10 真题）</span>
+<b>题目：</b> 证明 ∀x(P(x) ∨ Q(x)) → (∀xP(x) ∨ ∃xQ(x)) 为永真式<br>
+<b>思路：</b> 蕴含式永真 ⇔ 前件真时后件必真。反证：假设存在"前件真、后件假"的解释<br>
+<span class="formula">① 设后件假：∀xP(x) 为假 且 ∃xQ(x) 为假</span>
+<span class="formula">② ∃xQ(x) 为假 ⇔ ∀x¬Q(x)　// 量词否定等值式</span>
+<span class="formula">③ ∀xP(x) 为假 ⇔ ∃x¬P(x)，取 c 使 ¬P(c)　// 存在量词消去 EI</span>
+<span class="formula">④ 前件真 + 全称指定 UI：P(c) ∨ Q(c)　⑤ 对 c 用 ②：¬Q(c)</span>
+<span class="formula">⑥ P(c)∨Q(c) 与 ¬P(c)、¬Q(c) 矛盾 → 假设不成立，原式永真 ✓</span>
+<b>模板总结：</b> 反证设假 → 量词否定翻转 → UI/EI 落到同一个 c → 制造命题矛盾<br>
 </div></div>
 </div></div>
 
@@ -1842,6 +1851,9 @@ Km,n​。<br>
 <b>例题（2023-10 真题）：</b> n 阶无孤立点的简单图，边数 m 至少多少？<br>
 无孤立点 → 每行至少一个 1 → 非零元素至少 n 个；每列恰 2 个 1 → 2m ≥ n<br>
 <span class="formula">m ≥ ⌈n/2⌉　// 取等：若干条独立边（K₂）拼成，n 为偶数时 m = n/2</span>
+<span class="kp-sub">14.4 连通图的下界（另一种问法）</span>
+<span class="formula">连通图的关联矩阵至少有 2(n−1) 个非零元素　// 连通 ⇒ m ≥ n−1（树最省），每列 2 个非零元 → 2m ≥ 2(n−1)</span>
+顺带记：关联矩阵的秩 = n−1（连通图），这也是"连通图至少 n−1 条边"的矩阵证法<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点15</span><span class="kp-name">8.15 彼得森图</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">15.1 定义</span>
@@ -1991,6 +2003,7 @@ Km,n​。<br>
 <table><tr><th></th><th>最小生成树</th><th>旅行商回路</th></tr><tr><td>结构</td><td>树（无回路）</td><td>回路（哈密顿回路）</td></tr><tr><td>经过的点</td><td>连通全部点</td><td>每点恰一次且回到起点</td></tr><tr><td>求什么</td><td>最短的无环连通子图</td><td>最短哈密顿回路（Kruskal 不能直接用）</td></tr></table>
 <span class="kp-sub">12.3 解法</span>
 点少：枚举全部哈密顿回路（n 点约 (n−1)!/2 条）取最短；点多：近似算法（最小生成树两边走一遍的 2 倍近似）<br>
+<b>例（2024-04 真题）：</b> 4 个点 A、B、C、D，从 A 出发游完其余 3 点回 A：回路共 (4−1)!/2 = 3 条，逐一算权和取最小<br>
 <b>审题要点：</b> "游遍各点回到起点的最短路线" → 哈密顿应用题，别套最小生成树<br>
 </div></div>
 </div></div>
