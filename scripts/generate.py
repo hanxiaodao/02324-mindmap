@@ -32,6 +32,14 @@ CSS = """<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var t;
+  try{ t=localStorage.getItem('theme'); }catch(e){}
+  if(t!=='light'&&t!=='dark'){ t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'; }
+  document.documentElement.setAttribute('data-theme',t);
+})();
+</script>
 <style>
 :root {
   /* 九章 accent 色——饱和、可辨认 */
@@ -42,6 +50,37 @@ CSS = """<!DOCTYPE html>
   --bg:#0d1117; --surface:#161b22; --card:#1c2230;
   --border:#2a3344; --border-strong:#3d4f66;
   --text:#dde3ed; --muted:#7d8fa8; --faint:#4a5568;
+  /* 派生色（暗色） */
+  --heading:#f0f4fa;
+  --hover-bg:rgba(255,255,255,.03);
+  --detail-bg:rgba(0,0,0,.15);
+  --tag-bg:rgba(255,255,255,.07); --tag-text:#9ab;
+  --formula-bg:#111c2e; --formula-text:#93c5fd;
+  --th-bg:rgba(255,255,255,.05);
+  --row-hover-bg:rgba(255,255,255,.02);
+  --tip:#fbbf24; --ok:#34d399; --err:#f87171; --em:#fbbf24;
+  --detail-text:var(--muted); --detail-size:13px;
+  color-scheme:dark;
+}
+/* ── 亮色模式 ── */
+:root[data-theme="light"] {
+  --bg:#f5f7fa; --surface:#ffffff; --card:#ffffff;
+  --border:#dde3ec; --border-strong:#c3cdda;
+  --text:#2b3440; --muted:#5f6f85; --faint:#98a5b5;
+  --heading:#1a2230;
+  --hover-bg:rgba(15,35,70,.045);
+  --detail-bg:#f7f9fc;
+  --tag-bg:rgba(15,35,70,.06); --tag-text:#5a6b80;
+  --formula-bg:#eef4fd; --formula-text:#1e5fbf;
+  --th-bg:rgba(15,35,70,.05);
+  --row-hover-bg:rgba(15,35,70,.03);
+  --tip:#a16207; --ok:#047857; --err:#dc2626; --em:#a16207;
+  --detail-text:#4a5a70; --detail-size:14px;
+  /* 亮色下加深 accent，保证可读性 */
+  --c1:#2563eb; --c2:#059669; --c3:#d97706;
+  --c4:#db2777; --c5:#7c3aed; --c6:#0891b2;
+  --c7:#ea580c; --c8:#65a30d; --c9:#e11d48;
+  color-scheme:light;
 }
 * { box-sizing:border-box; margin:0; padding:0; }
 body {
@@ -65,7 +104,7 @@ header h1 {
   font-size:26px;
   font-weight:700;
   letter-spacing:2px;
-  color:#f0f4fa;
+  color:var(--heading);
   margin-bottom:10px;
 }
 .header-meta {
@@ -120,7 +159,7 @@ header h1 {
   position:relative;
   transition:background .15s;
 }
-.ch-title:hover { background:rgba(255,255,255,.03); }
+.ch-title:hover { background:var(--hover-bg); }
 .ch-title::before {
   content:'';
   position:absolute;
@@ -129,7 +168,7 @@ header h1 {
   border-radius:0;
   transition:width .2s;
 }
-.ch.open .ch-title { background:rgba(255,255,255,.03); }
+.ch.open .ch-title { background:var(--hover-bg); }
 
 /* 章节色彩：通过 accent 变量控制，只改左边框 */
 .ch1 { --accent:var(--c1); } .ch1 .ch-title::before { background:var(--c1); }
@@ -180,7 +219,7 @@ header h1 {
   user-select:none;
   transition:background .15s;
 }
-.kp-title:hover { background:rgba(255,255,255,.03); }
+.kp-title:hover { background:var(--hover-bg); }
 
 /* 考点编号：彩色胶囊，与章节同色 */
 .kp-num {
@@ -210,36 +249,36 @@ header h1 {
 .kp-detail {
   display:none;
   padding:14px 20px 18px 68px;
-  font-size:13px;
-  color:var(--muted);
+  font-size:var(--detail-size);
+  color:var(--detail-text);
   line-height:1.75;
   border-top:1px solid var(--border);
-  background:rgba(0,0,0,.15);
+  background:var(--detail-bg);
 }
 .kp.open .kp-detail { display:block; }
 .kp-detail b { color:var(--text); font-weight:600; }
 
 .kp-detail .tag {
   display:inline-block;
-  background:rgba(255,255,255,.07);
+  background:var(--tag-bg);
   border:1px solid var(--border);
   border-radius:4px;
   padding:1px 7px;
   font-size:11px;
   margin:1px 3px;
-  color:#9ab;
+  color:var(--tag-text);
 }
 
 /* 公式：微蓝底 + 左侧 accent 边线 */
 .kp-detail .formula {
   display:block;
-  background:#111c2e;
+  background:var(--formula-bg);
   border-left:2px solid var(--accent, #60a5fa);
   border-radius:0 6px 6px 0;
   padding:8px 14px;
   margin:8px 0;
   font-size:13px;
-  color:#93c5fd;
+  color:var(--formula-text);
   letter-spacing:.6px;
   line-height:1.7;
   overflow-x:auto;
@@ -261,21 +300,21 @@ header h1 {
   vertical-align:middle;
 }
 .kp-detail th {
-  background:rgba(255,255,255,.05);
+  background:var(--th-bg);
   color:var(--text);
   font-weight:600;
   font-size:11px;
   letter-spacing:.3px;
 }
-.kp-detail tr:hover td { background:rgba(255,255,255,.02); }
+.kp-detail tr:hover td { background:var(--row-hover-bg); }
 .kp-detail ul { padding-left:16px; }
 .kp-detail li { margin:3px 0; }
 
 /* 语义色 */
-.kp-detail .tip { color:#fbbf24; }
-.kp-detail .ok  { color:#34d399; }
-.kp-detail .err { color:#f87171; }
-.kp-detail .em  { color:#fbbf24; font-weight:600; }
+.kp-detail .tip { color:var(--tip); }
+.kp-detail .ok  { color:var(--ok); }
+.kp-detail .err { color:var(--err); }
+.kp-detail .em  { color:var(--em); font-weight:600; }
 
 /* 子标题 */
 .kp-detail .kp-sub {
@@ -291,6 +330,37 @@ header h1 {
 }
 .kp-detail .kp-sub:first-child { margin-top:2px; }
 
+/* ── 主题切换按钮 ── */
+.theme-toggle {
+  position:fixed;
+  top:16px; right:16px;
+  width:38px; height:38px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--muted);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+  transition:border-color .2s, color .2s, transform .15s;
+}
+.theme-toggle:hover {
+  border-color:var(--border-strong);
+  color:var(--text);
+  transform:scale(1.06);
+}
+.theme-toggle .icon-sun { display:none; }
+:root[data-theme="light"] .theme-toggle .icon-sun { display:block; }
+:root[data-theme="light"] .theme-toggle .icon-moon { display:none; }
+
+/* 键盘焦点 */
+.ch-title:focus-visible, .kp-title:focus-visible { outline:2px solid var(--c1); outline-offset:-2px; }
+.theme-toggle:focus-visible { outline:2px solid var(--c1); outline-offset:2px; }
+
 /* ── 响应式 ── */
 @media (max-width:600px) {
   header { padding:28px 16px 24px; }
@@ -298,21 +368,24 @@ header h1 {
   .chapters { padding:0 10px 48px; }
   .kp-detail { padding-left:20px; }
   .header-divider { display:none; }
+  .theme-toggle { top:10px; right:10px; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .arrow, .kp-arrow, .ch-title::before { transition:none; }
+  .arrow, .kp-arrow, .ch-title::before, .theme-toggle { transition:none; }
 }
 </style>
 </head>
 <body>
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="切换亮色/暗色模式" title="切换亮色/暗色模式">
+  <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
 <header>
   <h1>离散数学 · 考点笔记</h1>
   <div class="header-meta">
     <div class="header-stat"><strong>{ch_count}</strong>章</div>
     <div class="header-divider"></div>
     <div class="header-stat"><strong>全国自考 02324</strong>考点覆盖</div>
-    <div class="header-divider"></div>
-    <div class="header-stat">点击章节展开考点</div>
   </div>
 </header>
 <div class="chapters">
@@ -320,8 +393,10 @@ header h1 {
 
 FOOTER = """
 <script>
-function toggleCh(el){var ch=el.closest('.ch'),isOpen=ch.classList.contains('open');ch.classList.toggle('open');if(!isOpen){ch.querySelectorAll('.kp-detail').forEach(function(d){d.style.display='none'});ch.querySelectorAll('.kp').forEach(function(k){k.classList.remove('open')})}}
-function toggleKp(el){var kp=el.closest('.kp'),isOpen=kp.classList.contains('open');kp.classList.toggle('open');kp.querySelector('.kp-detail').style.display=isOpen?'none':'block'}
+function toggleTheme(){var r=document.documentElement,next=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next)}catch(e){}}
+document.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;var el=e.target;if(el.classList&&el.classList.contains('ch-title')){e.preventDefault();toggleCh(el)}else if(el.classList&&el.classList.contains('kp-title')){e.preventDefault();toggleKp(el)}});
+function toggleCh(el){var ch=el.closest('.ch'),isOpen=ch.classList.contains('open');ch.classList.toggle('open');el.setAttribute('aria-expanded',String(!isOpen));if(!isOpen){ch.querySelectorAll('.kp-detail').forEach(function(d){d.style.display='none'});ch.querySelectorAll('.kp').forEach(function(k){k.classList.remove('open')});ch.querySelectorAll('.kp-title').forEach(function(t){t.setAttribute('aria-expanded','false')})}}
+function toggleKp(el){var kp=el.closest('.kp'),isOpen=kp.classList.contains('open');kp.classList.toggle('open');el.setAttribute('aria-expanded',String(!isOpen));kp.querySelector('.kp-detail').style.display=isOpen?'none':'block'}
 </script>
 </div></body></html>
 """
@@ -553,16 +628,18 @@ def docx_to_html(docx_path):
 
         parts = [f'<div class="ch {ch_class}">']
         title_display = ch_title.replace('：', ' · ', 1) if '：' in ch_title else ch_title
+        title_display = title_display.replace('**', '')
         # 去掉可能的数字序号前缀
         title_display = re.sub(r'^\d+[\.、]\s*', '', title_display)
         parts.append(
-            f'<div class="ch-title" onclick="toggleCh(this)">'
+            f'<div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false">'
             f'<span>{h(title_display)}<span class="badge">{kp_count}考点</span></span>'
             f'<span class="arrow">▼</span></div>'
         )
         parts.append('<div class="ch-body">')
 
         for kp_num_item, kp_title, subs in kps:
+            kp_title = kp_title.replace('**', '')
             # 解析考点序号
             num_match = re.match(r'考点(\d+)', kp_title)
             if num_match:
@@ -574,7 +651,7 @@ def docx_to_html(docx_path):
 
             parts.append(
                 f'<div class="kp">'
-                f'<div class="kp-title" onclick="toggleKp(this)">'
+                f'<div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false">'
                 f'<span class="kp-num">{display_num}</span>'
                 f'<span class="kp-name">{h(name)}</span>'
                 f'<span class="kp-arrow">▼</span></div>'
@@ -584,7 +661,7 @@ def docx_to_html(docx_path):
             # 子主题
             for sub_title, content_lines in subs:
                 if sub_title:
-                    parts.append(f'<span class="kp-sub">{h(sub_title)}</span>')
+                    parts.append(f'<span class="kp-sub">{h(sub_title.replace("**", ""))}</span>')
                 for line in content_lines:
                     if isinstance(line, tuple) and line[0] == '__table__':
                         parts.append(line[1])
