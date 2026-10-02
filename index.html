@@ -416,14 +416,14 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <span class="formula">命题”小张既是数学老师又是计算机老师” → <b>A. P ∧ Q</b></span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点3</span><span class="kp-name">析取</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
-<span class="kp-sub">3.1 同或 vs 异或</span>
-<table><tr><th>类型</th><th>定义</th><th>含义</th></tr><tr><td>同或</td><td>两边可以同时成立</td><td>两边至少有一个成立（三种情况）</td></tr><tr><td>异或</td><td>两边不能同时成立</td><td>两边其中一个成立（两种情况）</td></tr></table>
+<span class="kp-sub">3.1 相容或、同或、异或</span>
+<table><tr><th>类型</th><th>符号</th><th>成真情况</th></tr><tr><td>相容或（普通析取）</td><td>P ∨ Q</td><td>至少一个成立（三种情况为真）</td></tr><tr><td>同或</td><td>P ↔ Q</td><td>两边同真或同假（不是"至少一个成立"）</td></tr><tr><td>异或</td><td>(P∧¬Q)∨(¬P∧Q)</td><td>恰好一个成立（两种情况为真）</td></tr></table>
 <span class="kp-sub">3.2 析取符号（∨）</span>
 <span class="formula"><b>符号：</b> ∨</span>
-<b>含义：</b> 或（同或）<br>
+<b>含义：</b> 相容或（普通"或"），不是同或<br>
 <b>特点：</b> 两边至少有一个成立<br>
 <b>示例：</b><br>
-<span class="formula">“今天刮风或今天下雨” → P ∨ Q（同或，可同时成立）</span>
+<span class="formula">“今天刮风或今天下雨” → P ∨ Q（相容或，可同时成立）</span>
 <span class="formula">“我15岁或我16岁” → 异或（不能同时成立）</span>
 <span class="kp-sub">3.3 异或的表示</span>
 <span class="formula">异或可以表示为：(P ∧ ¬Q) ∨ (¬P ∧ Q)</span>
@@ -803,8 +803,8 @@ Screenshot-[111:58]<br>
 A 的幂集：P(A) = {∅, {1}, {2}, {1,2}}<br>
 |P(A)| = 2² = 4<br>
 <b>A = {空集, {空集}}</b><br>
-A 有 3 个元素<br>
-|P(A)| = 2³ = 8<br>
+A 有 2 个元素（∅ 和 {∅} 各算一个元素）<br>
+|P(A)| = 2² = 4<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点4</span><span class="kp-name">集合的运算</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">4.1 三种基本运算</span>
@@ -942,12 +942,12 @@ R = {(1,1), (1,2)} S = {(2,3)}<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点8</span><span class="kp-name">关系运算后的性质</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">8.1 重要结论</span>
-<table><tr><th>性质</th><th>逆关系 R⁻¹</th><th>交 R ∩ S</th><th>并 R ∪ S</th><th>复合 R ∘ S</th></tr><tr><td>自反</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>反自反</td><td>✓</td><td>✓</td><td>✓</td><td>?</td></tr><tr><td>对称</td><td>✓</td><td>✓</td><td>✓</td><td>?</td></tr><tr><td>反对称</td><td>✓</td><td>?</td><td>?</td><td>?</td></tr><tr><td>传递</td><td>✓</td><td>✓</td><td>?</td><td>?</td></tr></table>
+<table><tr><th>性质</th><th>逆关系 R⁻¹</th><th>交 R ∩ S</th><th>并 R ∪ S</th><th>复合 R ∘ S</th></tr><tr><td>自反</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>反自反</td><td>✓</td><td>✓</td><td>✓</td><td>?</td></tr><tr><td>对称</td><td>✓</td><td>✓</td><td>✓</td><td>?</td></tr><tr><td>反对称</td><td>✓</td><td>✓</td><td>?</td><td>?</td></tr><tr><td>传递</td><td>✓</td><td>✓</td><td>?</td><td>?</td></tr></table>
 Screenshot-[159:36]<br>
 <span class="kp-sub">8.2 记忆要点</span>
 <b>逆关系：</b> 所有性质都保持<br>
-<b>交运算：</b> 自反、反自反、对称、传递保持<br>
-<b>复合运算：</b> 只有自反保持<br>
+<b>交运算：</b> 自反、反自反、对称、反对称、传递全部保持（反对称对子集遗传）<br>
+<b>复合运算：</b> 若 R、S 均具有某性质，复合后仍一定保持的只有自反（对称、反自反、反对称、传递均不一定保持）<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点9</span><span class="kp-name">闭包</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">9.1 定义</span>
@@ -1064,7 +1064,7 @@ Screenshot-[196:36]<br>
 <b>最大元：</b> 所有元素中最厉害的（只能有一个，且必须可比）<br>
 Screenshot-[201:32]<br>
 <span class="kp-sub">18.3 重要结论</span>
-<span class="formula"><b>不可比 → 没有最大元/最小元</b></span>
+<span class="formula"><b>存在不可比元素 ≠ 没有最大元</b>：最大元只要求"与所有元素可比且最大"（如菱形哈斯图中 2、3 不可比，但顶元与所有元素可比，仍是最大元）</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点19</span><span class="kp-name">考点19：函数</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">19.1 定义</span>
@@ -1343,7 +1343,8 @@ D. G 为整数集合<br>
 逆元：a+a−1=0，即 a−1=−a<br>
 A选项：自然数集 {0,1,2,⋯}，例如 2 的逆元是 −2，不在自然数集中，不满足可逆<br>
 答案：A<br>
-<span class="formula"><b>例题：在实数集 </b>ℝ<b> 上有运算 </b>∗<b>，定义为 </b>∀a,b∈ℝ,a∗b=a+b+2ab<b>，证明 </b>⟨ℝ,∗⟩<b> 是群，并求出其单位元和 </b>ℝ<b> 中任意元素 </b>a<b> 的逆元。</b></span>
+<span class="formula"><b>例题：在实数集 </b>ℝ<b> 上有运算 </b>∗<b>，定义为 </b>∀a,b∈ℝ,a∗b=a+b+2ab<b>，问 </b>⟨ℝ,∗⟩<b> 是否构成群？并求幺元和逆元（若存在）。</b></span>
+<b>结论：⟨ℝ,∗⟩ 不是群</b>——可结合、有幺元，但 a=−1/2 没有逆元。<br>
 <b>证明过程：</b><br>
 <b>封闭性：</b> a∗b=a+b+2ab∈ℝ ✓<br>
 <b>结合律验证：</b><br>
@@ -1359,7 +1360,8 @@ e=0 ✓<br>
 a∗a−1=e=0<br>
 a+a−1+2aa−1=0<br>
 a−1(2a+1)=−a<br>
-a−1=−a2a+1<br>
+a−1=−a/(2a+1)<br>
+<span class="formula"><b>关键：当 a=−1/2 时 2a+1=0，逆元不存在，⟨ℝ,∗⟩ 不是群</b><br>修正版：取 S=ℝ∖{−1/2}，则 a∗b=−1/2 ⇔ (2a+1)(2b+1)=0，故 ∗ 在 S 上封闭，且每个 a∈S 都有逆元 −a/(2a+1)，幺元仍为 0 → ⟨S,∗⟩ 是群</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点9</span><span class="kp-name">6.9 群的阶数</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>定义：</b><br>
@@ -1695,7 +1697,7 @@ D选项：补图与原图不同构 ✗<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点8</span><span class="kp-name">8.8 连通图与非连通图</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">定义</span>
 <b>连通图：</b> 所有结点都可以串起来。<br>
-<b>非连通图：</b> 至少有一个结点没串起来（落单）。<br>
+<b>非连通图：</b> 存在两个顶点之间没有通路。不要求有落单（孤立）的点——两条互不相交的边（K₂∪K₂）没有孤立点，也是非连通图。<br>
 <span class="kp-sub">边数关系</span>
 <b>结论：</b><br>
 <b>n个结点的连通图最少 n-1 条边</b>（树的情况）<br>
@@ -1716,8 +1718,8 @@ D选项：补图与原图不同构 ✗<br>
 <b>答案：</b> (n−1)(n−2)2<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点9</span><span class="kp-name">8.9 割边</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
-<b>定义：</b> 改变连通性的边称为割边（桥）。<br>
-如果去掉某条边后，图从连通变成不连通，则该边为割边<br>
+<b>定义：</b> 若去掉边 e 后图的连通分支数增加（ω(G−e) &gt; ω(G)），则 e 为割边（桥）。<br>
+连通图里表现为"去掉后从连通变成不连通"；非连通图里删割边则分支数变多<br>
 树的每一条边都是割边<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点10</span><span class="kp-name">8.10 图的表示</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
@@ -1787,7 +1789,7 @@ Km,n​。<br>
 <b>定义：</b><br>
 从某个节点出发，经过每条边<b>有且仅一次</b>，最后回到该节点<br>
 <b>重要结论：</b> 欧拉图中不存在奇点（度数为奇数的节点）<br>
-<b>判断方法：</b> 检查图中是否存在度数为奇数的节点。<br>
+<b>判断方法：</b> ① 先查连通性——不连通直接排除（如两个不相连的三角形，虽无奇点也不是欧拉图）；② 再查是否存在奇度节点。连通且无奇点 ⇔ 欧拉图。<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点2</span><span class="kp-name">9.2 哈密顿回路</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>定义：</b><br>
