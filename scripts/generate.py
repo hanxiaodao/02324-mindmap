@@ -153,7 +153,6 @@ header h1 {
   justify-content:space-between;
   padding:14px 18px 14px 20px;
   cursor:pointer;
-  user-select:none;
   font-weight:600;
   font-size:15px;
   color:var(--text);
@@ -217,7 +216,6 @@ header h1 {
   gap:12px;
   padding:11px 18px 11px 20px;
   cursor:pointer;
-  user-select:none;
   transition:background .15s;
 }
 .kp-title:hover { background:var(--hover-bg); }
@@ -334,7 +332,7 @@ header h1 {
 /* ── 主题切换按钮 ── */
 .theme-toggle {
   position:fixed;
-  top:16px; right:16px;
+  top:16px; right:64px;
   width:38px; height:38px;
   border-radius:50%;
   border:1px solid var(--border);
@@ -357,10 +355,30 @@ header h1 {
 .theme-toggle .icon-sun { display:none; }
 :root[data-theme="light"] .theme-toggle .icon-sun { display:block; }
 :root[data-theme="light"] .theme-toggle .icon-moon { display:none; }
+.github-link {
+  position:fixed;
+  top:16px; right:16px;
+  width:38px; height:38px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+  transition:border-color .2s, color .2s, transform .15s;
+}
+.github-link:hover {
+  border-color:var(--border-strong);
+  color:var(--text);
+  transform:scale(1.06);
+}
 
 /* 键盘焦点 */
 .ch-title:focus-visible, .kp-title:focus-visible { outline:2px solid var(--c1); outline-offset:-2px; }
-.theme-toggle:focus-visible { outline:2px solid var(--c1); outline-offset:2px; }
+.theme-toggle:focus-visible, .github-link:focus-visible { outline:2px solid var(--c1); outline-offset:2px; }
 
 /* ── 响应式 ── */
 @media (max-width:600px) {
@@ -369,7 +387,8 @@ header h1 {
   .chapters { padding:0 10px 48px; }
   .kp-detail { padding-left:20px; }
   .header-divider { display:none; }
-  .theme-toggle { top:10px; right:10px; }
+  .theme-toggle { top:10px; right:56px; }
+  .github-link { top:10px; right:10px; }
 }
 @media (prefers-reduced-motion:reduce) {
   .arrow, .kp-arrow, .ch-title::before, .theme-toggle { transition:none; }
@@ -381,6 +400,9 @@ header h1 {
   <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
   <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 </button>
+<a class="github-link" href="https://github.com/hanxiaodao/02324-mindmap" target="_blank" rel="noopener" aria-label="GitHub 项目源码" title="GitHub 项目源码">
+  <svg width="19" height="19" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+</a>
 <header>
   <h1>离散数学 · 考点笔记</h1>
   <div class="header-meta">
