@@ -869,6 +869,9 @@ A×(B∩C)=(A×B)∩(A×C)<br>
 A×(B−C)=(A×B)−(A×C)<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点8</span><span class="kp-name">容斥原理与幂集恒等式</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<b>这两个工具干嘛用的：</b><br>
+<b>容斥原理</b>——两堆东西有重叠时，求"至少属于一堆"的个数要把重复数的减回去：会英语 18 人 + 会日语 10 人 − 都会 6 人 = 会其中一种 22 人<br>
+<b>幂集恒等式</b>——把"取子集"看作一种运算后，它与交、并之间满足的等式，考试出<b>证明题</b>：P(A)∩P(B)=P(A∩B) 读作"既是 A 的子集又是 B 的子集" ⇔ "是 A∩B 的子集"<br>
 <span class="kp-sub">8.1 容斥原理</span>
 <span class="formula"><b>两个集合：</b> |A∪B| = |A| + |B| − |A∩B|</span>
 <span class="formula"><b>三个集合：</b> |A∪B∪C| = |A|+|B|+|C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|</span>
@@ -1170,6 +1173,7 @@ Q (由1，合取消去)<br>
 S (由4, 5，析取三段论)<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点26</span><span class="kp-name">函数个数的计数</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<b>干嘛用的：</b> 数"从 A 到 B 能建出多少种<b>不同</b>的对应关系"——选择题直接套下表，把 m、n 一代就出答案<br>
 <span class="kp-sub">26.1 记号</span>
 |A| = m（定义域），|B| = n（陪域），考虑从 A 到 B 的函数<br>
 <span class="kp-sub">26.2 公式表（必记）</span>
@@ -1459,6 +1463,7 @@ A={⋯,−9,−6,−3,0,3,6,9,⋯}（3的倍数）<br>
 运算顺序没有影响：它是交换群（阿贝尔群），即 a∗b=b∗aa∗b=b∗a。<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点13</span><span class="kp-name">6.13 幂等元与群方程</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<b>干嘛用的：</b> 两类高频小题——①"群中还有没有别的幂等元？"（答：没有，只有 e）②"解含未知元素的方程"（用逆元左右消）<br>
 <span class="kp-sub">13.1 幂等元唯一（= e）</span>
 <b>幂等元：</b> 满足 a∗a = a 的元素<br>
 <span class="formula"><b>定理：</b> 群中的幂等元只有幺元 e</span>
@@ -1552,6 +1557,7 @@ D. 至少有两个元素存在补元 ✓（全上界和全下界互为补元）<
 <b>答案：D</b><br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点6</span><span class="kp-name">7.6 布尔代数</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<b>干嘛用的：</b> 布尔代数 = "带补元的分配律工具箱"——考试考用它<b>化简逻辑式</b>（见 6.3 题型）和做补元相关的判断<br>
 <span class="kp-sub">6.1 定义</span>
 <b>布尔代数：</b> 每个元素都有补元的有界分配格 &lt;B, ∨, ∧, ′, 0, 1&gt;<br>
 <span class="kp-sub">6.2 核心运算律（必记）</span>
@@ -1561,6 +1567,7 @@ D. 至少有两个元素存在补元 ✓（全上界和全下界互为补元）<
 <span class="formula">(a′ ∧ b) ∨ (a′ ∧ b′) = a′ ∧ (b ∨ b′) = a′　// 同型题换皮</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点7</span><span class="kp-name">7.7 有补格与覆盖关系</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<b>干嘛用的：</b> ① 判断"某格是不是有补格 / 某元素有没有补元"（判断题常客）　② cov A 把哈斯图的每条边写成有序对集合——真题直接让你"求 cov A"<br>
 <span class="kp-sub">7.1 补元与有补格</span>
 <b>补元：</b> 有界格中 a∧b = 0 且 a∨b = 1，则 b 是 a 的补元（考点5：全上界全下界互为补元）<br>
 <b>有补格：</b> 每个元素都至少有一个补元的有界格<br>
@@ -1842,6 +1849,7 @@ Km,n​。<br>
 与 m &lt; 30 矛盾，故必有顶点度 &lt; 5。证毕。<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点14</span><span class="kp-name">8.14 关联矩阵</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<b>干嘛用的：</b> 用"点 × 边"的 0-1 表格表示图（邻接矩阵是"点 × 点"）——考试考"每列恰两个 1"这条性质和最少边数推导<br>
 <span class="kp-sub">14.1 定义</span>
 <b>关联矩阵 M(G)：</b> 行对应结点、列对应边。无向图中结点与边<b>关联</b>记 1，否则记 0<br>
 <span class="kp-sub">14.2 关键性质</span>
@@ -1856,6 +1864,7 @@ Km,n​。<br>
 顺带记：关联矩阵的秩 = n−1（连通图），这也是"连通图至少 n−1 条边"的矩阵证法<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点15</span><span class="kp-name">8.15 彼得森图</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<b>干嘛用的：</b> 判断题题库常客——拿它连环问"是不是平面图 / 欧拉图 / 哈密顿图"，结论全是"不是"，背 15.2 的表即可<br>
 <span class="kp-sub">15.1 定义</span>
 <b>彼得森图：</b> 10 个顶点、15 条边的<b>3-正则图</b>（外五边形 + 内五角星，对应顶点相连）<br>
 <span class="formula">握手定理自检：3×10 = 2×15 ✓</span>
@@ -1986,6 +1995,7 @@ Km,n​。<br>
 定理9.8 设有一个连通平面图G，共有n个顶点和m条边，其平面表示中共有r个面，则n - m + r = 2成立。此公式称为欧拉公式<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点11</span><span class="kp-name">9.11 树的结点数公式（速算）</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<b>干嘛用的：</b> 不画树、不枚举，直接用公式算出叶结点 / 分支点个数——填空题秒杀<br>
 <span class="kp-sub">11.1 任意二叉树：叶 = 二分支点 + 1</span>
 <span class="formula">n₀ = n₂ + 1　// n₀ 叶结点数，n₂ 度数为 2 的结点数</span>
 <b>证明（握手定理）：</b> 设 n₁ 为度 1 结点数。树：边数 = 总结点数 − 1 = n₀+n₁+n₂−1；又 边数 = (0·n₀+1·n₁+2·n₂)/2。两式相等化简得 n₀ = n₂+1 ✓<br>
