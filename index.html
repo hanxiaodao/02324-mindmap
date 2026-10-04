@@ -1797,6 +1797,9 @@ K4：C(4,2)=4×3/2=6 条边<br>
 <b>定义：</b> 若去掉边 e 后图的连通分支数增加（ω(G−e) &gt; ω(G)），则 e 为割边（桥）。<br>
 连通图里表现为"去掉后从连通变成不连通"；非连通图里删割边则分支数变多<br>
 树的每一条边都是割边<br>
+<b>例题：2020 个结点的树有多少条割边？</b><br>
+树的边数 = 2020−1 = 2019，每条边都是割边<br>
+<b>答案：2019 条</b><br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点10</span><span class="kp-name">8.10 图的表示</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>邻接矩阵：</b><br>
@@ -1911,8 +1914,25 @@ Km,n。<br>
 有一个经常考的特定图形，记住它不是哈密顿图。<br>
 <b>狄拉克定理（Dirac's Theorem）</b><br>
 在一个具有 n 个顶点的简单无向图中（n≥3），如果每个顶点的度数都至少为 n/2，那么该图中一定存在一条哈密顿回路<br>
+<span class="kp-sub">哈密顿图的应用：座位安排（建模）</span>
+<b>题型特征：</b> 题目不提“哈密顿”三个字，用车站、城市、人员等描述——“围成一圈相邻两人能交流”“每个城市恰好经过一次再回到出发地”，本质都是找<b>哈密顿回路</b><br>
+<b>建模三步：</b> 人/城市 → 结点；能交流/有道路 → 连边；“每点恰一次回到起点” → 把具体回路找出来就是答案<br>
+<b>例（七人圆桌）：</b> 7 人围坐，要求相邻两人有共同语言。A、B、C 会英语；B、D 会汉语；C、E 会西班牙语；C、F 会俄语；D、F 会日语；E、G 会德语；F、G 会法语。<br>
+人 → 结点 A~G，同一门语言的两人连边（共 9 条），问题变成找一条经过每人恰一次的回路：<br>
+<svg role="img" aria-label="七人语言问题建模：7个结点9条边，绿色为哈密顿回路" viewBox="0 0 300 276" style="display:block;max-width:440px;margin:8px 0"><line x1="214.1" y1="66.9" x2="85.9" y2="66.9" style="stroke:var(--muted);stroke-width:1.5"/><line x1="85.9" y1="66.9" x2="185.6" y2="191.9" style="stroke:var(--muted);stroke-width:1.5"/><line x1="150" y1="36" x2="214.1" y2="66.9" style="stroke:var(--c2);stroke-width:2.4"/><line x1="214.1" y1="66.9" x2="229.9" y2="136.2" style="stroke:var(--c2);stroke-width:2.4"/><line x1="229.9" y1="136.2" x2="185.6" y2="191.9" style="stroke:var(--c2);stroke-width:2.4"/><line x1="185.6" y1="191.9" x2="114.4" y2="191.9" style="stroke:var(--c2);stroke-width:2.4"/><line x1="114.4" y1="191.9" x2="70.1" y2="136.2" style="stroke:var(--c2);stroke-width:2.4"/><line x1="70.1" y1="136.2" x2="85.9" y2="66.9" style="stroke:var(--c2);stroke-width:2.4"/><line x1="85.9" y1="66.9" x2="150" y2="36" style="stroke:var(--c2);stroke-width:2.4"/><circle cx="150" cy="36" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="150" y="40.5" text-anchor="middle" font-size="12.5" fill="var(--text)">A</text><circle cx="214.1" cy="66.9" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="214.1" y="71.4" text-anchor="middle" font-size="12.5" fill="var(--text)">B</text><circle cx="229.9" cy="136.2" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="229.9" y="140.7" text-anchor="middle" font-size="12.5" fill="var(--text)">D</text><circle cx="185.6" cy="191.9" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="185.6" y="196.4" text-anchor="middle" font-size="12.5" fill="var(--text)">F</text><circle cx="114.4" cy="191.9" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="114.4" y="196.4" text-anchor="middle" font-size="12.5" fill="var(--text)">G</text><circle cx="70.1" cy="136.2" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="70.1" y="140.7" text-anchor="middle" font-size="12.5" fill="var(--text)">E</text><circle cx="85.9" cy="66.9" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="85.9" y="71.4" text-anchor="middle" font-size="12.5" fill="var(--text)">C</text><text x="150" y="236" text-anchor="middle" font-size="11.5" fill="var(--muted)">绿实线＝哈密顿回路（每点恰一次）</text><text x="150" y="251" text-anchor="middle" font-size="11.5" fill="var(--muted)">灰线＝其余共同语言边（B-C、C-F）</text><text x="150" y="266" text-anchor="middle" font-size="11.5" fill="var(--muted)">相邻语言依次：英、汉、日、法、德、西、英</text></svg>
+<span class="formula">座位方案：A→B→D→F→G→E→C→A　// 相邻语言依次：英语、汉语、日语、法语、德语、西班牙语、英语 ✓</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点3</span><span class="kp-name">9.3 简单平面图</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
+<span class="kp-sub">入门：面与次数（先看这个）</span>
+<b>面：</b> 平面图把平面分成的每个区域叫一个面，<b>图形外部的无限区域也算一个面</b><br>
+<b>面的次数：</b> 围成该面的边界是一条回路，边界所含的边数就是该面的次数（三角形围出的面次数为 3）<br>
+<span class="formula">所有面的次数之和 = 2 × 边数　// 每条边都恰好被两侧的面各数一次</span>
+验证：下图 K₄ 有 4 个面、每面 3 条边：3×4 = 12 = 2×6 ✓<br>
+<b>直观判断非平面图：</b> 点、边越多越容易交叉——<b>K₅（5 阶完全图）与 K₃,₃（完全二分图）</b>是最小的两个非平面图，怎么把边拉到外面都消不掉交叉<br>
+<b>欧拉公式直接套用（已知两项求第三项）：</b> <span class="formula">n − m + f = 2，即 面 + 点 = 边 + 2</span><br>
+<b>例1：</b> 连通平面图 n=6，m=9，求面数：f = 2−6+9 = <b>5</b><br>
+<b>例2：</b> 连通平面图 n=8，f=6，求边数：m = n+f−2 = 8+6−2 = <b>12</b><br>
+<b>例3：</b> 连通简单平面图 n=6，m=12，每个面由几条边围成？f = 2−6+12 = 8；面的总次数 = 2m = 24，平均每面 24÷8 = 3 次；简单平面图每个面至少 3 条边 → 每个面恰 <b>3</b> 条边（全是三角形，如八面体图）<br>
 <span class="kp-sub">简单平面图解题公式清单</span>
 <b>符号：</b> n＝顶点数，m＝边数，f＝面数（包括外部无限面）<br>
 <b>欧拉公式</b>（连通平面图）：n - m + f = 2<br>
@@ -1947,6 +1967,10 @@ Km,n。<br>
 4阶树的边数 = 4−1=3<br>
 4阶完全图的边数 = C(4,2)=6<br>
 需要增加：6−3=3 条边<br>
+<br>
+<b>例题：n 阶树的邻接矩阵中，非零元素最少有多少个？</b><br>
+树是无向图，每条边在邻接矩阵中贡献 2 个对称的 1；树最少边数 = n−1<br>
+<span class="formula">非零元素最少 = 2(n−1)　// 关联矩阵版本同答案（8.10 例2）：每列恰 2 个 1</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点5</span><span class="kp-name">9.5 树的节点分类</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>两类节点：</b><br>
@@ -1963,9 +1987,24 @@ Km,n。<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点6</span><span class="kp-name">9.6 树的握手定理</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>公式：</b> ∑deg(v)=2(|V|−1)<br>
 树的总度数 = 2 × (节点数 −1)<br>
+<br>
+<span class="kp-sub">例1：度数序列能否构成树</span>
+n 个结点的树总度数必为 <span class="formula">2(n−1)</span>——先验总和，再画图确认<br>
+例：5 个结点 → 总度数必须恰为 8：{3,2,1,1,1} ✓（能画出）；{3,3,3,3,3} ✗（和为 15，奇数直接排除）<br>
+<span class="kp-sub">例2：已知树叶与分支结点，求总结点数</span>
+<b>例题：</b> 树叶 8 片，4 度结点 1 个，其余分支结点都是 3 度，求总结点数 n。<br>
+设 3 度结点有 n−9 个，总度数 = 8×1 + 1×4 + (n−9)×3 = 3n−15<br>
+树的握手定理：3n−15 = 2(n−1) → n = <b>13</b><br>
+<span class="kp-sub">例3：已知各度结点数，求未知结点数</span>
+<b>例题：</b> 树中 1 度结点 40 个、2 度结点 20 个、3 度结点 31 个，无 6 度及以上结点，求 4 度、5 度结点各几个。<br>
+设 4 度 x 个、5 度 y 个：总度数 = 40×1+20×2+31×3+4x+5y = 173+4x+5y；总结点数 = 91+x+y<br>
+握手定理：173+4x+5y = 2(91+x+y−1) → <span class="formula">2x+3y = 7</span><br>
+非负整数解只有 x=2、y=1（x=0、1、3 时 y 都不是整数）→ <b>4 度结点 2 个，5 度结点 1 个</b>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点7</span><span class="kp-name">9.7 克鲁斯卡尔算法</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>用于求最小生成树：</b><br>
+<b>权值：</b> 边上的数值，理解成代价（车费、距离、造价）；<b>带权图：</b> 每条边都带权值的图<br>
+<b>最小生成树：</b> 连接全部 n 个结点的 n−1 条边中，总权值最小的一棵树<br>
 <b>步骤：</b><br>
 将所有节点保留，边全部去掉<br>
 从权值最小的边开始连接<br>
@@ -1980,7 +2019,14 @@ Km,n。<br>
 <span class="formula">权值为3的边 → 舍弃（形成圈）</span>
 继续选择…<br>
 选够5条边（6−1=5）时停止<br>
+<span class="formula">本图选中的 5 条边权值为 1、2、4、5、6 → 总权值 = 1+2+4+5+6 = 18</span>
 <svg role="img" aria-label="克鲁斯卡尔算法示例：6节点带权图与最小生成树" viewBox="0 0 320 240" style="display:block;max-width:460px;margin:8px 0"><line x1="160.0" y1="35.0" x2="233.6121593216773" y2="162.5" style="stroke:var(--err);stroke-width:2;stroke-dasharray:6 4"/><line x1="160.0" y1="205.0" x2="86.38784067832272" y2="77.5" style="stroke:var(--err);stroke-width:2;stroke-dasharray:6 4"/><line x1="160.0" y1="35.0" x2="233.6121593216773" y2="77.5" style="stroke:var(--c2);stroke-width:2.4"/><line x1="233.6121593216773" y1="77.5" x2="233.6121593216773" y2="162.5" style="stroke:var(--c2);stroke-width:2.4"/><line x1="233.6121593216773" y1="162.5" x2="160.0" y2="205.0" style="stroke:var(--c2);stroke-width:2.4"/><line x1="160.0" y1="205.0" x2="86.3878406783227" y2="162.5" style="stroke:var(--c2);stroke-width:2.4"/><line x1="86.3878406783227" y1="162.5" x2="86.38784067832272" y2="77.5" style="stroke:var(--c2);stroke-width:2.4"/><text x="210" y="56" text-anchor="middle" font-size="11.5" fill="var(--text)">1</text><text x="250" y="124" text-anchor="middle" font-size="11.5" fill="var(--text)">2</text><text x="250" y="190" text-anchor="middle" font-size="11.5" fill="var(--text)">4</text><text x="70" y="190" text-anchor="middle" font-size="11.5" fill="var(--text)">5</text><text x="68" y="124" text-anchor="middle" font-size="11.5" fill="var(--text)">6</text><text x="212" y="96" text-anchor="middle" font-size="11.5" fill="var(--err)">3</text><text x="108" y="150" text-anchor="middle" font-size="11.5" fill="var(--err)">7</text><circle cx="160.0" cy="35.0" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="160.0" y="39.5" text-anchor="middle" font-size="12.5" fill="var(--text)">1</text><circle cx="233.6121593216773" cy="77.5" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="233.6121593216773" y="82.0" text-anchor="middle" font-size="12.5" fill="var(--text)">2</text><circle cx="233.6121593216773" cy="162.5" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="233.6121593216773" y="167.0" text-anchor="middle" font-size="12.5" fill="var(--text)">3</text><circle cx="160.0" cy="205.0" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="160.0" y="209.5" text-anchor="middle" font-size="12.5" fill="var(--text)">4</text><circle cx="86.3878406783227" cy="162.5" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="86.3878406783227" y="167.0" text-anchor="middle" font-size="12.5" fill="var(--text)">5</text><circle cx="86.38784067832272" cy="77.5" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="86.38784067832272" y="82.0" text-anchor="middle" font-size="12.5" fill="var(--text)">6</text><text x="160" y="232" text-anchor="middle" font-size="11.5" fill="var(--muted)">绿＝选中 5 条边（n−1）；红虚＝成圈舍弃（权 3、7）</text></svg>
+<span class="kp-sub">应用：题目不明说算法（真题）</span>
+<b>识别特征：</b> 工厂、村庄、城市、车站当点，道路/线路当边，距离/造价当权值，求“连通所有点的最小代价” → 最小生成树问题，套克鲁斯卡尔<br>
+<b>例（最短供电线路）：</b> 5 个工厂 A~E，两两架线距离 AB=16、AC=7、AD=5、AE=6、BC=6、BD=9、BE=8、CD=13、CE=11、DE=4，求连通 5 厂的最短线路总长。<br>
+权值升序选边：<span class="formula">DE 4 ✓ → AD 5 ✓ → BC 6 ✓（AE 6 会与 AD、DE 成圈，弃）→ AC 7 ✓　已选 4 条 = 5−1，停</span>
+<svg role="img" aria-label="供电线路最小生成树：选中AD、DE、BC、AC四条边，总权值22" viewBox="0 0 340 252" style="display:block;max-width:440px;margin:8px 0"><line x1="80" y1="50" x2="240" y2="36" style="stroke:var(--muted);stroke-width:1.4"/><line x1="240" y1="36" x2="180" y2="196" style="stroke:var(--muted);stroke-width:1.4"/><line x1="240" y1="36" x2="56" y2="168" style="stroke:var(--muted);stroke-width:1.4"/><line x1="290" y1="140" x2="180" y2="196" style="stroke:var(--muted);stroke-width:1.4"/><line x1="290" y1="140" x2="56" y2="168" style="stroke:var(--muted);stroke-width:1.4"/><line x1="80" y1="50" x2="56" y2="168" style="stroke:var(--err);stroke-width:1.8;stroke-dasharray:6 4"/><line x1="80" y1="50" x2="180" y2="196" style="stroke:var(--c2);stroke-width:2.4"/><line x1="180" y1="196" x2="56" y2="168" style="stroke:var(--c2);stroke-width:2.4"/><line x1="240" y1="36" x2="290" y2="140" style="stroke:var(--c2);stroke-width:2.4"/><line x1="80" y1="50" x2="290" y2="140" style="stroke:var(--c2);stroke-width:2.4"/><text x="112" y="116" text-anchor="middle" font-size="11.5" fill="var(--text)">5</text><text x="106" y="172" text-anchor="middle" font-size="11.5" fill="var(--text)">4</text><text x="272" y="80" text-anchor="middle" font-size="11.5" fill="var(--text)">6</text><text x="180" y="84" text-anchor="middle" font-size="11.5" fill="var(--text)">7</text><text x="54" y="102" text-anchor="middle" font-size="11.5" fill="var(--err)">6</text><circle cx="80" cy="50" r="12" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="80" y="54.5" text-anchor="middle" font-size="12.5" fill="var(--text)">A</text><circle cx="240" cy="36" r="12" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="240" y="40.5" text-anchor="middle" font-size="12.5" fill="var(--text)">B</text><circle cx="290" cy="140" r="12" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="290" y="144.5" text-anchor="middle" font-size="12.5" fill="var(--text)">C</text><circle cx="180" cy="196" r="12" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="180" y="200.5" text-anchor="middle" font-size="12.5" fill="var(--text)">D</text><circle cx="56" cy="168" r="12" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="56" y="172.5" text-anchor="middle" font-size="12.5" fill="var(--text)">E</text><text x="170" y="222" text-anchor="middle" font-size="11.5" fill="var(--muted)">绿＝选中的 4 条边（5 结点选 4 条）；红虚＝AE 6 成圈舍弃</text><text x="170" y="244" text-anchor="middle" font-size="11.5" fill="var(--muted)">最短线路总长 = 4+5+6+7 = 22</text></svg>
+<span class="formula">最短线路总长 = 4+5+6+7 = <b>22</b></span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点8</span><span class="kp-name">9.8 二叉树的概念</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>定义：</b><br>
@@ -2005,21 +2051,12 @@ Km,n。<br>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点9</span><span class="kp-name">9.9 二叉树的遍历</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>三种遍历方式：</b><br>
 <table><tr><th>遍历方式</th><th>顺序</th><th>别名</th></tr><tr><td>先序遍历</td><td>根 → 左 → 右</td><td>先根</td></tr><tr><td>中序遍历</td><td>左 → 根 → 右</td><td>中根</td></tr><tr><td>后序遍历</td><td>左 → 右 → 根</td><td>后根</td></tr></table>
-<b>示例：</b><br>
-给定二叉树，分别用三种方式遍历：<br>
-<b>先序（根左右）：</b><br>
-先访问 A（根）<br>
-再访问左子树整体<br>
-最后访问 C（右）<br>
-依次递归…<br>
-<b>中序（左根右）：</b><br>
-先访问左子树整体<br>
-再访问 A（根）<br>
-最后访问右子树<br>
-<b>后序（左右根）：</b><br>
-先访问左子树整体<br>
-再访问右子树<br>
-最后访问 A（根）<br>
+<b>例题：</b> 对下面的二叉树做三种遍历——A 是根，B、C 是 A 的左右孩子，D、E 是 B 的左右孩子，F、G 是 E 的左右孩子：<br>
+<svg role="img" aria-label="遍历示例二叉树：A为根，B、C为左右孩子，D、E为B的孩子，F、G为E的孩子" viewBox="0 0 320 284" style="display:block;max-width:420px;margin:8px 0"><line x1="170" y1="32" x2="90" y2="102" style="stroke:var(--muted);stroke-width:1.6"/><line x1="170" y1="32" x2="250" y2="102" style="stroke:var(--muted);stroke-width:1.6"/><line x1="90" y1="102" x2="50" y2="177" style="stroke:var(--muted);stroke-width:1.6"/><line x1="90" y1="102" x2="130" y2="177" style="stroke:var(--muted);stroke-width:1.6"/><line x1="130" y1="177" x2="85" y2="247" style="stroke:var(--muted);stroke-width:1.6"/><line x1="130" y1="177" x2="175" y2="247" style="stroke:var(--muted);stroke-width:1.6"/><circle cx="170" cy="32" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="170" y="36.5" text-anchor="middle" font-size="12.5" fill="var(--text)">A</text><circle cx="90" cy="102" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="90" y="106.5" text-anchor="middle" font-size="12.5" fill="var(--text)">B</text><circle cx="250" cy="102" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="250" y="106.5" text-anchor="middle" font-size="12.5" fill="var(--text)">C</text><circle cx="50" cy="177" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="50" y="181.5" text-anchor="middle" font-size="12.5" fill="var(--text)">D</text><circle cx="130" cy="177" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="130" y="181.5" text-anchor="middle" font-size="12.5" fill="var(--text)">E</text><circle cx="85" cy="247" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="85" y="251.5" text-anchor="middle" font-size="12.5" fill="var(--text)">F</text><circle cx="175" cy="247" r="11.5" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="175" y="251.5" text-anchor="middle" font-size="12.5" fill="var(--text)">G</text><text x="160" y="274" text-anchor="middle" font-size="11.5" fill="var(--muted)">F、G 挂在 E（B 的右孩子）下——递归时把每棵子树当一个整体</text></svg>
+<b>先序（根左右）：</b> <span class="formula">A B D E F G C</span>　// 根 A → 整个左子树（B、D、E、F、G）→ 右孩子 C；子树内递归同规则<br>
+<b>中序（左根右）：</b> <span class="formula">D B F E G A C</span>　// 最左的 D 先出，左子树全部走完才轮到根 A<br>
+<b>后序（左右根）：</b> <span class="formula">D F G E B C A</span>　// 根 A 排在最后<br>
+<b>方法总结：</b> 根的位置固定——先序<b>第一个</b>、后序<b>最后一个</b>、中序把左右子树的序列隔开；先定位根，再对左右子树递归
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点10</span><span class="kp-name">9.10 算术表达式与二叉树</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>方法：</b><br>
@@ -2036,6 +2073,13 @@ Km,n。<br>
 对于表达式 (3×B)÷(C−D)：<br>
 <b>先序：</b> ÷×3B−CD <b>中序：</b> 3×B÷C−D <b>后序：</b> 3B×CD−÷<br>
 <svg role="img" aria-label="表达式(3×B)÷(C−D)对应的二叉树" viewBox="0 0 320 224" style="display:block;max-width:460px;margin:8px 0"><line x1="160" y1="40" x2="80" y2="115" style="stroke:var(--muted);stroke-width:1.6"/><line x1="160" y1="40" x2="240" y2="115" style="stroke:var(--muted);stroke-width:1.6"/><line x1="80" y1="115" x2="40" y2="190" style="stroke:var(--muted);stroke-width:1.6"/><line x1="80" y1="115" x2="120" y2="190" style="stroke:var(--muted);stroke-width:1.6"/><line x1="240" y1="115" x2="200" y2="190" style="stroke:var(--muted);stroke-width:1.6"/><line x1="240" y1="115" x2="280" y2="190" style="stroke:var(--muted);stroke-width:1.6"/><circle cx="160" cy="40" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5" style="stroke:var(--c1);stroke-width:2.5"/><text x="160" y="44.5" text-anchor="middle" font-size="12.5" fill="var(--text)">÷</text><circle cx="80" cy="115" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5" style="stroke:var(--c1);stroke-width:2.5"/><text x="80" y="119.5" text-anchor="middle" font-size="12.5" fill="var(--text)">×</text><circle cx="240" cy="115" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5" style="stroke:var(--c1);stroke-width:2.5"/><text x="240" y="119.5" text-anchor="middle" font-size="12.5" fill="var(--text)">−</text><circle cx="40" cy="190" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="40" y="194.5" text-anchor="middle" font-size="12.5" fill="var(--text)">3</text><circle cx="120" cy="190" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="120" y="194.5" text-anchor="middle" font-size="12.5" fill="var(--text)">B</text><circle cx="200" cy="190" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="200" y="194.5" text-anchor="middle" font-size="12.5" fill="var(--text)">C</text><circle cx="280" cy="190" r="13" fill="var(--card)" stroke="var(--border-strong)" stroke-width="1.5"/><text x="280" y="194.5" text-anchor="middle" font-size="12.5" fill="var(--text)">D</text><text x="80" y="146" text-anchor="middle" font-size="11" fill="var(--muted)">左子树 3×B</text><text x="240" y="146" text-anchor="middle" font-size="11" fill="var(--muted)">右子树 C−D</text><text x="160" y="216" text-anchor="middle" font-size="11.5" fill="var(--muted)">最后运算的符号 ÷ 作根，左右两边递归成子树</text></svg>
+<b>三个提速技巧：</b><br>
+① <b>中序 = 直接去括号抄原式</b>——只有先序、后序才需要重排<br>
+② 表达式遍历中<b>数字的相对顺序永远不变</b>（本例是 3、B、C、D），挪的只是运算符位置：先序符号在最前、中序居中、后序在最后<br>
+③ 动手前先按运算顺序<b>补上隐含括号</b>：1+2−3 实为 (1+2)−3，最后运算的 − 才是根<br>
+<b>再练一题：</b> 写出 (a+3×b)÷(c−d) 的三种遍历：<br>
+<span class="formula">最后运算 ÷ 作根 → 左子树 a+3×b（+ 作根，其右子树 3×b）→ 右子树 c−d</span>
+<span class="formula">先序：÷+a×3b−cd　　中序：a+3×b÷c−d　　后序：a3b×+cd−÷</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点11</span><span class="kp-name">9.11 树的结点数公式（速算）</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>干嘛用的：</b> 不画树、不枚举，直接用公式算出叶结点 / 分支点个数——填空题秒杀<br>
