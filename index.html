@@ -330,6 +330,18 @@ header h1 {
 .theme-toggle { right:64px; }
 .github-link { right:16px; }
 .export-md { right:112px; }
+/* 错题本入口 */
+.mistakes-link {
+  position:fixed; top:16px; right:160px; height:38px; z-index:100;
+  border-radius:19px; border:1px solid var(--border);
+  background:var(--surface); color:var(--muted); cursor:pointer;
+  display:flex; align-items:center; gap:6px; padding:0 13px;
+  font-size:12.5px; text-decoration:none;
+  transition:color .15s, border-color .15s;
+}
+.mistakes-link:hover { color:var(--heading); border-color:var(--border-strong); }
+.mistakes-link:focus-visible { outline:2px solid var(--c1); outline-offset:2px; }
+@media (prefers-reduced-motion:reduce) { .mistakes-link { transition:none; } }
 .theme-toggle .icon-sun { display:none; }
 :root[data-theme="light"] .theme-toggle .icon-sun { display:block; }
 :root[data-theme="light"] .theme-toggle .icon-moon { display:none; }
@@ -349,6 +361,7 @@ header h1 {
   .theme-toggle { right:52px; }
   .github-link { right:10px; }
   .export-md { right:94px; }
+  .mistakes-link { top:10px; right:136px; height:36px; }
 }
 @media (prefers-reduced-motion:reduce) {
   .arrow, .kp-arrow, .ch-title::before, .theme-toggle, .github-link, .export-md { transition:none; }
@@ -356,6 +369,10 @@ header h1 {
 </style>
 </head>
 <body>
+<a class="mistakes-link" href="mistakes.html" aria-label="错题本" title="错题本">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+  错题本
+</a>
 <button class="export-md" onclick="exportMarkdown()" aria-label="导出为 Markdown 笔记" title="导出为 Markdown 笔记">
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
 </button>
