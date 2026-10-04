@@ -109,6 +109,8 @@ header .sub { font-size:12.5px; color:var(--muted); letter-spacing:.5px; }
 .tag { font-size:11.5px; border-radius:10px; padding:1px 9px; background:var(--tag-bg); color:var(--tag-text); }
 .tag.chc, .tag.wtag, .tag.dtag { background:var(--tag-bg); border:1px solid currentColor; }
 .q { font-size:14.5px; font-weight:500; color:var(--heading); margin-bottom:6px; }
+.opts { margin:2px 0 6px; }
+.opt { font-size:13.5px; padding:1px 0 1px 12px; color:var(--text); }
 .wrow { font-size:13.5px; }
 .wrow b { color:var(--err); font-weight:600; margin-right:4px; }
 .reveal {
@@ -246,6 +248,9 @@ function renderAll(){
       if(x.kp) html += '<span class="tag">'+esc(x.kp)+'</span>';
       html += '<span class="tag '+(x.done?'dtag':'wtag')+'">'+(x.done?'已掌握':'未掌握')+'</span>';
       html += '</div><div class="q">'+esc(x.q)+'</div>';
+      if(x.opts && x.opts.length){
+        html += '<div class="opts">'+x.opts.map(function(o){ return '<div class="opt">'+esc(o)+'</div>'; }).join('')+'</div>';
+      }
       if(x.wrong) html += '<div class="wrow"><b>✗ 错因</b>'+esc(x.wrong)+'</div>';
       html += '<button class="reveal" onclick="toggleFix(this)">看正确思路</button>'
            +  '<div class="frow" hidden><b>✓ 思路</b>'+esc(x.fix)+'</div></div>';
