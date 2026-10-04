@@ -407,6 +407,7 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <b>示例：</b><br>
 <span class="formula">“今天下雨或者明天下雨” → P ∨ Q</span>
 <span class="formula">“今天刮风并且明天下雨” → P ∧ Q</span>
+<b>真值记法：</b> 用 1/0（推荐）或 T/F——1（T）为真，0（F）为假
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点2</span><span class="kp-name">否定和合取</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">2.1 五个联结词</span>
@@ -460,6 +461,9 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <span class="formula"><b>例3：</b> “除非努力否则不成功” = “只有努力才会成功” → Q → P</span>
 <b>例4：</b> 令 p: 今天下雨，q: 我今天进城<br>
 <span class="formula">“因为今天不下雨，所以我今天进城” → <b>C. ¬p → q</b></span>
+<span class="kp-sub">为什么"只要"前推后、"只有"后推前（语义理解）</span>
+"只要努力就能成功"：努力是<b>充分</b>条件——努力⇒成功，符号化 努力→成功（前推后）
+"只有努力才能成功"：努力是<b>必要</b>条件——成功⇒努力（不努力必不成功），但仅努力未必成功（还需机遇），符号化 成功→努力（后推前）
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点5</span><span class="kp-name">双条件</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">5.1 双条件符号（↔）</span>
@@ -494,6 +498,10 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <span class="formula"><b>析取（∨）：</b> 只要有一边为1就为1</span>
 <span class="formula"><b>单条件（→）：</b> 只有1推0为0，其他都是1</span>
 <span class="formula"><b>双条件（↔）：</b> 两边相等为1，不等为0</span>
+<span class="kp-sub">赋值的标准排法（交错赋值）</span>
+2 变元：p=1 1 0 0，q=1 0 1 0；3 变元：p=11110000，q=11001100，r=10101010——2ⁿ 组恰好全覆盖、不重不漏（顺序任意，穷举即可），就像给函数代值算结果
+<span class="kp-sub">真值计算例</span>
+p=1、q=0、r=1 时求 (p→q)∨r：1→0 为 0（前真后假），0∨1=<b>1</b>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点7</span><span class="kp-name">等值</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">7.1 等值定义</span>
@@ -504,6 +512,13 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <b>等值演算法：</b> 使用命题定律进行推导<br>
 <span class="kp-sub">7.3 重要等值公式</span>
 <span class="formula">P→Q⇔¬P∨Q</span>
+<span class="kp-sub">用真值表逐行验证 p→q ⇔ ¬p∨q</span>
+<table><tr><th>p</th><th>q</th><th>p→q</th><th>¬p</th><th>¬p∨q</th></tr><tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr><tr><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr></table>
+两列同为 1011、逐行相等 → 等值 ✓（这就是"蕴含化析取"的来历）
+<b>简写技巧：</b> 真值表可只写公式下方一行，每个连接词的运算结果写在它的符号正下方
+<span class="kp-sub">真值表法判定等值式</span>
+验证 (p→q)∧(r→q) ⇔ (p∨r)→q（交错赋值序，列为真值从上到下）：
+<span class="formula">p→q=11001111，r→q=11011101，左式 (p→q)∧(r→q)=11001101；p∨r=11111010，右式 (p∨r)→q=11001101　两列相同 ✓</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点8</span><span class="kp-name">常用命题定律</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>命题公式经过真值表验证是等值的，即可以直接替换使用。</b><br>
@@ -519,6 +534,7 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <span class="formula"><b>题目：</b> 证明 (P→Q)∧(R→Q)⇔(P∨R)→Q</span>
 <b>证明过程：</b><br>
 <span class="formula">左 ⇔ (¬P∨Q)∧(¬R∨Q)　// 消除单条件<br>⇔ (¬P∧¬R)∨Q　// 分配律<br>⇔ ¬(P∨R)∨Q　// 德摩根律<br>⇔ (P∨R)→Q　// 还原为单条件</span>
+<b>口诀：</b> 否定移入括号，连接词必须变号（∧↔∨）：¬(p∧q)⇔¬p∨¬q，¬(p∨q)⇔¬p∧¬q
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点9</span><span class="kp-name">成真指派和成假指派</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">9.1 基本概念</span>
@@ -532,6 +548,9 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <table><tr><th>P</th><th>Q</th><th>P ∨ Q</th></tr><tr><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>
 <b>成真指派：</b> (1,1), (1,0), (0,1)<br>
 <b>成假指派：</b> (0,0)<br>
+<span class="kp-sub">三变元求成假指派</span>
+例：求 (p∨q)∨¬r 的成假指派——析取为假须<b>每个子式全假</b>：p∨q=0 → p=0 且 q=0；¬r=0 → r=1
+<span class="formula">成假指派：p=0, q=0, r=1（记作 001，也是唯一的一组）</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点10</span><span class="kp-name">永真式和永假式</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">10.1 定义</span>
@@ -544,6 +563,9 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <table><tr><th>P</th><th>¬P</th><th>P ∨ ¬P</th></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr></table>
 <span class="formula"><b>永假式示例：</b> P ∧ ¬P</span>
 <table><tr><th>P</th><th>¬P</th><th>P ∧ ¬P</th></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr></table>
+<span class="kp-sub">矛盾式例题</span>
+¬(Q→P)∧P：Q→P ⇔ ¬Q∨P，取反得 Q∧¬P，故原式 ⇔ (Q∧¬P)∧P ⇔ Q∧0 ⇔ <b>0，矛盾式</b>
+顺带记四个恒真式：P→(P∨Q∨R)、¬P→(P→¬P)、(P∧¬P)→Q、P→(Q→P)
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点11</span><span class="kp-name">可满足式</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">11.1 定义</span>
@@ -552,6 +574,8 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <span class="formula"><b>永真式</b> → 必定是可满足式</span>
 <span class="formula"><b>永假式</b> → 不是可满足式</span>
 <span class="formula"><b>非重言式的可满足式</b> → 既有1又有0</span>
+<span class="kp-sub">例：判断是否为非重言式的可满足式</span>
+(P∧Q)↔(Q∨¬R)：按交错赋值序逐行算得结果列 11100010——有 1（可满足）也有 0（非永真）→ <b>非重言式的可满足式</b>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点12</span><span class="kp-name">命题逻辑推理 (补充内容)</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">12.1 直接证明法</span>
@@ -628,6 +652,11 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <table><tr><th>p</th><th>q</th><th>r</th><th>p∨q</th><th>¬r</th><th>q→¬r</th><th>(p∨q)∧(q→¬r)</th></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr><tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr></table>
 <span class="formula">真值为1的行对应小项：p∧q∧¬r (m₁₁₀=6), p∧¬q∧r (m₁₀₁=5), p∧¬q∧¬r (m₁₀₀=4), ¬p∧q∧¬r (m₀₁₀=2)</span>
 主析取范式：∑(2, 4, 5, 6)<br>
+<span class="kp-sub">什么不是小项（反面理解）</span>
+单独的 p 不是小项（缺 q）；p∧¬p 也不是（¬p 里 p 出现了第二次，不满足"每个变元恰出现一次"）
+<span class="kp-sub">热身例：求 p∨q 的主析取范式</span>
+真值表：p∨q 仅在 p=q=0 行为 0，其余三行（10、01、11）为 1
+<span class="formula">p∨q ⇔ (p∧¬q)∨(¬p∧q)∨(p∧q) ⇔ m₂∨m₁∨m₃ = ∑(1,2,3)</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点3</span><span class="kp-name">主合取范式</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">3.1 概念</span>
@@ -653,6 +682,12 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <span class="formula">简写：M₀ ∧ M₁ ∧ M₃ ∧ M₇ 或 ∏(0, 1, 3, 7)  // 与2.7主析取范式∑(2,4,5,6)互补，可交叉校验</span>
 <b>方法二：等值演算法</b><br>
 <span class="formula">(p∨q) ∧ (q→¬r)⇔ (p∨q) ∧ (¬q∨¬r)　// 蕴涵等值式<br>⇔ [p∨q∨(r∧¬r)] ∧ [(p∧¬p)∨¬q∨¬r]　// 添项 (r∧¬r)≡F, (p∧¬p)≡F<br>⇔ [(p∨q∨r) ∧ (p∨q∨¬r)] ∧ [(p∨¬q∨¬r) ∧ (¬p∨¬q∨¬r)]　// 分配律展开<br>⇔ M₀₀₀ ∧ M₀₀₁ ∧ M₀₁₁ ∧ M₁₁₁　// 合并<br>⇔ M₀ ∧ M₁ ∧ M₃ ∧ M₇<br>⇔ ∏(0, 1, 3, 7)</span>
+<span class="kp-sub">三变元大项编码表（正记 0、反记 1）</span>
+<table><tr><th>大项</th><th>式</th><th>成假赋值</th><th>大项</th><th>式</th><th>成假赋值</th></tr><tr><td>M₀</td><td>p∨q∨r</td><td>000</td><td>M₄</td><td>¬p∨q∨r</td><td>100</td></tr><tr><td>M₁</td><td>p∨q∨¬r</td><td>001</td><td>M₅</td><td>¬p∨q∨¬r</td><td>101</td></tr><tr><td>M₂</td><td>p∨¬q∨r</td><td>010</td><td>M₆</td><td>¬p∨¬q∨r</td><td>110</td></tr><tr><td>M₃</td><td>p∨¬q∨¬r</td><td>011</td><td>M₇</td><td>¬p∨¬q∨¬r</td><td>111</td></tr></table>
+<span class="kp-sub">完整例：求 p∧q 的主合取范式</span>
+真值表：p∧q 仅在 11 行为 1，零行为 10、01、00
+<span class="formula">p∧q ⇔ (¬p∨q)∧(p∨¬q)∧(p∨q) ⇔ M₂∧M₁∧M₀ = ∏(0,1,2)</span>
+缺项补法：缺 q 就添 q∧¬q 再用分配律 A∨(B∧¬B)⇔A 拆开；重复的大项只保留一个
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点4</span><span class="kp-name">大小项个数</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">4.1 判断规则</span>
@@ -689,6 +724,9 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <b>证明“大项的否定是小项”</b>：<br>
 <span class="formula">任取一个大项，例如 M₂ = ¬p∨q。</span>
 <span class="formula">¬M₂ = ¬(¬p∨q) = p ∧ ¬q。这正是小项 m₂（对应指派 p=1, q=0）。</span>
+<span class="kp-sub">练习（选不正确项）</span>
+"任意两个不同小项的析取必为重言式"——<b>不正确</b>：m₁∨m₂=(¬p∧q)∨(p∧¬q)，在 00、11 行均为假
+对照记牢：任一赋值恰使一个小项为真；mᵢ ⇔ ¬Mᵢ；全部小项的析取=永真式；全部大项的合取=永假式
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点6</span><span class="kp-name">命题公式的项数问题</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 （内容已整合至考点4：大小项个数）<br>
@@ -697,6 +735,14 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 利用等值式或蕴含式得出结论，然后将该结论作为前提，继续执行上述步骤，直到得出所求结论，推理得证。主要规则：<b>1. P规则</b>（前提引入规则）任何前提都可直接作为结论，即“H⇒H”。<b>2. T规则</b>（置换规则）之前已得出的结论可以通过等值式或蕴含式转为另一个结论。<b>3. CP规则</b><br>
 <span class="formula">CP规则（附加前提）当要证明的结论是蕴涵式（如 A → B）时，将前件 A 作为附加前提引入，然后推出后件 B，即可证明 A → B 成立。</span>
 <span class="formula"><b>4. 归谬法</b>要证明一个结论 C 是一组前提 H₁, H₂, ..., Hn 的有效结论，可以假设结论 C 为假（即 ¬C 为真），并将这个假设作为一个附加前提加入到原有的前提集合中。如果从这个扩大的前提集合中，最终能推出一个矛盾（如 P ∧ ¬P 或 F），则说明假设 ¬C 不成立，从而证明原来的结论 C 为真，推理有效。</span>
+<span class="kp-sub">四大基本推理规则</span>
+<table><tr><th>名称</th><th>形式</th><th>说明</th></tr><tr><td>假言推理（分离）</td><td>p→q，p ⊢ q</td><td>肯定前件</td></tr><tr><td>析取三段论</td><td>p∨q，¬p ⊢ q</td><td>否定一个取另一个</td></tr><tr><td>合取消去</td><td>p∧q ⊢ p（及 q）</td><td>合取式可拆</td></tr><tr><td>双条件推理</td><td>p↔q，p ⊢ q；p↔q，¬p ⊢ ¬q</td><td>同真同假</td></tr></table>
+<span class="kp-sub">例1：串联基本规则</span>
+前提 p∧q，q→¬r，r∨s　结论 s：合取消去 p∧q ⊢ q → 假言推理 q，q→¬r ⊢ ¬r → 析取三段论 ¬r，r∨s ⊢ <b>s</b> ✓
+<span class="kp-sub">例2：归谬法</span>
+前提 S→¬Q，S∨R，¬R↔Q　结论 R：反设 ¬R → 由 S∨R 得 S → 由 S→¬Q 得 ¬Q → 由 ¬R↔Q 与 ¬R 得 Q → Q 与 ¬Q 矛盾 → <b>R 成立</b> ✓
+<span class="kp-sub">例3：CP 规则</span>
+前提 P→(Q→R)，S→P，Q　结论 S→R：附加前提 S → 由 S→P 得 P → 由 P→(Q→R) 得 Q→R → 与 Q 得 R → 由 CP 得 <b>S→R</b> ✓（结论是单条件时即使题目没提示也可用 CP）
 </div></div>
 </div></div>
 
@@ -713,6 +759,7 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <span class="formula"><b>∃x P(x)：</b> 论域中<b>至少存在一个</b> x 满足性质 P</span>
 <span class="kp-sub">1.4 全称 vs 存在</span>
 <table><tr><th>量词</th><th>含义</th><th>示例</th></tr><tr><td>全称 ∀</td><td>所有的都满足</td><td>“所有人都是胖的” → 50个人都是胖的</td></tr><tr><td>存在 ∃</td><td>至少有一个满足</td><td>“存在人是胖的” → 只要有一个胖的就成立</td></tr></table>
+<b>易错点：</b> ∃ 的"至少一个"≠"恰好一个"——有 1 个、2 个、50 个满足都算真
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点2</span><span class="kp-name">谓词符号化</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">2.1 基本规则</span>
@@ -726,6 +773,13 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <span class="formula">∃ → 存在</span>
 <span class="formula">“不是” → 合取非</span>
 <span class="formula"><b>∃x (P(x) ∧ ¬L(x))</b></span>
+<span class="kp-sub">"合取非"的由来</span>
+¬(A→B) ⇔ ¬(¬A∨B) ⇔ A∧¬B——"A→B 为假"恰是"A 真而 B 假"
+<span class="kp-sub">"并不是所有人都…"怎么符号化</span>
+设 M(x)：x 是人，S(x)：x 喜欢游泳（全总论域）：
+<span class="formula">¬∀x(M(x)→S(x)) ⇔ ∃x(M(x)∧¬S(x))　// 应试优先写直译形式，两式等值</span>
+<span class="kp-sub">选择题技巧</span>
+题干以"不存在…"开头的正确答案必以 ¬∃ 开头；以"有的…"开头的必以 ∃ 开头——比对首符号即可排除选项
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点3</span><span class="kp-name">谓词公式的真假</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">3.1 判断方法</span>
@@ -735,6 +789,13 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <b>分析：</b> 当 x = 0 时，0² = 0 &lt; 1，不满足<br><b>结论：</b> 为假（F）<br>
 <span class="formula"><b>题目：</b> 论域为整数，∀x ∃y (x² &lt; y)</span>
 <b>分析：</b> 对于任意 x，都可以取 y = x² + 1<br><b>结论：</b> 为真（T）<br>
+<span class="kp-sub">多重量词：顺序不同，含义不同</span>
+整数论域：∀x∃y(x&lt;y) 为 T（每个 x 取 y=x+1）；∃y∀x(x&lt;y) 为 F（没有比所有数都大的 y）
+<span class="kp-sub">更多真值判断例（论域：整数，另注明者除外）</span>
+<span class="formula">∀x(x²≥x)　为 T　// x²−x=x(x−1)≥0 对一切整数成立</span>
+<span class="formula">∀x∃y(x²+y²=6)　为 F　// 反例 x=10：100+y²=6 无整数解</span>
+<span class="formula">自然数论域 ∀x∃y(x+y=10)　为 F　// 反例 x=100：y=−90 不合论域</span>
+正整数论域"下列各式为真的是？"这类选项题：逐个代特值找反例即可（如 ∃x∃y(x²+y²=10) 真：1²+3²=10）
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点4</span><span class="kp-name">量词的辖域</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">4.1 判断规则</span>
@@ -742,6 +803,7 @@ R<b>（实数集）</b>：<b>包含所有小数！</b><br>
 <span class="kp-sub">4.2 示例</span>
 <span class="formula"><b>∀x P(x)</b> → 辖域是 P(x)</span>
 <span class="formula"><b>∀x (P(x) → Q(x))</b> → 辖域是整个括号内</span>
+<b>无括号实例：</b> ∀xP(x)∧Q(x) 的 ∀x 辖域仅 P(x)——后面的 Q(x) 不在辖域内，判断题常考
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点5</span><span class="kp-name">约束变元和自由变元</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">5.1 定义</span>
@@ -778,6 +840,14 @@ y 在 ∀x 的辖域内、与指导变元 x 不同，但被内层 ∀y 约束 �
 <span class="kp-sub">7.2 注意事项</span>
 前四个公式是<b>等值</b>的（双向成立）<br>
 <span class="formula">后两个公式是<b>单向</b>的（左边→右边成立，右边→左边不成立）</span>
+<span class="kp-sub">两条双向等值式（与单向的对照，易混）</span>
+<span class="formula">∀xP(x) ∧ ∀xQ(x) ⇔ ∀x(P(x)∧Q(x))</span>
+<span class="formula">∃xP(x) ∨ ∃xQ(x) ⇔ ∃x(P(x)∨Q(x))</span>
+注意方向：∀ 配 ∧、∃ 配 ∨ 可双向；反方向 ∀x(P(x)∨Q(x)) ⇏ ∀xP(x)∨∀xQ(x)（"选不正确"题的常客）
+<span class="kp-sub">量词辖域扩张（推导对）</span>
+<span class="formula">∀xA(x)→B ⇔ ¬∀xA(x)∨B ⇔ ∃x(¬A(x)∨B) ⇔ ∃x(A(x)→B)　// B 不含 x</span>
+<span class="formula">A→∀xB(x) ⇔ ¬A∨∀xB(x) ⇔ ∀x(A∨B(x)) ⇔ ∀x(A→B(x))　// A 不含 x</span>
+若把第二条写成 ∃x(A→B(x)) 就错了——反例：A 真、B(0) 假、B(1) 真时，∀x(A→B(x)) 为 F 而 ∃x(A→B(x)) 为 T
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点8</span><span class="kp-name">前束范式</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">8.1 定义</span>
@@ -790,6 +860,11 @@ y 在 ∀x 的辖域内、与指导变元 x 不同，但被内层 ∀y 约束 �
 <span class="formula"><b>题目：</b> 将 ¬∀x P(x) → Q(y) 化为前束范式</span>
 <b>步骤：</b><br>
 <span class="formula">¬∀xP(x)→Q(y) ⇔ ¬(¬∀xP(x))∨Q(y)　// 消除单条件<br>⇔ ∀xP(x)∨Q(y)　// 双重否定<br>⇔ ∀x(P(x)∨Q(y))　// 量词辖域扩张（x 不在 Q(y) 中自由出现）</span>
+<span class="kp-sub">例1：消 → + 否定内移 + 量词前移</span>
+<span class="formula">∀xA(x)→∃yB(y) ⇔ ¬∀xA(x)∨∃yB(y) ⇔ ∃x¬A(x)∨∃yB(y) ⇔ ∃x∃y(¬A(x)∨B(y))</span>
+<span class="kp-sub">例2：自由变元与约束变元重名——先改名</span>
+∀x(P(x,y)→∀yQ(x,y))：内层 y 与自由 y 重名，先把内层改名为 ∀z，再前移：
+<span class="formula">∀x(P(x,y)→∀zQ(x,z)) ⇔ ∀x∀z(¬P(x,y)∨Q(x,z))</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点9</span><span class="kp-name">谓词推理</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">9.1 推理规则</span>
@@ -819,6 +894,9 @@ y 在 ∀x 的辖域内、与指导变元 x 不同，但被内层 ∀y 约束 �
 <span class="formula">⑤ 对 c 用 ②：¬Q(c)</span>
 <span class="formula">⑥ P(c)∨Q(c) 与 ¬P(c)、¬Q(c) 矛盾 → 假设不成立，原式永真 ✓</span>
 <b>模板总结：</b> 反证设假 → 量词否定翻转 → UI/EI 落到同一个 c → 制造命题矛盾<br>
+<span class="kp-sub">例2：拒取式（逆否）型</span>
+"凡大学生都勤奋，小明不勤奋，所以小明不是大学生"：设 D(x)：x 是大学生，Q(x)：x 勤奋，m：小明
+<span class="formula">∀x(D(x)→Q(x))，¬Q(m) ⊢ UI 得 D(m)→Q(m)，再由拒取式（¬Q(m)）得 ¬D(m) ✓</span>
 </div></div>
 </div></div>
 
@@ -832,6 +910,9 @@ y 在 ∀x 的辖域内、与指导变元 x 不同，但被内层 ∀y 约束 �
 <table><tr><th>方法</th><th>示例</th></tr><tr><td>列举法</td><td>A = {1, 2, 3}</td></tr><tr><td>描述法</td><td>A = {x | x是偶数}</td></tr></table>
 <span class="kp-sub">1.3 基本概念</span>
 <table><tr><th>概念</th><th>定义</th><th>示例</th></tr><tr><td>元素</td><td>集合中的个体</td><td>1 ∈ {1, 2, 3}</td></tr><tr><td>属于</td><td>元素与集合的关系</td><td>1 ∈ A</td></tr><tr><td>基数（势）</td><td>集合中元素的个数</td><td>|{1, 2, 3}| = 3</td></tr><tr><td>空集</td><td>没有元素的集合</td><td>∅ 或 {}</td></tr></table>
+<b>集合的两条性质：</b> 无序性 {1,2,3}={1,3,2}；互异性 {1,1,2,3}={1,2,3}
+<b>列举法例：</b> 小于 10 的正奇数 = {1,3,5,7,9}
+<b>描述法例：</b> B={n²+1 ∣ n 为自然数且 n²+1&lt;20}={1,2,5,10,17}（n=0,1,2,3,4）
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点2</span><span class="kp-name">子集和真子集</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">2.1 定义</span>
@@ -843,6 +924,8 @@ y 在 ∀x 的辖域内、与指导变元 x 不同，但被内层 ∀y 约束 �
 设 A = {1, 2, 3}，则：<br>
 A 的子集：∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}<br>
 A 的真子集：∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}<br>
+<span class="kp-sub">易错：元素与集合的双重身份</span>
+A={a,{a}} 有两个元素：a 和 {a}。则 a∈A ✓；{a}⊆A ✓（{a} 的元素 a 在 A 中）；{a,{a}}⊆A ✓（取全部元素）——{a} 既是 A 的元素，又可以充当子集的元素
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点3</span><span class="kp-name">幂集</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">3.1 定义</span>
@@ -857,6 +940,7 @@ A 的幂集：P(A) = {∅, {1}, {2}, {1,2}}<br>
 <b>A = {空集, {空集}}</b><br>
 A 有 2 个元素（∅ 和 {∅} 各算一个元素）<br>
 |P(A)| = 2² = 4<br>
+<b>按逗号数元素：</b> A={1,{2,3},4} 有 <b>3</b> 个元素（{2,3} 整体算一个）→ |P(A)|=2³=8
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点4</span><span class="kp-name">集合的运算</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">4.1 三种基本运算</span>
@@ -867,6 +951,9 @@ A 有 2 个元素（∅ 和 {∅} 各算一个元素）<br>
 <b>A ∪ B</b> = {1, 2, 3, 4, 5, 6}<br>
 <b>A - B</b> = {1, 3}<br>
 <b>B - A</b> = {5, 6}<br>
+<span class="kp-sub">重要等价链</span>
+<span class="formula">A∩B=A ⇔ A⊆B ⇔ A−B=∅ ⇔ A∪B=B</span>
+判断题常用：A∩B=A 说明 A 的元素全在 B 里；A−B=∅ 恒可用（空集是任何集合的子集）；而 B−A=∅ 成立当且仅当 B⊆A
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点5</span><span class="kp-name">对称差</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">5.1 定义</span>
@@ -877,6 +964,8 @@ A 有 2 个元素（∅ 和 {∅} 各算一个元素）<br>
 A ∪ B = {1, 2, 3, 4}<br>
 A ∩ B = {2, 3}<br>
 <b>A ⊕ B = {1, 4}</b><br>
+<b>综合例：</b> A={1,2}，B={2,3}，求 P(A)⊕P(B)：P(A)={∅,{1},{2},{1,2}}，P(B)={∅,{2},{3},{2,3}}，公共元素为 ∅、{2}
+<span class="formula">P(A)⊕P(B) = {{1},{1,2},{3},{2,3}}</span>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点6</span><span class="kp-name">笛卡尔积</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">6.1 基本概念</span>
@@ -891,6 +980,7 @@ A × B = {(1,3), (1,4), (2,3), (2,4)}<br>
 |A × B| = 2 × 2 = 4<br>
 <b>A² = A × A</b><br>
 若 A = {1, 2}，则 A² = {(1,1), (1,2), (2,1), (2,2)}<br>
+<b>基数综合例：</b> |A|=2，|B|=3 → |P(B)|=2³=8，|A×P(B)|=2×8=<b>16</b>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点7</span><span class="kp-name">笛卡尔积的性质</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">7.1 分配律</span>
@@ -898,6 +988,7 @@ A × B = {(1,3), (1,4), (2,3), (2,4)}<br>
 A×(B∪C)=(A×B)∪(A×C)<br>
 A×(B∩C)=(A×B)∩(A×C)<br>
 A×(B−C)=(A×B)−(A×C)<br>
+<b>注意：</b> A×B≠B×A——顺序不可交换（反例 A={1}，B={2}：(1,2)≠(2,1)）；仅当 A=B 或其中有空集时才相等
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点8</span><span class="kp-name">容斥原理与幂集恒等式</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <b>这两个工具干嘛用的：</b><br>
@@ -932,6 +1023,8 @@ R（关系）= 从 A × B 中<b>取一部分</b>出来<br>
 <b>结论：</b> 关系 R 是笛卡尔积 A × B 的子集。<br>
 <span class="kp-sub">1.3 基本术语</span>
 <table><tr><th>术语</th><th>定义</th><th>符号</th></tr><tr><td>全域关系</td><td>A 所有元素之间都有关系</td><td>E_A</td></tr><tr><td>定义域</td><td>有序对的第一个元素构成的集合</td><td>Dom(R)</td></tr><tr><td>值域</td><td>有序对的第二个元素构成的集合</td><td>Ran(R)</td></tr></table>
+<b>空关系：</b> 完全没有有序对时 R=∅，空关系也是 A×B 的子集（"没关系"也是一种关系）
+<b>全域关系 E_A=A×A 的四条性质：</b> 自反 ✓、对称 ✓、传递 ✓、<b>反对称 ✗</b>（|A|≥2 时 (a,b)、(b,a) 同时在）——判断题常考
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点2</span><span class="kp-name">关系的表示</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">2.1 三种表示方法</span>
@@ -1003,11 +1096,11 @@ R = {(1,1), (1,2)} S = {(2,3)}<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点8</span><span class="kp-name">关系运算后的性质</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">8.1 重要结论</span>
-<table><tr><th>性质</th><th>逆关系 R⁻¹</th><th>交 R ∩ S</th><th>并 R ∪ S</th><th>复合 R ∘ S</th></tr><tr><td>自反</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>反自反</td><td>✓</td><td>✓</td><td>✓</td><td>?</td></tr><tr><td>对称</td><td>✓</td><td>✓</td><td>✓</td><td>?</td></tr><tr><td>反对称</td><td>✓</td><td>✓</td><td>?</td><td>?</td></tr><tr><td>传递</td><td>✓</td><td>✓</td><td>?</td><td>?</td></tr></table>
+<table><tr><th>性质</th><th>逆关系 R⁻¹</th><th>交 R ∩ S</th><th>并 R ∪ S</th><th>复合 R ∘ S</th><th>差集 R−S</th></tr><tr><td>自反</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td></tr><tr><td>反自反</td><td>✓</td><td>✓</td><td>✓</td><td>?</td><td>✓</td></tr><tr><td>对称</td><td>✓</td><td>✓</td><td>✓</td><td>?</td><td>✓</td></tr><tr><td>反对称</td><td>✓</td><td>✓</td><td>?</td><td>?</td><td>✓</td></tr><tr><td>传递</td><td>✓</td><td>✓</td><td>?</td><td>?</td><td>✗</td></tr></table>
 <span class="kp-sub">8.2 记忆要点</span>
 <b>逆关系：</b> 所有性质都保持<br>
 <b>交运算：</b> 自反、反自反、对称、反对称、传递全部保持（反对称对子集遗传）<br>
-<b>复合运算：</b> 若 R、S 均具有某性质，复合后仍一定保持的只有自反（对称、反自反、反对称、传递均不一定保持）<br>
+<b>复合运算：</b> 若 R、S 均具有某性质，复合后仍一定保持的只有自反（对称、反自反、反对称、传递均不一定保持）<br><b>差集 R−S：</b> 只保反自反、对称、反对称（差是 R 的子集，性质遗传）；丢自反（对角线全落在 S 里）、传递可破坏（反例 R={(1,2),(2,3),(1,3)}、S={(1,3)} 均传递，R−S={(1,2),(2,3)} 不传递）<br>
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点9</span><span class="kp-name">闭包</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">9.1 定义</span>
@@ -1023,7 +1116,8 @@ R = {(1,1), (1,2)} S = {(2,3)}<br>
 <span class="kp-sub">10.1 定义</span>
 <b>等价关系：</b> 同时满足<b>自反性、对称性、传递性</b>的关系。<br>
 <span class="kp-sub">10.2 关系分类</span>
-<table><tr><th>关系</th><th>自反</th><th>对称</th><th>传递</th></tr><tr><td>等价关系</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>相容关系</td><td>✓</td><td>✓</td><td>✗</td></tr><tr><td>偏序关系</td><td>✓</td><td>✗</td><td>✓</td></tr><tr><td>拟序关系</td><td>✗</td><td>✗</td><td>✓</td></tr></table>
+<table><tr><th>关系</th><th>自反</th><th>对称</th><th>传递</th><th>反对称</th></tr><tr><td>等价关系</td><td>✓</td><td>✓</td><td>✓</td><td>?</td></tr><tr><td>相容关系</td><td>✓</td><td>✓</td><td>✗</td><td>?</td></tr><tr><td>偏序关系</td><td>✓</td><td>✗</td><td>✓</td><td>✓</td></tr><tr><td>拟序关系</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td></tr></table>
+<b>记忆：</b> 反自反 + 传递 ⇒ 反对称（若 (a,b)、(b,a) 同在，传递得 (a,a)，与反自反矛盾）；等价/相容不要求反对称（如全域关系）
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点11</span><span class="kp-name">等价类</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">11.1 定义</span>
@@ -1058,6 +1152,7 @@ A = {1, 2, 3}，R = {(1,1), (1,2), (2,1), (2,2), (3,3)}<br>
 <b>A = {1, 2, 3}</b><br>
 <table><tr><th>分组方式</th><th>划分</th></tr><tr><td>每人一组</td><td>{1}, {2}, {3}</td></tr><tr><td>两人+一人</td><td>{1,2}, {3}; {1,3}, {2}; {2,3}, {1}</td></tr><tr><td>全部一组</td><td>{1,2,3}</td></tr></table>
 <span class="formula"><b>共有 5 种划分 → 5 种等价关系</b></span>
+<b>例：</b> 4 个元素的集合有 <b>15</b> 种划分（按分块数：1+6+3+4+1），故 4 元集上共有 15 个等价关系
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点14</span><span class="kp-name">等价关系的运算</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">14.1 判断方法</span>
@@ -1066,7 +1161,7 @@ A = {1, 2, 3}，R = {(1,1), (1,2), (2,1), (2,2), (3,3)}<br>
 对每个选项进行运算<br>
 判断结果是否还是等价关系<br>
 <span class="kp-sub">14.2 常见结论</span>
-<table><tr><th>运算</th><th>结果是否等价</th></tr><tr><td>R ∪ S</td><td>不一定</td></tr><tr><td>R ∩ S</td><td>是</td></tr><tr><td>R ∘ S</td><td>不一定</td></tr><tr><td>R⁻¹</td><td>是</td></tr></table>
+<table><tr><th>运算</th><th>结果是否等价</th></tr><tr><td>R ∪ S</td><td>不一定</td></tr><tr><td>R ∩ S</td><td>是</td></tr><tr><td>R ∘ S</td><td>不一定</td></tr><tr><td>R⁻¹</td><td>是</td></tr><tr><td>R − S</td><td>不是</td></tr></table><b>为什么差不行：</b> R、S 都自反 ⇒ 对角线 ⊆ S∩R，R−S 不含任何 (a,a)，必失自反
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点15</span><span class="kp-name">等价关系的证明</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">15.1 证明框架</span>
@@ -1080,6 +1175,7 @@ A = {1, 2, 3}，R = {(1,1), (1,2), (2,1), (2,2), (3,3)}<br>
 <span class="formula"><b>对称：</b> 若 s₁ 与 s₂ 的 0 的个数相同，则反过来也相同 → 满足</span>
 <span class="formula"><b>传递：</b> 若 s₁ 与 s₂ 的 0 的个数相同，s₂ 与 s₃ 的 0 的个数相同，则 s₁ 与 s₃ 的 0 的个数也相同 → 满足</span>
 <b>结论：</b> 该关系是等价关系。<br>
+<b>答题技巧：</b> 等价关系证明按"自反 → 对称 → 传递"三步框架分步写——即使某一步证不出来，把框架写全也有过程分
 </div></div>
 <div class="kp"><div class="kp-title" onclick="toggleKp(this)" role="button" tabindex="0" aria-expanded="false"><span class="kp-num">考点16</span><span class="kp-name">哈斯图</span><span class="kp-arrow">▼</span></div><div class="kp-detail">
 <span class="kp-sub">16.1 定义</span>
@@ -1186,6 +1282,7 @@ m &gt; n 时单射不存在（鸽笼原理）；m &lt; n 时满射不存在<br>
 <span class="kp-sub">25.4 满射计数示例（m=3, n=2）</span>
 <span class="formula">2³ − C(2,1)·1³ + C(2,2)·0³ = 8 − 2 + 0 = 6</span>
 验证：全部函数 8 个，去掉两个常函数（全到 a、全到 b），剩 6 个满射 ✓
+再进一步：|A|=4，|B|=2 时满射个数 = 2⁴−2=<b>14</b>（16 个函数中只有两个常函数不满射）
 </div></div>
 </div></div>
 
