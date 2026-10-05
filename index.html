@@ -112,6 +112,23 @@ header h1 {
 /* ── Chapter list ── */
 .chapters { padding:0 16px 60px; display:flex; flex-direction:column; gap:8px; max-width:860px; margin:0 auto; }
 
+/* 展开全部 / 收起全部 工具栏 */
+.list-tools {
+  display:flex; justify-content:flex-end; gap:8px;
+  margin-bottom:2px;
+}
+.list-tools button {
+  display:flex; align-items:center; gap:5px;
+  height:30px; padding:0 12px;
+  border-radius:15px; border:1px solid var(--border);
+  background:var(--surface); color:var(--muted); cursor:pointer;
+  font-size:12.5px; font-family:inherit;
+  transition:color .15s, border-color .15s;
+}
+.list-tools button:hover { color:var(--heading); border-color:var(--border-strong); }
+.list-tools button:focus-visible { outline:2px solid var(--c1); outline-offset:2px; }
+.list-tools svg { flex:none; }
+
 /* 章节卡片：用左侧彩色边框替代整片渐变背景 */
 .ch {
   border-radius:10px;
@@ -330,6 +347,36 @@ header h1 {
 .theme-toggle { right:64px; }
 .github-link { right:16px; }
 .export-md { right:112px; }
+/* 导出下拉菜单 */
+.export-menu {
+  position:fixed; top:60px; right:112px; z-index:101;
+  min-width:186px; padding:6px;
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.28);
+  display:flex; flex-direction:column; gap:2px;
+}
+.export-menu[hidden] { display:none; }
+.export-menu button {
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  padding:9px 12px; border:0; border-radius:8px; background:none;
+  color:var(--text); font-size:13px; font-family:inherit; cursor:pointer; text-align:left;
+}
+.export-menu button:hover { background:var(--hover-bg); }
+.export-menu .em-ext {
+  font-size:11px; color:var(--muted);
+  border:1px solid var(--border); border-radius:5px; padding:1px 6px;
+}
+.export-menu button:hover .em-ext { border-color:var(--border-strong); color:var(--text); }
+.export-menu button:focus-visible { outline:2px solid var(--c1); outline-offset:-2px; }
+/* 导出状态提示 */
+.export-toast {
+  position:fixed; left:50%; bottom:28px; transform:translateX(-50%);
+  z-index:200; max-width:88vw;
+  background:var(--card); color:var(--text);
+  border:1px solid var(--border); border-radius:10px;
+  padding:10px 16px; font-size:13px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+}
 /* 错题本入口 */
 .mistakes-link {
   position:fixed; top:16px; right:160px; height:38px; z-index:100;
@@ -362,9 +409,27 @@ header h1 {
   .github-link { right:10px; }
   .export-md { right:94px; }
   .mistakes-link { top:10px; right:136px; height:36px; }
+  .export-menu { top:52px; right:94px; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .arrow, .kp-arrow, .ch-title::before, .theme-toggle, .github-link, .export-md { transition:none; }
+  .arrow, .kp-arrow, .ch-title::before, .theme-toggle, .github-link, .export-md, .list-tools button { transition:none; }
+}
+
+/* ── 导出 PDF（打印 → 另存为 PDF）：全部展开、隐藏控件、保留配色 ── */
+@media print {
+  @page { margin: 14mm 12mm; }
+  body { background:#fff; }
+  .mistakes-link, .export-md, .export-menu, .theme-toggle, .github-link,
+  .export-toast, .arrow, .kp-arrow, .list-tools { display:none !important; }
+  .ch-body, .kp-detail { display:block !important; }
+  * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  header { padding-top:8px; }
+  .ch { box-shadow:none; break-inside:auto; }
+  .ch-title { break-after:avoid; }
+  .kp { break-inside:auto; }
+  .kp-title { break-after:avoid; }
+  .kp-detail table { break-inside:auto; }
+  .kp-detail tr, .kp-detail .formula, .kp-detail svg { break-inside:avoid; }
 }
 </style>
 </head>
@@ -373,9 +438,14 @@ header h1 {
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
   错题本
 </a>
-<button class="export-md" onclick="exportMarkdown()" aria-label="导出为 Markdown 笔记" title="导出为 Markdown 笔记">
+<button class="export-md" onclick="toggleExportMenu(event)" aria-label="导出笔记（Markdown / PDF / Word）" title="导出笔记（Markdown / PDF / Word）" aria-haspopup="menu" aria-expanded="false" aria-controls="exportMenu">
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
 </button>
+<div class="export-menu" id="exportMenu" role="menu" hidden>
+  <button role="menuitem" onclick="onExportItem('md')"><span>Markdown 笔记</span><span class="em-ext">.md</span></button>
+  <button role="menuitem" onclick="onExportItem('pdf')"><span>PDF 文档</span><span class="em-ext">.pdf</span></button>
+  <button role="menuitem" onclick="onExportItem('word')"><span>Word 文档</span><span class="em-ext">.doc</span></button>
+</div>
 <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换亮色/暗色模式" title="切换亮色/暗色模式">
   <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
   <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -393,6 +463,16 @@ header h1 {
 </header>
 <div class="chapters">
 
+<div class="list-tools">
+  <button onclick="expandAllChapters()" aria-label="展开全部章节和考点" title="展开全部章节和考点">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/></svg>
+    展开全部
+  </button>
+  <button onclick="collapseAllChapters()" aria-label="收起全部章节和考点" title="收起全部章节和考点">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 11 12 6 17 11"/><polyline points="7 18 12 13 17 18"/></svg>
+    收起全部
+  </button>
+</div>
 <div class="ch ch1">
 <div class="ch-title" onclick="toggleCh(this)" role="button" tabindex="0" aria-expanded="false"><span>规则补充<span class="badge">1考点</span></span><span class="arrow">▼</span></div>
 <div class="ch-body">
@@ -2224,10 +2304,31 @@ n 个结点的树总度数必为 <span class="formula">2(n−1)</span>——先�
 function toggleTheme(){var r=document.documentElement,next=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',next);try{localStorage.setItem('theme',next)}catch(e){}}
 function toggleCh(el){var ch=el.closest('.ch'),isOpen=ch.classList.contains('open');ch.classList.toggle('open');el.setAttribute('aria-expanded',String(!isOpen));if(!isOpen){ch.querySelectorAll('.kp-detail').forEach(function(d){d.style.display='none'});ch.querySelectorAll('.kp').forEach(function(k){k.classList.remove('open')});ch.querySelectorAll('.kp-title').forEach(function(t){t.setAttribute('aria-expanded','false')})}}
 function toggleKp(el){var kp=el.closest('.kp'),isOpen=kp.classList.contains('open');kp.classList.toggle('open');el.setAttribute('aria-expanded',String(!isOpen));kp.querySelector('.kp-detail').style.display=isOpen?'none':'block'}
+/* 全部展开 / 收起：与单个 toggle 保持同一套状态（.open 类 + kp-detail 内联 display + aria-expanded） */
+function setAllChapters(open){[].forEach.call(document.querySelectorAll('.ch'),function(ch){ch.classList.toggle('open',open);var t=ch.querySelector('.ch-title');if(t)t.setAttribute('aria-expanded',String(open))});[].forEach.call(document.querySelectorAll('.kp'),function(kp){kp.classList.toggle('open',open);var t=kp.querySelector('.kp-title');if(t)t.setAttribute('aria-expanded',String(open));var d=kp.querySelector('.kp-detail');if(d)d.style.display=open?'block':'none'})}
+function expandAllChapters(){setAllChapters(true)}
+function collapseAllChapters(){setAllChapters(false)}
 document.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;var el=e.target;if(el.classList&&el.classList.contains('ch-title')){e.preventDefault();toggleCh(el)}else if(el.classList&&el.classList.contains('kp-title')){e.preventDefault();toggleKp(el)}});
 function mdInline(n){if(n.nodeType===3)return n.textContent;if(n.nodeType!==1)return '';if(n.tagName==='BR')return '\n';var s='';for(var i=0;i<n.childNodes.length;i++)s+=mdInline(n.childNodes[i]);var t=n.tagName;if(t==='B'||t==='STRONG')return '**'+s.trim()+'**';return s}
 function mdTable(t){var rows=[].map.call(t.rows,function(r){return [].map.call(r.cells,function(c){return mdInline(c).trim().replace(/\|/g,'\\|').replace(/\n/g,' ')})});if(!rows.length)return '';function line(cs){return '| '+cs.join(' | ')+' |'}var out=[line(rows[0]),line(rows[0].map(function(){return '---'}))];for(var i=1;i<rows.length;i++)out.push(line(rows[i]));return out.join('\n')}
 function mdDetail(el){var lines=[],cur='';function flush(){cur=cur.trim();if(cur)lines.push(cur);cur=''}[].forEach.call(el.childNodes,function(n){if(n.nodeType===3){cur+=n.textContent.replace(/\s+/g,' ');return}if(n.nodeType!==1)return;var tag=n.tagName;if(tag==='svg'){return}if(tag==='BR'){flush();return}if(tag==='TABLE'){flush();lines.push(mdTable(n));return}if(tag==='UL'){flush();[].forEach.call(n.children,function(li){lines.push('- '+mdInline(li).trim())});return}var txt=mdInline(n).trim();if(!txt)return;if(n.classList.contains('kp-sub')){flush();lines.push('#### '+txt);return}if(n.classList.contains('formula')){flush();txt.split('\n').forEach(function(l){lines.push('> '+l)});return}cur+=mdInline(n)});flush();return lines.join('\n\n')}
 function exportMarkdown(){var parts=[];var h1=document.querySelector('header h1');parts.push('# '+(h1?h1.textContent.trim():'离散数学 · 考点笔记'));var stats=[].map.call(document.querySelectorAll('.header-stat'),function(s){return s.textContent.replace(/\s+/g,' ').trim()});if(stats.length)parts.push('> '+stats.join(' · '));[].forEach.call(document.querySelectorAll('.ch'),function(ch){var ts=ch.querySelector('.ch-title span');var title='';if(ts){var c=ts.cloneNode(true);[].forEach.call(c.querySelectorAll('.badge'),function(b){b.remove()});title=c.textContent.trim()}parts.push('## '+title);[].forEach.call(ch.querySelectorAll('.kp'),function(kp){var num=kp.querySelector('.kp-num'),name=kp.querySelector('.kp-name');var head=((num?num.textContent.trim():'')+' '+(name?name.textContent.trim():'')).trim();parts.push('### '+head);var d=kp.querySelector('.kp-detail');var dt=d?mdDetail(d):'';if(dt)parts.push(dt)})});parts.push('---');parts.push('*导出于 '+new Date().toLocaleString('zh-CN',{hour12:false})+'*');var md=parts.join('\n\n');var blob=new Blob(['\ufeff'+md],{type:'text/markdown;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='离散数学考点笔记.md';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);return md}
+function downloadBlob(blob,name){var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1000)}
+function showToast(msg,ms){var t=document.getElementById('exportToast');if(!t){t=document.createElement('div');t.className='export-toast';t.id='exportToast';document.body.appendChild(t)}t.style.display='block';t.textContent=msg;clearTimeout(showToast._t);if(ms)showToast._t=setTimeout(function(){t.style.display='none'},ms);return t}
+function hideToast(){var t=document.getElementById('exportToast');if(t)t.style.display='none'}
+function toggleExportMenu(e){e.stopPropagation();var m=document.getElementById('exportMenu'),b=document.querySelector('.export-md');var open=m.hasAttribute('hidden');if(open){m.removeAttribute('hidden')}else{m.setAttribute('hidden','')}b.setAttribute('aria-expanded',String(open))}
+function closeExportMenu(){var m=document.getElementById('exportMenu');if(m)m.setAttribute('hidden','');var b=document.querySelector('.export-md');if(b)b.setAttribute('aria-expanded','false')}
+function onExportItem(kind){closeExportMenu();if(kind==='pdf'){exportPDF()}else if(kind==='word'){exportWord()}else{exportMarkdown()}}
+document.addEventListener('click',function(e){var m=document.getElementById('exportMenu');if(m&&!m.hasAttribute('hidden')&&!m.contains(e.target)&&!e.target.closest('.export-md'))closeExportMenu()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeExportMenu()});
+/* 导出前临时展开全部内容并切亮色主题，导出后还原页面原状态 */
+function expandAllForExport(){var st={theme:document.documentElement.getAttribute('data-theme'),opens:[],disp:[]};document.documentElement.setAttribute('data-theme','light');[].forEach.call(document.querySelectorAll('.ch,.kp'),function(el){st.opens.push([el,el.classList.contains('open')]);el.classList.add('open')});[].forEach.call(document.querySelectorAll('.kp-detail'),function(d){st.disp.push([d,d.style.display]);d.style.display='block'});return st}
+function restoreAfterExport(st){if(!st)return;document.documentElement.setAttribute('data-theme',st.theme);st.opens.forEach(function(p){p[0].classList.toggle('open',p[1])});st.disp.forEach(function(p){p[0].style.display=p[1]})}
+function exportPDF(){var st=expandAllForExport();showToast('已展开全部内容。请在打印对话框中，将目标打印机选为「另存为 PDF」',8000);window.addEventListener('afterprint',function onDone(){window.removeEventListener('afterprint',onDone);restoreAfterExport(st);hideToast()});setTimeout(function(){window.print()},350)}
+/* 内嵌 SVG → PNG：SVG 里的 var(--x) 颜色在独立序列化后会失效，需用计算后的具体颜色值重写 */
+function svgToPngDataUrl(svg){return new Promise(function(resolve){try{var rect=svg.getBoundingClientRect();var w=Math.max(1,Math.ceil(rect.width)),h=Math.max(1,Math.ceil(rect.height));var clone=svg.cloneNode(true);clone.setAttribute('xmlns','http://www.w3.org/2000/svg');clone.setAttribute('width',w);clone.setAttribute('height',h);clone.removeAttribute('style');var src=[svg].concat([].slice.call(svg.querySelectorAll('*')));var dst=[clone].concat([].slice.call(clone.querySelectorAll('*')));for(var i=1;i<src.length;i++){var cs=getComputedStyle(src[i]),tag=src[i].tagName.toLowerCase(),st='fill:'+cs.fill+';stroke:'+cs.stroke+';';if(cs.stroke&&cs.stroke!=='none')st+='stroke-width:'+cs.strokeWidth+';';if(tag==='text')st+='font-family:'+cs.fontFamily+';font-size:'+cs.fontSize+';font-weight:'+cs.fontWeight+';';dst[i].setAttribute('style',st)}var str=new XMLSerializer().serializeToString(clone);var img=new Image();img.onload=function(){try{var s=2,cvs=document.createElement('canvas');cvs.width=w*s;cvs.height=h*s;var ctx=cvs.getContext('2d');ctx.scale(s,s);ctx.drawImage(img,0,0,w,h);resolve(cvs.toDataURL('image/png'))}catch(err){resolve(null)}};img.onerror=function(){resolve(null)};img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(str)}catch(e){resolve(null)}})}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+/* 导出 Word：示意图全部栅格化为 PNG 内嵌（base64），生成 Word 兼容 HTML 存为 .doc */
+function exportWord(){var st=expandAllForExport();showToast('正在生成 Word 文档（含示意图），请稍候…');var svgs=[].slice.call(document.querySelectorAll('.kp-detail svg'));Promise.all(svgs.map(function(s){return svgToPngDataUrl(s)})).then(function(urls){var urlMap=new Map();svgs.forEach(function(s,i){if(urls[i])urlMap.set(s,urls[i])});var buf=[];var h1=document.querySelector('header h1');buf.push('<h1>'+escHtml(h1?h1.textContent.trim():'离散数学 · 考点笔记')+'</h1>');var stats=[].map.call(document.querySelectorAll('.header-stat'),function(s){return s.textContent.replace(/\s+/g,' ').trim()});if(stats.length)buf.push('<p class="stats">'+escHtml(stats.join(' · '))+'</p>');[].forEach.call(document.querySelectorAll('.ch'),function(ch){var ts=ch.querySelector('.ch-title span');var title='';if(ts){var c=ts.cloneNode(true);[].forEach.call(c.querySelectorAll('.badge'),function(b){b.remove()});title=c.textContent.trim()}buf.push('<h2>'+escHtml(title)+'</h2>');[].forEach.call(ch.querySelectorAll('.kp'),function(kp){var num=kp.querySelector('.kp-num'),name=kp.querySelector('.kp-name');buf.push('<h3>'+escHtml(((num?num.textContent.trim():'')+' '+(name?name.textContent.trim():'')).trim())+'</h3>');var d=kp.querySelector('.kp-detail');if(!d)return;var dc=d.cloneNode(true);[].forEach.call(dc.querySelectorAll('.kp-sub'),function(s){var h=document.createElement('h4');h.innerHTML=s.innerHTML;s.parentNode.replaceChild(h,s)});[].forEach.call(dc.querySelectorAll('.formula'),function(s){var p=document.createElement('p');p.className='formula';p.innerHTML=s.innerHTML;s.parentNode.replaceChild(p,s)});var orig=[].slice.call(d.querySelectorAll('svg')),cl=[].slice.call(dc.querySelectorAll('svg'));cl.forEach(function(cs,i){var u=orig[i]&&urlMap.get(orig[i]);var img=document.createElement('img');if(u){img.setAttribute('src',u);var w=Math.ceil(orig[i].getBoundingClientRect().width)||300;img.setAttribute('width',String(Math.min(480,w)))}cs.parentNode.replaceChild(img,cs)});buf.push('<div class="det">'+dc.innerHTML+'</div>')})});buf.push('<p class="foot">导出于 '+new Date().toLocaleString('zh-CN',{hour12:false})+' · 由考点笔记页面导出</p>');var css="body{font-family:'Microsoft YaHei','微软雅黑',SimSun,serif;font-size:10.5pt;color:#242930;line-height:1.7}h1{font-size:19pt;color:#1f2429;margin:0 0 4pt}h2{font-size:14.5pt;color:#1f2429;border-bottom:1.5pt solid #c9c5ba;padding-bottom:3pt;margin:18pt 0 8pt}h3{font-size:12pt;color:#242930;margin:14pt 0 6pt}h4{font-size:10.5pt;color:#4c5868;margin:10pt 0 4pt}p{margin:4pt 0}p.stats{color:#626b7a;font-size:9.5pt}p.foot{color:#9aa1ab;font-size:9pt;margin-top:20pt;border-top:.5pt solid #c9c5ba;padding-top:6pt}p.formula{background:#eef2fa;color:#2c5cb0;padding:6pt 9pt;margin:6pt 0;border-left:2.25pt solid #2c5cb0}p.formula b{color:#1d4e97}ul{margin:4pt 0 6pt 20pt}li{margin:2pt 0}table{border-collapse:collapse;margin:6pt 0;font-size:9.5pt}td,th{border:.75pt solid #9aa1ab;padding:3.5pt 6pt;vertical-align:top}th{background:#eeede7;font-weight:bold}.det b{color:#1f2429}.tag{background:#e9e7e1;color:#5d6570;font-size:9pt;padding:0 3pt}.tip{color:#a16207}.ok{color:#047857}.err{color:#dc2626}.em{color:#a16207;font-weight:bold}img{margin:4pt 0}";var html='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>德克离散数学 · 考点笔记</title><!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]--><style>'+css+'</style></head><body>'+buf.join('\n')+'</body></html>';downloadBlob(new Blob(['\ufeff'+html],{type:'application/msword;charset=utf-8'}),'离散数学考点笔记.doc');restoreAfterExport(st);var n=urls.filter(Boolean).length;showToast('Word 文档已导出（内嵌 '+n+' 张示意图）',3200)}).catch(function(e){restoreAfterExport(st);showToast('Word 导出失败：'+e,4000)})}
 </script>
 </div></body></html>
