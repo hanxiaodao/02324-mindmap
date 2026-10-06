@@ -8,57 +8,15 @@
 
 ```
 ├── index.html               # 思维导图页面（浏览器打开 / Pages 部署）
-├── update.bat               # 双击入口，调用 scripts/update.ps1
-├── scripts/                 # 自动化构建脚本
-│   ├── download_wps.py      # 从 WPS 云文档下载最新 .docx
-│   ├── generate.py          # 从 .docx 生成 index.html（零 LLM 依赖）
-│   ├── update.ps1           # 一键运行：下载 + 生成 + 推送
-│   └── requirements.txt     # Python 依赖
+├── mistakes-data.js         # 错题本数据（AI 维护，追加条目即可）
+├── mistakes.html            # 错题本页面（读取 mistakes-data.js 渲染）
 └── .github/workflows/       # GitHub Actions 自动部署
 ```
 
-## 更新思维导图
+## 更新方式
 
-### 一键流程
+不再从 WPS 云文档生成（旧构建脚本已于 2026-10-06 备份移除）。
 
-1. **双击** `update.bat`
-2. 脚本自动完成全部：
-   - 从 WPS 云文档下载最新笔记
-   - 生成 `index.html`
-   - 推送到 GitHub → Actions 自动部署 Pages
-3. 等待 1-2 分钟后访问 Pages URL
-
-### 首次使用
-
-第一次运行需要短暂关闭 Edge（获取 WPS 登录态），之后无需再关。
-
-### 分步执行
-
-```bash
-# 只下载
-python scripts\download_wps.py
-
-# 只生成（指定 docx）
-python scripts\generate.py --docx 文件名.docx
-
-# 只生成（自动找目录下的 docx）
-python scripts\generate.py
-```
-
-## 发布到 GitHub Pages
-
-`update.bat` 已自动执行 git push，无需手动操作。
-
-如果只想手动发布：
-```bash
-git add index.html
-git commit -m "update"
-git push
-```
-
-## 依赖
-
-```bash
-pip install python-docx playwright
-playwright install chromium
-```
+1. 直接编辑 `index.html`（或让 AI 把错题追加到 `mistakes-data.js`）
+2. `git add` → `git commit` → `git push`
+3. GitHub Actions 自动部署 Pages，1-2 分钟后生效
