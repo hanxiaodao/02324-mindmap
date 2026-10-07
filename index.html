@@ -377,6 +377,59 @@ header h1 {
   padding:10px 16px; font-size:13px;
   box-shadow:0 8px 24px rgba(0,0,0,.25);
 }
+/* ── 悬浮工具（滚动后浮现）：整页搜索 + 回到顶部 ── */
+.float-tools {
+  position:fixed; right:16px; bottom:16px; z-index:110;
+  display:flex; flex-direction:column; gap:8px;
+  opacity:0; visibility:hidden; transform:translateY(10px);
+  transition:opacity .2s, transform .2s, visibility .2s;
+}
+.float-tools.show { opacity:1; visibility:visible; transform:none; }
+.float-btn {
+  width:40px; height:40px; border-radius:50%;
+  border:1px solid var(--border); background:var(--surface); color:var(--muted);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  padding:0; box-shadow:0 4px 14px rgba(0,0,0,.22);
+  transition:border-color .2s, color .2s;
+}
+.float-btn:hover { border-color:var(--border-strong); color:var(--text); }
+.float-btn:focus-visible { outline:2px solid var(--c1); outline-offset:2px; }
+/* 搜索面板：悬浮按钮上方 */
+.search-panel {
+  position:fixed; right:16px; bottom:68px; z-index:120;
+  width:min(440px, calc(100vw - 24px));
+  max-height:min(64vh, 580px);
+  display:flex; flex-direction:column;
+  background:var(--surface); border:1px solid var(--border); border-radius:14px;
+  box-shadow:0 14px 40px rgba(0,0,0,.35);
+  overflow:hidden;
+}
+.search-panel[hidden] { display:none; }
+.sp-input-row {
+  display:flex; align-items:center; gap:8px;
+  padding:10px 12px; border-bottom:1px solid var(--border);
+}
+.sp-input-row input {
+  flex:1; min-width:0;
+  background:none; border:0; outline:none;
+  color:var(--text); font-size:14px; font-family:inherit;
+}
+.sp-input-row input::placeholder { color:var(--faint); }
+.sp-count { font-size:11.5px; color:var(--muted); white-space:nowrap; }
+.sp-close {
+  border:0; background:none; color:var(--muted); cursor:pointer;
+  font-size:13px; padding:4px 7px; border-radius:6px; font-family:inherit; line-height:1;
+}
+.sp-close:hover { color:var(--text); background:var(--hover-bg); }
+.sp-results { overflow-y:auto; padding:6px; }
+.sr-item { padding:8px 10px; border-radius:8px; cursor:pointer; }
+.sr-item:hover { background:var(--hover-bg); }
+.sr-path { font-size:11.5px; color:var(--muted); margin-bottom:3px; }
+.sr-snippet { font-size:12.5px; color:var(--text); line-height:1.55; word-break:break-word; }
+.sr-snippet mark, .kp-detail mark.search-hit {
+  background:rgba(251,191,36,.5); color:inherit; border-radius:2px; padding:0 1px;
+}
+.sp-empty { padding:18px 12px; font-size:12.5px; color:var(--muted); text-align:center; }
 /* 错题本入口 */
 .mistakes-link {
   position:fixed; top:16px; right:160px; height:38px; z-index:100;
@@ -410,9 +463,12 @@ header h1 {
   .export-md { right:94px; }
   .mistakes-link { top:10px; right:136px; height:36px; }
   .export-menu { top:52px; right:94px; }
+  .float-tools { right:12px; bottom:12px; }
+  .search-panel { left:8px; right:8px; width:auto; bottom:64px; }
+  .sp-input-row input { font-size:16px; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .arrow, .kp-arrow, .ch-title::before, .theme-toggle, .github-link, .export-md, .list-tools button { transition:none; }
+  .arrow, .kp-arrow, .ch-title::before, .theme-toggle, .github-link, .export-md, .list-tools button, .float-tools, .float-btn { transition:none; }
 }
 
 /* ── 导出 PDF（打印 → 另存为 PDF）：全部展开、隐藏控件、保留配色 ── */
@@ -420,7 +476,7 @@ header h1 {
   @page { margin: 14mm 12mm; }
   body { background:#fff; }
   .mistakes-link, .export-md, .export-menu, .theme-toggle, .github-link,
-  .export-toast, .arrow, .kp-arrow, .list-tools { display:none !important; }
+  .export-toast, .arrow, .kp-arrow, .list-tools, .float-tools, .search-panel { display:none !important; }
   .ch-body, .kp-detail { display:block !important; }
   * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   header { padding-top:8px; }
@@ -445,6 +501,23 @@ header h1 {
   <button role="menuitem" onclick="onExportItem('md')"><span>Markdown 笔记</span><span class="em-ext">.md</span></button>
   <button role="menuitem" onclick="onExportItem('pdf')"><span>PDF 文档</span><span class="em-ext">.pdf</span></button>
   <button role="menuitem" onclick="onExportItem('word')"><span>Word 文档</span><span class="em-ext">.doc</span></button>
+</div>
+<div class="float-tools" id="floatTools">
+  <button class="float-btn" onclick="toggleSearchPanel()" aria-label="搜索笔记内容" title="搜索笔记内容（Ctrl+K）">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+  </button>
+  <button class="float-btn" id="backTopBtn" onclick="scrollTopSmooth()" aria-label="回到顶部" title="回到顶部">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+  </button>
+</div>
+<div class="search-panel" id="searchPanel" role="dialog" aria-label="搜索笔记内容" hidden>
+  <div class="sp-input-row">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--muted);flex:none"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <input id="searchInput" type="text" placeholder="搜索全部章节与考点内容…" aria-label="搜索全部章节与考点内容">
+    <span class="sp-count" id="searchCount"></span>
+    <button class="sp-close" onclick="closeSearchPanel()" aria-label="关闭搜索">✕</button>
+  </div>
+  <div class="sp-results" id="searchResults"></div>
 </div>
 <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换亮色/暗色模式" title="切换亮色/暗色模式">
   <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
@@ -2337,6 +2410,26 @@ function toggleKp(el){var kp=el.closest('.kp'),isOpen=kp.classList.contains('ope
 function setAllChapters(open){[].forEach.call(document.querySelectorAll('.ch'),function(ch){ch.classList.toggle('open',open);var t=ch.querySelector('.ch-title');if(t)t.setAttribute('aria-expanded',String(open))});[].forEach.call(document.querySelectorAll('.kp'),function(kp){kp.classList.toggle('open',open);var t=kp.querySelector('.kp-title');if(t)t.setAttribute('aria-expanded',String(open));var d=kp.querySelector('.kp-detail');if(d)d.style.display=open?'block':'none'})}
 function expandAllChapters(){setAllChapters(true)}
 function collapseAllChapters(){setAllChapters(false)}
+/* ── 悬浮工具：整页搜索（含折叠内容）+ 回到顶部 ── */
+var _searchIndex=null;
+function getSearchIndex(){if(_searchIndex)return _searchIndex;_searchIndex=[];[].forEach.call(document.querySelectorAll('.ch'),function(ch){var ts=ch.querySelector('.ch-title span');var chName='';if(ts){var c=ts.cloneNode(true);[].forEach.call(c.querySelectorAll('.badge'),function(b){b.remove()});chName=c.textContent.trim()}[].forEach.call(ch.querySelectorAll('.kp'),function(kp){var num=kp.querySelector('.kp-num'),name=kp.querySelector('.kp-name'),d=kp.querySelector('.kp-detail');_searchIndex.push({ch:chName,kp:((num?num.textContent.trim():'')+' '+(name?name.textContent.trim():'')).trim(),kpEl:kp,chEl:ch,text:d?d.textContent.replace(/\s+/g,' '):''})})});return _searchIndex}
+var searchMarks=[];
+function clearSearchMarks(){searchMarks.forEach(function(m){var p=m.parentNode;if(!p)return;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize()});searchMarks=[]}
+function markSnippet(text,lq){var low=text.toLowerCase(),out='',pos=0,i;while((i=low.indexOf(lq,pos))>=0){out+=escHtml(text.slice(pos,i))+'<mark>'+escHtml(text.substr(i,lq.length))+'</mark>';pos=i+lq.length}return out+escHtml(text.slice(pos))}
+function runSearch(){var inp=document.getElementById('searchInput'),box=document.getElementById('searchResults'),cnt=document.getElementById('searchCount');var q=inp.value.trim().toLowerCase();box.innerHTML='';if(!q){cnt.textContent='';box.innerHTML='<div class="sp-empty">输入关键词，搜索全部章节与考点（含折叠内容）</div>';return}var hits=getSearchIndex().filter(function(it){return it.text.toLowerCase().indexOf(q)>=0||it.kp.toLowerCase().indexOf(q)>=0||it.ch.toLowerCase().indexOf(q)>=0});cnt.textContent=hits.length?('共 '+hits.length+' 个考点'):'';
+if(!hits.length){box.innerHTML='<div class="sp-empty">没有找到「'+escHtml(inp.value.trim())+'」相关内容</div>';return}
+hits.slice(0,60).forEach(function(it,i){var text=it.text,low=text.toLowerCase(),f=low.indexOf(q),snip;if(f<0){snip=markSnippet(it.kp,q)}else{var s=Math.max(0,f-32),e=Math.min(text.length,f+q.length+64);snip=(s>0?'…':'')+markSnippet(text.slice(s,e),q)+(e<text.length?'…':'')}
+var el=document.createElement('div');el.className='sr-item';el.innerHTML='<div class="sr-path">'+escHtml(it.ch)+' ▸ '+escHtml(it.kp)+'</div><div class="sr-snippet">'+snip+'</div>';el.addEventListener('click',function(){jumpToSearchHit(it,q)});box.appendChild(el)});
+if(hits.length>60){var more=document.createElement('div');more.className='sp-empty';more.textContent='仅显示前 60 条，请细化关键词';box.appendChild(more)}}
+/* 页内高亮：只包普通文本节点，跳过 SVG 子树（mark 在 SVG 里非法） */
+function markInElement(root,q){if(!q)return;var lq=q.toLowerCase(),made=0;var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,function(n){if(!n.nodeValue||n.nodeValue.toLowerCase().indexOf(lq)<0)return NodeFilter.FILTER_REJECT;if(n.parentNode&&n.parentNode.ownerSVGElement)return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT}),nodes=[],n;while((n=walker.nextNode()))nodes.push(n);nodes.forEach(function(node){var txt=node.nodeValue,low=txt.toLowerCase(),pos=0,idx,frag=null;while((idx=low.indexOf(lq,pos))>=0&&made<120){if(!frag)frag=document.createDocumentFragment();if(idx>pos)frag.appendChild(document.createTextNode(txt.slice(pos,idx)));var m=document.createElement('mark');m.className='search-hit';m.textContent=txt.substr(idx,q.length);frag.appendChild(m);searchMarks.push(m);made++;pos=idx+q.length}if(frag){if(pos<txt.length)frag.appendChild(document.createTextNode(txt.slice(pos)));node.parentNode.replaceChild(frag,node)}})}
+function jumpToSearchHit(it,q){clearSearchMarks();it.chEl.classList.add('open');var ct=it.chEl.querySelector('.ch-title');if(ct)ct.setAttribute('aria-expanded','true');it.kpEl.classList.add('open');var kt=it.kpEl.querySelector('.kp-title');if(kt)kt.setAttribute('aria-expanded','true');var d=it.kpEl.querySelector('.kp-detail');if(d)d.style.display='block';markInElement(d,q);var y=it.kpEl.getBoundingClientRect().top+(window.scrollY||document.documentElement.scrollTop)-90;animateScrollTo(Math.max(0,y))}
+function openSearchPanel(){var p=document.getElementById('searchPanel');if(!p.hasAttribute('hidden')){document.getElementById('searchInput').focus();return}p.removeAttribute('hidden');if(!document.getElementById('searchInput').value)document.getElementById('searchResults').innerHTML='<div class="sp-empty">输入关键词，搜索全部章节与考点（含折叠内容）</div>';setTimeout(function(){document.getElementById('searchInput').focus()},50)}
+function closeSearchPanel(){var p=document.getElementById('searchPanel');if(p.hasAttribute('hidden'))return;p.setAttribute('hidden','');clearSearchMarks()}
+function toggleSearchPanel(){var p=document.getElementById('searchPanel');if(p.hasAttribute('hidden'))openSearchPanel();else closeSearchPanel()}
+/* 平滑滚动：定时器驱动，不依赖合成器动画帧（部分环境原生 smooth 不推进）；尊重减弱动效偏好 */
+function animateScrollTo(targetY){var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduced){window.scrollTo(0,targetY);onScrollFloat();return}var startY=window.scrollY||document.documentElement.scrollTop||0,delta=targetY-startY;if(delta===0)return;var t0=Date.now(),DUR=Math.min(650,240+Math.abs(delta)*0.15);var timer=setInterval(function(){var p=Math.min(1,(Date.now()-t0)/DUR);p=1-Math.pow(1-p,3);window.scrollTo(0,Math.round(startY+delta*p));if(p>=1){clearInterval(timer);onScrollFloat()}},16)}
+function scrollTopSmooth(){animateScrollTo(0)}
 document.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;var el=e.target;if(el.classList&&el.classList.contains('ch-title')){e.preventDefault();toggleCh(el)}else if(el.classList&&el.classList.contains('kp-title')){e.preventDefault();toggleKp(el)}});
 function mdInline(n){if(n.nodeType===3)return n.textContent;if(n.nodeType!==1)return '';if(n.tagName==='BR')return '\n';var s='';for(var i=0;i<n.childNodes.length;i++)s+=mdInline(n.childNodes[i]);var t=n.tagName;if(t==='B'||t==='STRONG')return '**'+s.trim()+'**';return s}
 function mdTable(t){var rows=[].map.call(t.rows,function(r){return [].map.call(r.cells,function(c){return mdInline(c).trim().replace(/\|/g,'\\|').replace(/\n/g,' ')})});if(!rows.length)return '';function line(cs){return '| '+cs.join(' | ')+' |'}var out=[line(rows[0]),line(rows[0].map(function(){return '---'}))];for(var i=1;i<rows.length;i++)out.push(line(rows[i]));return out.join('\n')}
@@ -2349,7 +2442,15 @@ function toggleExportMenu(e){e.stopPropagation();var m=document.getElementById('
 function closeExportMenu(){var m=document.getElementById('exportMenu');if(m)m.setAttribute('hidden','');var b=document.querySelector('.export-md');if(b)b.setAttribute('aria-expanded','false')}
 function onExportItem(kind){closeExportMenu();if(kind==='pdf'){exportPDF()}else if(kind==='word'){exportWord()}else{exportMarkdown()}}
 document.addEventListener('click',function(e){var m=document.getElementById('exportMenu');if(m&&!m.hasAttribute('hidden')&&!m.contains(e.target)&&!e.target.closest('.export-md'))closeExportMenu()});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeExportMenu()});
+document.addEventListener('click',function(e){var p=document.getElementById('searchPanel');if(p&&!p.hasAttribute('hidden')&&!p.contains(e.target)&&!e.target.closest('.float-tools'))closeSearchPanel()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeExportMenu();closeSearchPanel()}});
+document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&(e.key==='k'||e.key==='K')){e.preventDefault();openSearchPanel()}});
+document.getElementById('searchInput').addEventListener('input',runSearch);
+document.getElementById('searchInput').addEventListener('keydown',function(e){if(e.key==='Enter'){var first=document.querySelector('#searchResults .sr-item');if(first)first.click()}});
+/* 滚动后浮现悬浮工具（搜索 / 回到顶部） */
+function onScrollFloat(){var y=window.scrollY||document.documentElement.scrollTop||0;document.getElementById('floatTools').classList.toggle('show',y>280)}
+window.addEventListener('scroll',onScrollFloat,{passive:true});
+onScrollFloat();
 /* 导出前临时展开全部内容并切亮色主题，导出后还原页面原状态 */
 function expandAllForExport(){var st={theme:document.documentElement.getAttribute('data-theme'),opens:[],disp:[]};document.documentElement.setAttribute('data-theme','light');[].forEach.call(document.querySelectorAll('.ch,.kp'),function(el){st.opens.push([el,el.classList.contains('open')]);el.classList.add('open')});[].forEach.call(document.querySelectorAll('.kp-detail'),function(d){st.disp.push([d,d.style.display]);d.style.display='block'});return st}
 function restoreAfterExport(st){if(!st)return;document.documentElement.setAttribute('data-theme',st.theme);st.opens.forEach(function(p){p[0].classList.toggle('open',p[1])});st.disp.forEach(function(p){p[0].style.display=p[1]})}
